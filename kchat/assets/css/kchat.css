@@ -1,0 +1,94 @@
+
+.navbar,.sidebar,.panel-default > .panel-heading{
+	/* background-color:#000; */
+}
+
+.main-container{
+	background-image:url("../images/bg.png"); 
+	background: #FFF;
+}
+
+.msg-row{
+    line-height: 35px;
+    padding: 5px 0px 5px 10px;
+    width: 100%;
+    position: relative;
+    float: left;
+}
+.message0{
+    float: left;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #5BA548;
+	padding: 0px 10px 0px 10px;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #E9FFE6;
+}
+.message1{
+    float: right;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #002CC6;
+    padding: 0px 10px 0px 10px;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #CFEEFF;
+	margin: 0px 10px 0px 0px;
+}
+
+.scroll_panel{
+	height:350px;
+	overflow-y: scroll;
+	overflow-x:visible;
+	width:100%;
+}
+
+#messages,#kchatchats,#online{
+	display: table;
+	width: 100%;
+}
+
+.bullet{
+	line-height:20px;
+	font-size:25px;
+	width:8px;
+	height:8px;
+	color:#3EDB2D;
+}
+
+.emojis{
+	height: 20px;
+}
+
+.emojioneemoji  {
+	font-size: inherit;
+	height: 2ex;
+	width: 2.1ex;
+	min-height: 20px;
+	min-width: 20px;
+	display: inline-block;
+	margin: -.2ex .15em .2ex;
+	line-height: normal;
+	vertical-align: middle;
+	max-width: 100%;
+	top: 0;
+}
+
+
+.sc1 {
+	color: #0000FF;
+}
+.sc3 {
+	color: #FF0000;
+}
+.sc6 {
+	font-weight: bold;
+	color: #8000FF;
+}
+
+.copy{
+	width:16px;
+}

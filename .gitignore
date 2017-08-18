@@ -45,3 +45,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# KChat files
+config/*
+!config/.gitkeep
+docs
+README.txt
+

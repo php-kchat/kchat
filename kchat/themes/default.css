@@ -1,0 +1,98 @@
+
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #fff;
+}
+
+.navbar-default {
+	background-color: #000344;
+	border-color: #9495ff;
+}
+
+.navbar-default .navbar-brand {
+	color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+	color: #fff;
+	background-color: #292fbc;
+}
+
+.side-menu .navbar-nav .active a {
+	background-color: transparent;
+	margin-right: -1px;
+	border-right: 5px solid #000;
+}
+
+.side-menu #dropdown .panel-body .navbar-nav li {
+	padding-left: 15px;
+	border-bottom: 1px solid #000;
+}
+
+.side-menu .navbar-nav .active a {
+	background-color: #000344;
+	margin-right: -1px;
+	border-right: 5px solid #000;
+}
+
+.side-menu .navbar-nav li {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid #256dec;
+}
+
+.side-menu .navbar-nav li {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid #256dec;
+}
+
+.main-container{
+	background-image:url("../images/bg.png"); 
+	background: #000;
+}
+
+.panel-default > .panel-heading {
+	color: #fff;
+	background-color: #000344;
+	border-color: #256dec;
+}
+
+.panel-body {
+	padding: 15px;
+	background-color: #000344;
+}
+
+.footer {
+	width: 100%;
+	background-color: #000344;
+}
+
+.panel-default {
+  border-color: #256dec;
+}
+
+.side-menu {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #000344;
+	border-right: 1px solid #256dec;
+}
+
+hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 1px solid #256dec;
+}
+
+
+
+
