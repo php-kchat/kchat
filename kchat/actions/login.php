@@ -17,7 +17,7 @@ class login extends action{
 			while ($row = $stmt->fetch())
 			{
 				if(CheckValid($password,$row['password'])){
-					setSession($data,$row);
+					session::setSession($data,$row);
 					$_SESSION['KChat_Token'] = k_random(32);
 					$success = 'success';
 				}else{

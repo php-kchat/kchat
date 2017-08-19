@@ -75,8 +75,8 @@ if(isset($path[0]) && isset($path[1])){
 	}
 }
 
-if(get_Data($data)){
-	$data['user'] = get_Data($data);
+if(session::get_Data($data)){
+	$data['user'] = session::get_Data($data);
 }
 
 if(isset($data['user']['role'])){
@@ -85,7 +85,7 @@ if(isset($data['user']['role'])){
 }
 
 if($allow){
-	if(!isValid($data)){
+	if(!session::isValid($data)){
 		$path[0] = 'login';
 		if(!isset($path[1])){
 			$path[1] = "index";

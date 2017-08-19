@@ -32,7 +32,7 @@ class profile extends action{
 			$sql = "UPDATE {$this->dbprefix}users SET fname = :fname,lname = :lname,password = :password WHERE uname = :uname";
 			$stmt = $data['pdo']->prepare($sql);
 			$stmt->execute($arr['profile']);
-			setSession($data,$row);
+			session::setSession($data,$row);
 		}else{
 			echo "There is no such user";
 		}

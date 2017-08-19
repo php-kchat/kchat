@@ -6,14 +6,6 @@
 * Contact kanduganesh@gmail.com 
 */
 
-function get_Data($data){
-	if(isset($_SESSION[$data['config']['session']])){
-		return @unserialize(base64_decode($_SESSION[$data['config']['session']]));
-	}else{
-		return false;
-	}
-}
-
 if(file_exists("config/db.php")){
 	$data['db'] = include "config/db.php";
 	$opt = array(
@@ -166,8 +158,8 @@ function status_in($len,$no){
 	return $nos;
 }
 
-function ago($datetime, $full = false)
-{
+function ago($datetime, $full = false){
+	
 	$now = new DateTime();
     $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
