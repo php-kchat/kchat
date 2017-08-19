@@ -111,8 +111,6 @@ if($allow){
 	}
 }
 
-$data['unicode'] = new subset();
-
 if(empty($_POST['token'])){
 	$_POST['token'] = rand(1000,9999);
 }

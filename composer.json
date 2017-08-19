@@ -1,0 +1,29 @@
+{
+    "name": "ganeshkandu/kchat",
+    "type": "application",
+    "description": "PHP Based Chating Aplication",
+    "keywords": ["php","mysql","maria","chating","support","helpdesk"],
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ganesh Kandu",
+            "email": "kanduganesh@gmail.com",
+            "role": "Project Founder"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ganeshkandu/kchat/issues",
+        "source": "https://github.com/ganeshkandu/kchat"
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "ext-pdo": "*",
+        "ext-json": "*"
+    },
+    "require-dev" : {},
+    "autoload": {
+        "psr-0": {
+            "init": "kchat/lib"
+        }
+    }
+}

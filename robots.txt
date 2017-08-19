@@ -1,2 +1,4 @@
+
+# robots.txt for KChat
 User-agent: *
-Disallow: *
+Disallow: /

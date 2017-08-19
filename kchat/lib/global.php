@@ -223,48 +223,8 @@ function reverse($a){
 	return $b;
 }
 
-function _msgencode($data,$txt){
-	
-	$pattern = "/<img alt=('|\")(.*?)('|\") class=('|\")emojioneemoji('|\") src=('|\")https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/emojione\/(.*?)\/assets\/png\/(.*?).png('|\")>/";
-	
-	preg_match_all($pattern,$txt,$out);
-	
-	$rep = array();
-	
-	if(file_exists("cache/Pictograph.json")){
-		$json = json_decode(file_get_contents("cache/Pictograph.json"),true);
-	}else{
-		$json = array();
-	}
-	
-	foreach($out[0] as $key => $value){
-		$json[$out[8][$key]] = array(
-			'pictograph' => $data['unicode']->decode($out[2][$key]),
-			'version' => $out[7][$key]
-		);
-		$rep[$value] = "~:".$out[8][$key].":~";
-	}
-	
-	fcreate("cache/Pictograph.json",json_encode($json));
-	
-	return strtr($txt,$rep);
-}
-
 function msgencode($data,$txt){
 	return trim(json_encode($txt),'"');
-}
-
-function _msgdecode($data,$txt){
-	$rep = array();
-	if(file_exists("cache/Pictograph.json")){
-		$json = json_decode(file_get_contents("cache/Pictograph.json"),true);
-	}else{
-		$json = array();
-	}
-	foreach($json as $key => $value){
-		$rep["~:".$key.":~"] = "<img alt=\"".$data['unicode']->encode($value['pictograph'])."\" class=\"emojioneemoji\" src=\"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/emojione\/".$value['version']."\/assets\/png\/".$key.".png\" >";
-	}
-	return strtr($txt,$rep);
 }
 
 function msgdecode($data,$txt){
