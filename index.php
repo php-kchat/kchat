@@ -1,5 +1,4 @@
 <?php
 
-require_once "kchat/lib/init.php";
-
+require_once "vendor/autoload.php";
 

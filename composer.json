@@ -3,7 +3,7 @@
     "type": "application",
     "description": "PHP Based Chating Aplication",
     "keywords": ["php","mysql","maria","chating","support","helpdesk"],
-    "license": "GPL",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Ganesh Kandu",
@@ -22,8 +22,8 @@
     },
     "require-dev" : {},
     "autoload": {
-        "psr-0": {
-            "init": "kchat/lib"
-        }
+        "files": [
+            "kchat/lib/init.php"
+        ]
     }
 }
