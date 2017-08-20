@@ -51,4 +51,10 @@ config/*
 !config/.gitkeep
 docs
 README.txt
-
+run.bat
+run.sh
+yuicompressor.jar
+kchat/assets/js/kchat.js
+kchat/assets/js/kchat.msgs.js
+kchat/assets/css/kchat.css
+kchat/assets/css/dash.css

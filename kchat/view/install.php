@@ -103,7 +103,7 @@
 			</div>
 		</div>
 	</div>
-<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
+<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.min.js" ></script>
 <script>
 	document.body.addEventListener('keydown', function(e) {
 		if(e.keyCode == 13){
