@@ -15,7 +15,7 @@
 		</script>
 		<script src="<?php echo $data['config']['url']; ?>/kchat/assets/alertify/alertify.js" ></script>
 		<script src="<?php echo $data['config']['url']; ?>/kchat/assets/alertify/ngAlertify.js" ></script>
-		<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.min.js" ></script>
+		<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
 		<script>
 		  kchat.init();
 		</script>
