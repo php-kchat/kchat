@@ -17,11 +17,11 @@ function access($path,$user){
 		$user = array(
 			'0' => array(
 				'settings' => '',
+				'smtp' => '',
 				'install' => 'login'
 			),
 			'1' => array(
 				'ulist' => 'profile',
-				'glist' => 'profile',
 				'cuser' => 'profile',
 			),
 		);
@@ -75,26 +75,20 @@ function sitebar_access($data){
 			'active' => "users",
 			'submenu' => array(
 				'User List' => array(
-					'glyphicon' => 'glyphicon glyphicon-comment',
+					'glyphicon' => 'glyphicon glyphicon-user',
 					'url' => $data['config']['purl'].'/users/ulist',
 					'menu' => true,
 					'active' => "users",
 				),
 				'Guest List' => array(
-					'glyphicon' => 'glyphicon glyphicon-comment',
+					'glyphicon' => 'glyphicon glyphicon-user',
 					'url' => $data['config']['purl'].'/users/glist',
 					'menu' => true,
 					'active' => "users",
 				),
 				'Create User' => array(
-					'glyphicon' => 'glyphicon glyphicon-comment',
+					'glyphicon' => 'glyphicon glyphicon-user',
 					'url' => $data['config']['purl'].'/users/cuser',
-					'menu' => true,
-					'active' => "users",
-				),
-				'profile' => array(
-					'glyphicon' => 'glyphicon glyphicon-comment',
-					'url' => $data['config']['purl'].'/users/profile',
 					'menu' => true,
 					'active' => "users",
 				),
@@ -113,10 +107,16 @@ function sitebar_access($data){
 			'active' => "msgs",
 		),
 		'Settings' => array(
-			'glyphicon' => 'glyphicon glyphicon-comment',
+			'glyphicon' => 'glyphicon glyphicon-wrench',
 			'url' => $data['config']['purl'].'/settings',
 			'menu' => true,
 			'active' => "settings",
+		),
+		'smtp' => array(
+			'glyphicon' => 'glyphicon glyphicon-envelope',
+			'url' => $data['config']['purl'].'/smtp',
+			'menu' => true,
+			'active' => "smtp",
 		),
 		'Logout' => array(
 			'glyphicon' => 'glyphicon glyphicon-off',
@@ -142,7 +142,20 @@ function sitebar_access($data){
 		'group' => array(
 			'glyphicon' => 'glyphicon glyphicon-user',
 			'url' => $data['config']['purl'].'/users/groups',
-			'menu' => true,
+			'submenu' => array(
+				'Guest List' => array(
+					'glyphicon' => 'glyphicon glyphicon-user',
+					'url' => $data['config']['purl'].'/users/glist',
+					'menu' => true,
+					'active' => "users",
+				),
+				'Groups' => array(
+					'glyphicon' => 'glyphicon glyphicon-user',
+					'url' => $data['config']['purl'].'/users/groups',
+					'menu' => true,
+					'active' => "users",
+				)
+			),
 			'active' => "users",
 		),
 		'Messages' => array(

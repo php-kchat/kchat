@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.3.0",
         "ext-pdo": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "phpmailer/phpmailer": "^5.2"
     },
     "require-dev" : {},
     "autoload": {
