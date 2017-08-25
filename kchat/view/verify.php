@@ -76,6 +76,14 @@
 											</div>
 										</div>
 										<div class="form-group">
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="glyphicon glyphicon-envelope"></i>
+												</span> 
+												<input class="form-control" placeholder="E-Mail" name="email"  id="email" type="text" value="<?php echo $data['verify']['user_email']; ?>" >
+											</div>
+										</div>
+										<div class="form-group">
 											<input type="hidden" name="secret" id="secret" value="<?php echo $data['verify']['secret']; ?>" />
 											<input type="hidden" name="dept" id="dept" value="<?php echo $data['verify']['dept']; ?>" />
 											<input type="button" class="btn btn-lg btn-primary btn-block" value="Verify" id="verify" name="verify" />
@@ -104,5 +112,6 @@ angular.module("myApp", ["ngAlertify"]).controller("myController", function($sco
 		}
 	});
 </script>
+<?php alertify::get_alert(); ?>
 </body>
 </html>

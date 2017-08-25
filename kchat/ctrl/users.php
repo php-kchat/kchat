@@ -63,6 +63,12 @@ class users extends ctrl{
 		$array = array(
 			'title' => "Create User"
 		);
+		$assets = array(
+			"jsh" => array(
+				"assets/clipboard/clipboard.min.js"
+			)
+		);
+		$this->load->appendfile($assets);
 		$array['department'] = $this->ajax->process("getdepart");
 		$this->load->set($array);
 		$this->load->view('header');

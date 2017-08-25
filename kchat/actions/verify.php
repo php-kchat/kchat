@@ -16,6 +16,7 @@ class verify extends action{
 		$repassword = $_POST['repassword'];
 		$secret = $_POST['secret'];
 		$dept = $_POST['dept'];
+		$email = $_POST['email'];
 		
 		if($password != $repassword){
 			echo json_encode(array("error" => "Password Not Matched"));
@@ -28,8 +29,8 @@ class verify extends action{
 		$secret2 = $row['secret'];
 		if($secret == $secret2){
 			
-			$stmt = $data['pdo']->prepare("insert into {$this->dbprefix}users (`id`,`fname`,`lname`,`uname`,`password`,`role`,`dept`) values (:id, :fname, :lname, :uname, :password , 2 ,:dept)");
-			
+			$stmt = $data['pdo']->prepare("insert into {$this->dbprefix}users (`id`,`fname`,`lname`,`uname`,`password`,`role`,`dept`,`email`) values (:id, :fname, :lname, :uname, :password , 2 ,:dept,:email);");
+			try {
 			$stmt->execute(array(
 				'id' => kchat_rand(),
 				'fname' => $fname,
@@ -37,12 +38,22 @@ class verify extends action{
 				'uname' => $username,
 				'password' => $password,
 				'dept' => $dept,
+				'email' => $email,
 			));
+			} catch (PDOException $e) {
+				if ($e->getCode() == 1062) {
+					alertify::alert("User Exist All ready");
+				} else {
+					throw $e;
+				}
+			}
 			
 			$secret2 = $row['secret'];
 			
 			$stmt = $data['pdo']->prepare("delete from {$this->dbprefix}pusers where uname=:uname;");
 			$stmt->execute(array('uname' => $username));	
+		}else{
+			alertify::alert("verify link is Invalid");
 		}
 		
 	}

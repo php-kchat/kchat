@@ -19,5 +19,6 @@
 		<script>
 		  kchat.init();
 		</script>
+<?php alertify::get_alert(); ?>
 	</body>
 </html>

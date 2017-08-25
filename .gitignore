@@ -49,5 +49,6 @@ Temporary Items
 # KChat files
 config/*
 !config/.gitkeep
+!config/.htaccess
 docs
 README.txt

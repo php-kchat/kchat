@@ -11,6 +11,51 @@ $('#start_msg1').click(function(){start_msg();});
 $('.delete_user').click(function(){delete_users(this);});
 $('#adddept').click(function(){adddept();});
 $('.update_setting').click(function(){update_setting(this);});
+$('#smtp_conf').click(function(){smtp_conf(this);});
+
+function smtp_conf(){
+	
+	var smtp_host = $( "#smtp_host" ).val();
+	var smtp_port = $( "#smtp_port" ).val();
+	var smtp_email = $( "#smtp_email" ).val();
+	var smtp_pass = $( "#smtp_pass" ).val();
+	var smtp_secure = $( "#smtp_secure" ).val();
+	var smtp_auth = $( "#smtp_auth" ).is(':checked');
+	
+	if(smtp_host == '' ||smtp_port == '' || smtp_secure == ''){
+		alertify.alert("Please fill All Field");
+		return false;
+	}
+	
+	var smtp_conf = {
+		smtp_host:smtp_host,
+		smtp_port:smtp_port,
+		smtp_email:smtp_email,
+		smtp_pass:smtp_pass,
+		smtp_secure:smtp_secure,
+		smtp_auth:smtp_auth,
+		token : token,
+		action:'smtp_conf'
+	};
+	$.ajax({
+		url : purl + "/ajax/smtp",
+		type: "POST",
+		data : smtp_conf,
+		success: function(data, textStatus, jqXHR)
+		{
+			if(data == 'Success'){
+				location.reload();
+			}else{
+				alertify.alert('Error');
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{	
+			console.log(data);
+			console.log(textStatus);
+		}
+	});
+}
 
 function varifyuser(){
 	
@@ -21,13 +66,14 @@ function varifyuser(){
 	var repassword = $("#repassword").val();
 	var secret = $("#secret").val();
 	var dept = $("#dept").val();
+	var email = $("#email").val();
 	
 	if(repassword !== password){
 		alertify.alert("password not match");
 		return false;
 	}
 	
-	if(dept == '' || secret == '' || repassword == '' || password == '' || lname == '' || fname == '' || username == ''){
+	if(email == '' ||dept == '' || secret == '' || repassword == '' || password == '' || lname == '' || fname == '' || username == ''){
 		alertify.alert("Please fill All Field");
 		return false;
 	}
@@ -40,6 +86,7 @@ function varifyuser(){
 		repassword:repassword,
 		secret:secret,
 		dept:dept,
+		email:email,
 		action:'verify'
 	};
 	$.ajax({
@@ -48,7 +95,9 @@ function varifyuser(){
 		data : varifyuser,
 		success: function(data, textStatus, jqXHR)
 		{
-			window.location = purl + "/login";
+			if(data == ''){
+				window.location = purl + "/login";
+			}
 		},
 		error: function (jqXHR, textStatus, errorThrown)
 		{	
@@ -57,6 +106,7 @@ function varifyuser(){
 		}
 	});
 }
+
 function login(){
 	var username = $( "#username" ).val();
 	var password = $("#password").val();
@@ -84,7 +134,6 @@ function login(){
 		success: function(data, textStatus, jqXHR)
 		{
 			if(data === 'success'){
-				alertify.alert("Reloding...");
 				location.reload();
 			}else{
 				alertify.alert("Password and User Doesn't Exist");
@@ -104,13 +153,14 @@ function createuser(){
 	var user_name = $("#user_name").val();
 	var secret = $("#secret").val();
 	var dept = $("#department").val();
+	var user_email = $("#user_email").val();
 	
 	if(dept == 0){
 		alertify.alert('Please Select department');
 		return false;
 	}
 	
-	if((first_name == '')||(last_name == '')||(user_name == '')){
+	if((first_name == '')||(last_name == '')||(user_name == '')||(user_name == '')||(user_email == '')){
 		alertify.alert("Fill All Field");
 		return false;
 	}
@@ -121,6 +171,7 @@ function createuser(){
 		user_name:user_name,
 		secret:secret,
 		dept:dept,
+		user_email:user_email,
 		action:'createuser',
 		token : token,
 	};
@@ -136,8 +187,10 @@ function createuser(){
 				$("#error").show();
 			}else{
 				vlink = purl + "/login/verify/"+obj.vlink;
-				$("#verify_link").val(vlink);
+				$("#verify_link").html(vlink);
 				$("#verify_link").show();
+				$("#verify_btn").show();
+				alertify.alert(obj.alert);
 			}			
 		},
 		error: function (jqXHR, textStatus, errorThrown)

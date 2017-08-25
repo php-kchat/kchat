@@ -18,6 +18,36 @@ class ajax extends ctrl{
 		}
 	}
 	
+	function smtp($data){
+		if(isAjax($data)){
+			if(empty($_POST['smtp_host']) || empty($_POST['smtp_port']) || empty($_POST['smtp_auth'])){
+					return false;
+			}
+			
+			if(file_exists('config/smtp.php') && empty($_POST['smtp_pass'])){
+				$smtp_conf = include 'config/smtp.php';
+				$_POST['smtp_pass'] = $smtp_conf['pass'];
+			}
+			
+			$smtp = array(
+				"host" => $_POST['smtp_host'],
+				"port" => (int)$_POST['smtp_port'],
+				"secure" => (int)$_POST['smtp_secure'],
+				"auth" => json_decode($_POST['smtp_auth']),
+				"email" => $_POST['smtp_email'],
+				"pass" => $_POST['smtp_pass'],
+			);
+			
+			if(fcreate("config/smtp.php",pcode($smtp))){
+				echo "Success";
+				alertify::alert('Successfull');
+			}
+			
+		}else{
+			$this->load->view('deny');
+		}
+	}
+	
 	function createuser($data){
 		if(isAjax($data)){
 			if(isset($_POST['action'])){

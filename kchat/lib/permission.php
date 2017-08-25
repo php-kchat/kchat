@@ -112,7 +112,7 @@ function sitebar_access($data){
 			'menu' => true,
 			'active' => "settings",
 		),
-		'smtp' => array(
+		'SMTP Configuration' => array(
 			'glyphicon' => 'glyphicon glyphicon-envelope',
 			'url' => $data['config']['purl'].'/smtp',
 			'menu' => true,

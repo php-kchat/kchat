@@ -380,11 +380,8 @@ function presql($data,$sql){
 }
 
 function cclear(){
-	$file = 'config\.htaccess';
-	if(!file_exists($file)){
-		file_put_contents($file,'deny to all');
-	}
-	if((time() - filemtime($file)) > 3){
+	$file = 'config\.kchat';
+	if((time() - @filemtime($file)) > 3){
 		touch($file);
 		return true;
 	}else{
