@@ -204,16 +204,30 @@ class ajax extends ctrl{
 			if(!fcreate("config/db.php",pcode($db))){
 				return false;
 			}
-			
-			$fsql = fopen( $data['config']['path'] . '/kchat/sql/kchat.sql.php', "r") or die("The SQL File could not be opened.");
+			//create mysql structure
+			$fsql = fopen( $data['config']['path'] . '/kchat/sql/kchat.struct.sql.php', "r") or die("The SQL File could not be opened.");
 			$data['db']['db_prefix'] = $_POST['dbprefix'];
-			while($sql = nextQuery($fsql)){
+			while($sql = trim(nextQuery($fsql))){
+				if(empty($sql)){
+					continue;
+				}
 				$sql = presql($data,$sql);
 				$stmt = $data['pdo']->prepare($sql);
 				$stmt->execute(array());
 				echo '.';
 			}
-			
+			//insert mysql data
+			$fsql = fopen( $data['config']['path'] . '/kchat/sql/kchat.data.sql.php', "r") or die("The SQL File could not be opened.");
+			$data['db']['db_prefix'] = $_POST['dbprefix'];
+			while($sql = trim(nextQuery($fsql))){
+				if(empty($sql)){
+					continue;
+				}
+				$sql = presql($data,$sql);
+				$stmt = $data['pdo']->prepare($sql);
+				$stmt->execute(array());
+				echo '.';
+			}
 		}
 	}
 }

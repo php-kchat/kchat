@@ -50,7 +50,7 @@ class createchat extends action{
 			);
 		}
 		
-		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`msg`,`grp_id`,`sender_id`) VALUES (:msg,:grp_id,:sender_id)");
+		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
 		$stmt->execute(
 			array(
 				'msg' => 'You are now connected on KChat',

@@ -18,7 +18,6 @@ class typing extends action{
 				'uname' => $data['user']['uname']
 			);
 			$stmt = $data['pdo']->prepare($sql);
-			$this->qfired++;
 			$stmt->execute($sql_array);	
 			$count = $stmt->rowCount();
 			if($count == 0){
@@ -35,7 +34,7 @@ class typing extends action{
 				$stmt->execute($sql_array);
 			}
 		}
-		typing($data,$grp,false);
+		return $data;
 	}
 	
 	function getGroup($data){
