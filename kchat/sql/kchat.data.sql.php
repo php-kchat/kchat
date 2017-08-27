@@ -54,3 +54,9 @@ INSERT INTO `%dbprefix%setting` VALUES
 INSERT INTO `%dbprefix%users` VALUES
 ('KkEtq2SNzvl02OR', 'admin', '', 'admin', 'pass', now(), 1, 1, 'admin@domain.com');
 
+--
+-- Dumping data for table `dbprefix_notification`
+--
+
+INSERT INTO `dbprefix_notification` VALUES
+(1, now(), '#', 'Just Installed KChat', 'KkEtq2SNzvl02OR', 0),

@@ -19,7 +19,7 @@ CREATE TABLE `%dbprefix%cache` (
   `group` varchar(32) DEFAULT NULL,
   `process` int(3) DEFAULT NULL,
   `value` int(32) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -31,7 +31,7 @@ CREATE TABLE `%dbprefix%department` (
   `id` int(11) NOT NULL,
   `dept` varchar(20) DEFAULT NULL,
   `discription` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE `%dbprefix%group_users` (
   `lastseen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `seens` int(11) NOT NULL DEFAULT '0',
   `notify` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE `%dbprefix%guest` (
   `time_zone` varchar(64) DEFAULT NULL,
   `latitude` int(11) DEFAULT NULL,
   `longitude` int(11) DEFAULT NULL,
-  `email` varchar(64) DEFAULT NULL,
+  `email` varchar(64) NOT NULL,
   `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -93,7 +93,22 @@ CREATE TABLE `%dbprefix%msgs` (
   `grp_id` varchar(32) NOT NULL,
   `sender_id` varchar(32) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `%dbprefix%notification`
+--
+
+CREATE TABLE `%dbprefix%notification` (
+  `id` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `url` varchar(64) NOT NULL,
+  `notification` varchar(64) NOT NULL,
+  `user` varchar(64) NOT NULL,
+  `seen` tinyint(1) DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -106,7 +121,7 @@ CREATE TABLE `%dbprefix%pusers` (
   `lname` varchar(20) NOT NULL,
   `uname` varchar(20) NOT NULL,
   `secret` varchar(128) NOT NULL,
-  `depart` int(3) DEFAULT NULL,
+  `depart` int(3) NOT NULL,
   `email` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -120,7 +135,7 @@ CREATE TABLE `%dbprefix%role` (
   `id` int(11) NOT NULL,
   `dept` varchar(20) DEFAULT NULL,
   `discription` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -137,7 +152,7 @@ CREATE TABLE `%dbprefix%setting` (
   `type` varchar(32) DEFAULT NULL,
   `css` varchar(32) DEFAULT NULL,
   `selecter` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -223,6 +238,12 @@ ALTER TABLE `%dbprefix%msgs`
   ADD PRIMARY KEY (`id`), ADD KEY `grp_id` (`grp_id`), ADD KEY `sender_id` (`sender_id`);
 
 --
+-- Indexes for table `%dbprefix%notification`
+--
+ALTER TABLE `%dbprefix%notification`
+  ADD PRIMARY KEY (`id`), ADD KEY `user` (`user`);
+
+--
 -- Indexes for table `%dbprefix%pusers`
 --
 ALTER TABLE `%dbprefix%pusers`
@@ -264,12 +285,17 @@ ALTER TABLE `%dbprefix%department`
 -- AUTO_INCREMENT for table `%dbprefix%group_users`
 --
 ALTER TABLE `%dbprefix%group_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `%dbprefix%msgs`
 --
 ALTER TABLE `%dbprefix%msgs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+--
+-- AUTO_INCREMENT for table `%dbprefix%notification`
+--
+ALTER TABLE `%dbprefix%notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `%dbprefix%role`
 --
@@ -311,6 +337,12 @@ ADD CONSTRAINT `guest_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `%dbprefix%gro
 ALTER TABLE `%dbprefix%msgs`
 ADD CONSTRAINT `msgs_ibfk_2` FOREIGN KEY (`sender_id`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `msgs_ibfk_3` FOREIGN KEY (`grp_id`) REFERENCES `%dbprefix%groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `%dbprefix%notification`
+--
+ALTER TABLE `%dbprefix%notification`
+ADD CONSTRAINT `%dbprefix%notification_ibfk_1` FOREIGN KEY (`user`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `%dbprefix%pusers`

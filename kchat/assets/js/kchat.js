@@ -12,6 +12,7 @@ $('.delete_user').click(function(){delete_users(this);});
 $('#adddept').click(function(){adddept();});
 $('.update_setting').click(function(){update_setting(this);});
 $('#smtp_conf').click(function(){smtp_conf(this);});
+$('#notification').click(function(){notification(this);});
 
 function smtp_conf(){
 	

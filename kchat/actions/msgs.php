@@ -46,6 +46,9 @@ class msgs extends action{
 			if(!empty($typing)){
 				$output["typing"] = $typing;
 			}
+			if(alertify::is_Ajax_alert()){
+				$output["error"] = alertify::get_Ajax_alert();
+			}
 			
 			$output["timestamp"] = time();
 			
@@ -401,19 +404,7 @@ class msgs extends action{
 			return 0;
 		}
 	}
-	
-	function notification($data){
-		/*
-		SELECT id, `msg`, `grp_id`
-		FROM msgs
-		WHERE id IN (
-			SELECT MAX(id) FROM `msgs` GROUP BY `grp_id`
-		) and grp_id IN (
-			SELECT grp_id from `msgs` where `sender_id` = 'KkEtq2SNzvl02OR' group by grp_id
-		);
-		*/
-	}
-	
+		
 	function lastaccess($data){
 		
   		$sql = "UPDATE `{$this->dbprefix}cache` 
@@ -427,7 +418,13 @@ class msgs extends action{
 		);
 		$stmt = $data['pdo']->prepare($sql);
 		$this->qfired++;
-		$stmt->execute($sql_array);	
+		try {
+			$stmt->execute($sql_array);	
+		} catch (PDOException $e) {
+			if($e->getCode() == 23000){
+				alertify::alert("No Such Chat Room Exist");
+			}
+		}
 		$count = $stmt->rowCount();
 		if($count == 0){
 			$sql = "INSERT INTO `{$this->dbprefix}cache` (`fname`,`lname`,`time`,`uname`,`group`,`process`,`value`)
@@ -440,7 +437,13 @@ class msgs extends action{
 			);
 			$stmt = $data['pdo']->prepare($sql);
 			$this->qfired++;
-			$stmt->execute($sql_array);
+			try {
+				$stmt->execute($sql_array);	
+			} catch (PDOException $e) {
+				if($e->getCode() == 23000){
+					alertify::alert("Invalid URL");
+				}
+			}
 		} 
 	}
 	

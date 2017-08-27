@@ -51,6 +51,7 @@ function config(){
 		"session" => "KChat_"._rand(8),
 		"salt" => _rand(32),
 		"key" => "E6RVK9lj", //_rand(8),
+		"Admin" => "KkEtq2SNzvl02OR", //_rand(8),
 		base64_decode('dmVyc2lvbg==') => base64_decode('MS4wLjA='),
 	);
 }

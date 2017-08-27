@@ -55,6 +55,7 @@ class createuser extends action{
 			
 			if($mail->send()){
 				$alert = 'Successfull Send';
+				set_notification($data,'Verification Mail Send to '.$data['user']['fname'].' '.$data['user']['lname']);
 			} else {
 				$alert = $mail->ErrorInfo;
 			}

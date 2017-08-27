@@ -225,6 +225,9 @@ function kchat_json(json){
 	if (typeof chat.msg_status !== 'undefined'){
 		set_status(chat.msg_status);
 	}
+	if (typeof chat.error !== 'undefined'){
+		alertify.alert(chat.error);
+	}
 	
 	if (typeof chat.typing !== 'undefined'){
 		typing(chat.typing);
@@ -405,4 +408,35 @@ function notify(msg){
 			this.close();
 		}
 	});
+}
+
+//this function is called from kchat.js
+function notification(e){
+	if(!document.getElementById("notification")){
+	  return false;
+	}
+	html = "<li><a href=\"javascript:void(0);\" class=\"text-center\"><img src=\"" +  purl + "/kchat/assets/images/loading.gif\" /></a></li>";
+	$("#set_notification").html(html);
+	$.post(purl + "/ajax/notification",
+	{
+	  token : token
+	},
+	function(data,status){
+		try {
+			json = jQuery.parseJSON(data);
+		}catch (e){
+			alertify.log("<h3>Error Occurred</h3><pre>" + data + "</pre>");
+		}
+		$("#set_notification").html(html_notif(json));
+	});
+}
+
+function html_notif(not){
+	html = '';
+	for(i = 0;i < not.length ; i++){
+		html += "<li><a href=" + purl + '/' + not[i].url + "><span class=\"label label-warning\">" + not[i].time + "</span>" + not[i].notification + "</a></li>";
+	}
+	html += "<li class=\"divider\"></li>";
+	html += "<li><a href=\"" +  purl + "/notif\" class=\"text-center\">View All</a></li>";
+	return html;
 }

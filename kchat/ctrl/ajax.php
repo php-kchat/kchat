@@ -40,7 +40,13 @@ class ajax extends ctrl{
 			
 			if(fcreate("config/smtp.php",pcode($smtp))){
 				echo "Success";
-				alertify::alert('Successfull');
+				if(isset($smtp_conf)){
+					alertify::alert('Successfully Updateed');
+					set_notification($data,'SMTP Detail Updateed');
+				}else{
+					alertify::alert('Successfully Configured');
+					set_notification($data,'SMTP Detail Configurred');
+				}
 			}
 			
 		}else{
@@ -53,6 +59,14 @@ class ajax extends ctrl{
 			if(isset($_POST['action'])){
 				$this->ajax->process($_POST['action']);
 			}
+		}else{
+			$this->load->view('deny');
+		}
+	}
+	
+	function notification($data){
+		if(isAjax($data)){
+			echo json_encode($this->ajax->process('notification'));
 		}else{
 			$this->load->view('deny');
 		}

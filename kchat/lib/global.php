@@ -388,3 +388,21 @@ function cclear(){
 		return false;
 	}
 }
+
+function set_notification($data,$not,$url = '#'){
+	if(isset($data['user']['id'])){
+		$user = $data['user']['id'];
+	}
+	if(isset($data['Admin'])){
+		$user = $data['Admin'];
+	}
+	$db_prefix = $data['db']['db_prefix'];
+	$stmt = $data['pdo']->prepare("INSERT INTO `{$db_prefix}notification` (`url`,`notification`,`user`) VALUES (:url,:not,:user)");
+	$stmt->execute(
+		array(
+			'url' => $url,
+			'not' => $not,
+			'user' => $user
+		)
+	);
+}

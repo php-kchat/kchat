@@ -31,15 +31,17 @@ class verify extends action{
 			
 			$stmt = $data['pdo']->prepare("insert into {$this->dbprefix}users (`id`,`fname`,`lname`,`uname`,`password`,`role`,`dept`,`email`) values (:id, :fname, :lname, :uname, :password , 2 ,:dept,:email);");
 			try {
-			$stmt->execute(array(
-				'id' => kchat_rand(),
-				'fname' => $fname,
-				'lname' => $lname,
-				'uname' => $username,
-				'password' => $password,
-				'dept' => $dept,
-				'email' => $email,
-			));
+				$stmt->execute(array(
+					'id' => kchat_rand(),
+					'fname' => $fname,
+					'lname' => $lname,
+					'uname' => $username,
+					'password' => $password,
+					'dept' => $dept,
+					'email' => $email,
+				));
+				$data['Admin'] = $data['config']['Admin'];
+				set_notification($data,"User $fname $lname Verified. User ID - $username");
 			} catch (PDOException $e) {
 				if ($e->getCode() == 1062) {
 					alertify::alert("User Exist All ready");

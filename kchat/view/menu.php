@@ -23,16 +23,17 @@
 			</form-->
 			<ul class="nav navbar-nav navbar-right">
 			    <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" >
 					<span class="glyphicon glyphicon-comment"></span>  Chats <span class="label label-primary" id="unread" >0</span>
 					</a>
-                    <!--ul class="dropdown-menu">
-                        <li><a href="#"><span class="label label-warning">7:00 AM</span>Hi :)</a></li>
-                        <li><a href="#"><span class="label label-warning">8:00 AM</span>How are you?</a></li>
-                        <li><a href="#"><span class="label label-warning">9:00 AM</span>What are you doing?</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" class="text-center">View All</a></li>
-                    </ul-->
+                </li>
+			    <li class="dropdown">
+					<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" id="notification" >
+					<span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Notification<span class="caret"></span>
+					</a>
+                    <ul class="dropdown-menu" id="set_notification">
+                        <li><a href="javascript:void(0);" class="text-center"><img src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/loading.gif" /></a></li>
+                    </ul>
                 </li>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
