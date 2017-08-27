@@ -97,7 +97,7 @@
 							</fieldset>
 					</div>
 					<div class="panel-footer ">
-						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $data['config']['Admin']; ?>
+						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $data['config']['version']; ?>
 					</div>
                 </div>
 			</div>

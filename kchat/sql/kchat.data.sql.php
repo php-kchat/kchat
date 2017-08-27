@@ -1,3 +1,4 @@
+-- No Direct Access --<?php die; ?>
 
 --
 -- Database: `kchat_sql`
@@ -13,6 +14,21 @@ INSERT INTO `%dbprefix%department` VALUES
 (3, 'IT', 'IT');
 
 --
+-- Dumping data for table `%dbprefix%role`
+--
+
+INSERT INTO `%dbprefix%role` VALUES
+(1, 'admin', 'user with all privileges'),
+(2, 'user', 'user with few privileges');
+
+--
+-- Dumping data for table `%dbprefix%users`
+--
+
+INSERT INTO `%dbprefix%users` VALUES
+('KkEtq2SNzvl02OR', 'admin', '', 'admin', 'pass', now(), 1, 1, 'admin@admin.com');
+
+--
 -- Dumping data for table `%dbprefix%groups`
 --
 
@@ -20,12 +36,11 @@ INSERT INTO `%dbprefix%groups` VALUES
 ('NO_GROUP', '00000000000000000000000000000000', 'Undefined', now());
 
 --
--- Dumping data for table `%dbprefix%role`
+-- Dumping data for table `%dbprefix%notification`
 --
 
-INSERT INTO `%dbprefix%role` VALUES
-(1, 'admin', 'user with all privileges'),
-(2, 'user', 'user with few privileges');
+INSERT INTO `%dbprefix%notification` VALUES
+(1, now(), '#', 'You Just Installed KChat', 'KkEtq2SNzvl02OR', 0);
 
 --
 -- Dumping data for table `%dbprefix%setting`
@@ -46,17 +61,3 @@ INSERT INTO `%dbprefix%setting` VALUES
 (15, 'bodybdrcx', '0A0000', 'Left Border Color', 'Color Setting', 'color', 'border-color', '.message0'),
 (16, 'inboxbdrpx', '1', 'Left Border size', 'Color Setting', 'pixel', 'border-width', '.message0'),
 (17, 'inboxbdrcx', 'FF0000', 'Left anchor Color', 'Color Setting', 'color', 'color', '.message0 a');
-
---
--- Dumping data for table `%dbprefix%users`
---
-
-INSERT INTO `%dbprefix%users` VALUES
-('KkEtq2SNzvl02OR', 'admin', '', 'admin', 'pass', now(), 1, 1, 'admin@domain.com');
-
---
--- Dumping data for table `dbprefix_notification`
---
-
-INSERT INTO `dbprefix_notification` VALUES
-(1, now(), '#', 'Just Installed KChat', 'KkEtq2SNzvl02OR', 0),

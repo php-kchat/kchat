@@ -154,24 +154,6 @@ CREATE TABLE `%dbprefix%setting` (
   `selecter` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `%dbprefix%temp`
---
-CREATE TABLE `%dbprefix%temp` (
-`id` int(11)
-,`fname` varchar(32)
-,`lname` varchar(32)
-,`time` int(11)
-,`uname` varchar(32)
-,`group` varchar(32)
-,`process` int(3)
-,`value` int(32)
-);
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `%dbprefix%users`
 --
@@ -193,7 +175,6 @@ CREATE TABLE `%dbprefix%users` (
 --
 -- Structure for view `%dbprefix%temp`
 --
-DROP TABLE IF EXISTS `%dbprefix%temp`;
 
 CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix%cache`.`fname` AS `fname`,`%dbprefix%cache`.`lname` AS `lname`,`%dbprefix%cache`.`time` AS `time`,`%dbprefix%cache`.`uname` AS `uname`,`%dbprefix%cache`.`group` AS `group`,`%dbprefix%cache`.`process` AS `process`,`%dbprefix%cache`.`value` AS `value` from `%dbprefix%cache` where (`%dbprefix%cache`.`time` > (unix_timestamp() - 5));
 
