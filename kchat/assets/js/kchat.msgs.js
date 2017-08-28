@@ -49,13 +49,14 @@ function __set(id,html){
 }
 
 function kchat_message(messages){
-  if(!document.getElementById("messages")){
+	if(!document.getElementById("messages")){
 	  return false;
-  }
-  data = "";
-  info = "";
-  play = false;
-  for(i = 0;i < messages.length ; i++){
+	}
+	data = "";
+	info = "";
+	play = false;
+	my_notification = 0;
+	for(i = 0;i < messages.length ; i++){
 	  data = "<div class=\"msg-row\">"+
 			"<div class=\"avatar\"></div>"+
 			"<div class=\"message"+messages[i].align+"\">"+
@@ -74,15 +75,18 @@ function kchat_message(messages){
 			$( "#messages" ).prepend(data);
 		}
 		data = "";
-  }
-	 if(kchat.notify){
-		 if(play){
-			playsound();
-		 }
-		 if(messages.length !== 0){
-			notify(messages.length+" new messages");
+		if(!messages[i].align){
+			my_notification++;
 		}
-	 }
+	}
+	if(kchat.notify){
+		if(play){
+			playsound();
+			if(my_notification !== 0){
+				notify(messages.length+" new messages");
+			}
+		}
+	}
 	$( "emojionearea-editor" ).focus();
 }
 
@@ -296,7 +300,6 @@ function kchat_init(first){
 			}
 		}
 	});
-	
 }
 
 kchat.init = (function(){

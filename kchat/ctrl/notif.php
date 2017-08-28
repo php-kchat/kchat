@@ -22,4 +22,8 @@ class notif extends ctrl{
 		$this->load->view('footer');
 	}
 	
+	function n($data){
+		$this->index($data);
+	}
+	
 }

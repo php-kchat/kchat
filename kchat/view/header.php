@@ -28,9 +28,10 @@
 				echo $css."\n";
 			}
 	  }
+	  if(!isset($data['path'][1])){$data['path'][1] = '..';}
   ?>
 <script>
- var posturl = "<?php if(isset($data['param'][0])){ echo $data['param'][0];} ?>"; 
+ var posturl = "<?php if(isset($data['param'][0]) && ($data['path'][1] == 'g')){ echo $data['param'][0];} ?>"; 
  var purl = "<?php print_r($data['config']['purl']); ?>";
  var kurl = "<?php print_r($data['config']['url']); ?>";
  var token = "<?php print_r($_SESSION['KChat_Token']); ?>";

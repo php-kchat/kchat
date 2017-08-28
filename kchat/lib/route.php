@@ -115,6 +115,8 @@ if(empty($_POST['token'])){
 	$_POST['token'] = rand(1000,9999);
 }
 
+$data['path'] = $path;
+
 if(isset($path[0])){
 	if(file_exists($data['config']['path']."/kchat/ctrl/".$path[0].".php")){
 		require_once $data['config']['path']."/kchat/ctrl/".$path[0].".php";
