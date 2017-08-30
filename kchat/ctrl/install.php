@@ -7,7 +7,7 @@
 */
 
 class install extends ctrl{
-	function index($data){
+	function index(){
 		$array = array(
 			'title' => "install"
 		);

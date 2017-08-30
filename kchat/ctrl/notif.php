@@ -8,11 +8,11 @@
 
 class notif extends ctrl{
 	
-	function index($data){
+	function index(){
 		
 		$array = array(
 			'title' => "Notification",
-			'Notification' => $this->ajax->process('notification')
+			'Notification' => $this->model->process('notification')
 		);
 		$this->load->set($array);
 		$this->load->view('header');
@@ -22,8 +22,8 @@ class notif extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function n($data){
-		$this->index($data);
+	function n(){
+		$this->index($this->data);
 	}
 	
 }

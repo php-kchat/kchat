@@ -1,6 +1,6 @@
 <?php 
-	if(!isset($data['param'][0])){
-		$data['param'][0] = base64_encode('0');
+	if(!isset($this->data['param'][0])){
+		$this->data['param'][0] = base64_encode('0');
 	}
 ?>
 <div class="col-md-10 content">
@@ -13,8 +13,8 @@
 			<a class="btn btn-default btn-sm" href="#Refresh" ><i class="glyphicon glyphicon-refresh"></i></a>
 				<div class="pull-right">
 					<div class="btn-group">
-						<a class="btn btn-default btn-sm" href="<?php echo $data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($data['param'][0]) + 10); ?>" ><i class="glyphicon glyphicon-arrow-left"></i></a>
-						<a class="btn btn-default btn-sm" href="<?php echo $data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($data['param'][0]) - 10); ?>" ><i class="glyphicon glyphicon-arrow-right"></i></a>
+						<a class="btn btn-default btn-sm" href="<?php echo $this->data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($this->data['param'][0]) + 10); ?>" ><i class="glyphicon glyphicon-arrow-left"></i></a>
+						<a class="btn btn-default btn-sm" href="<?php echo $this->data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($this->data['param'][0]) - 10); ?>" ><i class="glyphicon glyphicon-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -27,10 +27,10 @@
 					  <td><b>Notification</b></td>
 					</tr>
 				<?php
-					foreach($data['Notification'] as $not){
+					foreach($this->data['Notification'] as $not){
 						?>
 						<tr class='clickable-row' >
-						<td><?php echo $not['id']; ?></td><td><?php echo $not['time']; ?></td><td><a href="<?php echo $data['config']['purl'].'/'.$not['url']; ?>" ><?php echo $not['notification']; ?></a></td>
+						<td><?php echo $not['id']; ?></td><td><?php echo $not['time']; ?></td><td><a href="<?php echo $this->data['config']['purl'].'/'.$not['url']; ?>" ><?php echo $not['notification']; ?></a></td>
 						</tr>
 						<?php
 					}
@@ -42,8 +42,8 @@
 			<a class="btn btn-default btn-sm" href="#Refresh" ><i class="glyphicon glyphicon-refresh"></i></a>
 				<div class="pull-right">
 					<div class="btn-group">
-						<a class="btn btn-default btn-sm" href="<?php echo $data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($data['param'][0]) + 10); ?>" ><i class="glyphicon glyphicon-arrow-left"></i></a>
-						<a class="btn btn-default btn-sm" href="<?php echo $data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($data['param'][0]) - 10); ?>" ><i class="glyphicon glyphicon-arrow-right"></i></a>
+						<a class="btn btn-default btn-sm" href="<?php echo $this->data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($this->data['param'][0]) + 10); ?>" ><i class="glyphicon glyphicon-arrow-left"></i></a>
+						<a class="btn btn-default btn-sm" href="<?php echo $this->data['config']['purl'].'/notif/n/'.base64_encode((int)base64_decode($this->data['param'][0]) - 10); ?>" ><i class="glyphicon glyphicon-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>

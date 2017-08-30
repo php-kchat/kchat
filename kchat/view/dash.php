@@ -71,7 +71,7 @@
 			</div>
 			<div class="panel-body" >
 			<div id='map2' style="width:100%;height:300px"></div>
-			<script type="text/javascript" src="<?php echo $data['config']['url']; ?>/kchat/assets/leaflet/us-states.js"></script>
+			<script type="text/javascript" src="<?php echo $this->data['config']['url']; ?>/kchat/assets/leaflet/us-states.js"></script>
 			<script type="text/javascript">
 
 				var map = L.map('map2').setView([37.8, -96], 4);

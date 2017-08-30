@@ -26,9 +26,8 @@ class view{
 		}
 	}
 	
-	function load($data){
+	function load(){
 		require_once $this->data['config']['path']."/kchat/view/".$this->view.".php";
-		return $data;
 	}
 	
 	function appendfile($files){
@@ -62,7 +61,7 @@ class view{
 	}
 }
 
-class ajaxcall{
+class model{
 	
 	var $data = null;
 	
@@ -96,11 +95,11 @@ class ctrl{
 	var $data = array();
 	var $dbprefix = array();
 	var $load = null;
-	var $ajax = null;
+	var $model = null;
 	
 	function __construct($data){
 		$this->load = new view($data);
-		$this->ajax = new ajaxcall($data);
+		$this->model = new model($data);
 		$this->data = $data;
 		if(isset($data['db']['db_prefix'])){
 			$this->dbprefix = $data['db']['db_prefix'];

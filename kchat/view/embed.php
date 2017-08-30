@@ -6,19 +6,19 @@
 		<div class="panel-body">
 				Add this To Head Tag of Your Page
 				<button class="btn" data-clipboard-target="#copy1">
-					<img src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="copy" alt="Copy to clipboard">
+					<img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="copy" alt="Copy to clipboard">
 				</button>
 				<div class="code" id="copy1"  >
 					<span class="sc1">&lt;script</span>
 					<span class="sc8"> </span>
 					<span class="sc3">src</span>
 					<span class="sc8">=</span>
-					<span class="sc6">"<?php echo $data['KChat_conf']['kchat_url']; ?>/assets/js/kchat.js"</span>
+					<span class="sc6">"<?php echo $this->data['KChat_conf']['kchat_url']; ?>/assets/js/kchat.js"</span>
 					<span class="sc1">&gt;&lt;/script&gt;</span>
 				</div>
 				Add this To Head Tag of Your Page
 				<button class="btn" data-clipboard-target="#copy2">
-					<img class="copy" src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
+					<img class="copy" src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
 				</button>
 				<div class="code" id="copy2" >
 					<span class="sc1">&lt;link</span>
@@ -29,12 +29,12 @@
 					<span class="sc8"> </span>
 					<span class="sc3">href</span>
 					<span class="sc8">=</span>
-					<span class="sc6">"<?php echo $data['KChat_conf']['kchat_url']; ?>/assets/css/kchat.css"</span>
+					<span class="sc6">"<?php echo $this->data['KChat_conf']['kchat_url']; ?>/assets/css/kchat.css"</span>
 					<span class="sc11">/&gt;</span>
 				</div>
 				Add This to Any Where in Body Tag
 				<button class="btn" data-clipboard-target="#copy3">
-					<img class="copy" src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
+					<img class="copy" src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
 				</button>
 				<div class="code" id="copy3" >
 					<span class="sc1">&lt;script&gt;</span><br/>

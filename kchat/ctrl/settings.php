@@ -8,11 +8,11 @@
 
 class settings extends ctrl{
 	
-	function index($data){
+	function index(){
 		$array = array(
 			'title' => "Settings"
 		);
-		$stmt = $data['pdo']->prepare("SELECT `id`,`option`,`tab`,`value`,`key`,`type` FROM {$this->dbprefix}setting where 1");
+		$stmt = $this->data['pdo']->prepare("SELECT `id`,`option`,`tab`,`value`,`key`,`type` FROM {$this->dbprefix}setting where 1");
 		$stmt->execute(array());
 		$settings = array();
 		while ($row = $stmt->fetch())

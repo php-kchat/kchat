@@ -30,7 +30,7 @@ function input_box($key,$value){
 		case 'color':
 		$type = "class=\"jscolor\"";
 		break;
-	}//print_r($value);
+	}
 ?>
 <div class="col-xs-6 col-sm-6 col-md-6">
   <div class="form-group"><?php echo $value['option']; ?></div>
@@ -41,7 +41,7 @@ function input_box($key,$value){
 <?php
 }
 
-foreach($data['settings'] as $key => $value){
+foreach($this->data['settings'] as $key => $value){
 ?>
 	<div class="col-md-12 content">
 		<div class="panel panel-default">

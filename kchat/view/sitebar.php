@@ -7,7 +7,7 @@
 				<div class="side-menu-container">
 					<ul class="nav navbar-nav">
 						<?php 
-							sitebar($data,$data['sitebar']);
+							sitebar($this->data,$this->data['sitebar']);
 						?>
 					</ul>
 				</div>

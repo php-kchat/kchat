@@ -11,7 +11,7 @@
 		   <div class="col-xs-12 col-sm-12 col-md-12">
 			  <div class="form-group">
 				<button id="verify_btn" class="btn" data-clipboard-target="#verify_link">
-					<img src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="Link" alt="Copy Link" style="width:20px" >
+					<img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="Link" alt="Copy Link" style="width:20px" >
 				</button>
 				<textarea id="verify_link" class="form-control code" ></textarea>
 			  </div>
@@ -45,7 +45,7 @@
 			  <div class="form-group">
 				 <select id = "department" class="form-control" >
 					<option value='0' >-- Select Department --</option>
-					<?php foreach($data['department'] as $dept){ ?>
+					<?php foreach($this->data['department'] as $dept){ ?>
 					<option value='<?php echo $dept['id'] ?>' ><?php echo $dept['dept'] ?></option>
 					<?php } ?>
 				 </select>

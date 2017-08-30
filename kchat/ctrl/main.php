@@ -7,7 +7,7 @@
 */
 
 class main extends ctrl{
-	function index($data){
+	function index(){
 		$array = array(
 			'title' => "Dashboard"
 		);

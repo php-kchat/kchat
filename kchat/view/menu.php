@@ -11,7 +11,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">
-				<?php echo ucfirst($data['user']['fname'])." ".ucfirst($data['user']['lname']); ?>
+				<?php echo ucfirst($this->data['user']['fname'])." ".ucfirst($this->data['user']['lname']); ?>
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
@@ -32,7 +32,7 @@
 					<span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Notification<span class="caret"></span>
 					</a>
                     <ul class="dropdown-menu" id="set_notification">
-                        <li><a href="javascript:void(0);" class="text-center"><img src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/loading.gif" /></a></li>
+                        <li><a href="javascript:void(0);" class="text-center"><img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/loading.gif" /></a></li>
                     </ul>
                 </li>
 				<li class="dropdown ">
@@ -40,7 +40,7 @@
 						Account
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="<?php echo $data['config']['purl']; ?>/users/profile" >Profile</a></li>
+							<li><a href="<?php echo $this->data['config']['purl']; ?>/users/profile" >Profile</a></li>
 							<li><a href="javascript:void(0)" id="logout" >Logout</a></li>
 						</ul>
 				</li>

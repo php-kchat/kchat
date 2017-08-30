@@ -8,12 +8,12 @@
 
 class msgs extends ctrl{
 	
-	function index($data){
-		$this->g($data);
-		return $data;
+	function index(){
+		$this->g($this->data);
+		return $this->data;
 	}
 	
-	function g($data){
+	function g(){
 		
 		$array = array(
 			'title' => "Messages"
@@ -29,11 +29,11 @@ class msgs extends ctrl{
 		);
 		
 		$insert = false;
-		if(isset($data['param'][0])){
+		if(isset($this->data['param'][0])){
 			$users = array();
-			$recid = substr($data['param'][0],6,((strlen($data['param'][0]) - 6)));
+			$recid = substr($this->data['param'][0],6,((strlen($this->data['param'][0]) - 6)));
 			$users[] = $recid;
-			$users[] = $data['user']['id'];
+			$users[] = $this->data['user']['id'];
 			$groupid = array();
 			foreach($users as $guser){
 				$groupid[$guser] = $guser;
@@ -41,7 +41,7 @@ class msgs extends ctrl{
 			ksort($groupid);
 			$gmd5 = md5(serialize($groupid));
 			
-			$stmt = $data['pdo']->prepare("SELECT `id` FROM {$this->dbprefix}groups where groupid = :groupid");
+			$stmt = $this->data['pdo']->prepare("SELECT `id` FROM {$this->dbprefix}groups where groupid = :groupid");
 			$stmt->execute(array('groupid' => $gmd5));
 			$row = $stmt->fetch();
 			if(!empty($row['id'])){
@@ -52,11 +52,11 @@ class msgs extends ctrl{
 		}
 		
 		if($insert){
-			if((strpos($data['param'][0],'Chat_') == 1) && (strpos($data['param'][0],'K') == 0)){
+			if((strpos($this->data['param'][0],'Chat_') == 1) && (strpos($this->data['param'][0],'K') == 0)){
 				
 				$group = kchat_rand();
 				
-				$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
+				$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
 				$stmt->execute(
 					array(
 						'id' => $group,
@@ -65,7 +65,7 @@ class msgs extends ctrl{
 				);
 				
 				foreach($users as $user){
-					$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
+					$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
 					$stmt->execute(
 						array(
 							'grupid' => $group,
@@ -73,12 +73,12 @@ class msgs extends ctrl{
 						)
 					);
 				}
-				$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
+				$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
 				$stmt->execute(
 					array(
 						'msg' => 'You are now connected on KChat',
 						'grp_id' => $group,
-						'sender_id' => $data['user']['id'],
+						'sender_id' => $this->data['user']['id'],
 					)
 				);
 				$array['param'][0] = urlencode(base64_encode($group));
@@ -93,7 +93,7 @@ class msgs extends ctrl{
 		$this->load->view('msgs');
 		$this->load->view('footer');
 		
-		return $data;
+		return $this->data;
 	}
 	
 }

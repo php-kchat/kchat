@@ -8,18 +8,18 @@
 
 class ajax extends ctrl{
 		
-	function login($data){
-		if(isAjax($data)){
+	function login(){
+		if(isAjax($this->data)){
 			if(isset($_POST['action'])){
-				$this->ajax->process($_POST['action']);
+				$this->model->process($_POST['action']);
 			}
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function smtp($data){
-		if(isAjax($data)){
+	function smtp(){
+		if(isAjax($this->data)){
 			if(empty($_POST['smtp_host']) || empty($_POST['smtp_port']) || empty($_POST['smtp_auth'])){
 					return false;
 			}
@@ -42,10 +42,10 @@ class ajax extends ctrl{
 				echo "Success";
 				if(isset($smtp_conf)){
 					alertify::alert('Successfully Updateed');
-					set_notification($data,'SMTP Detail Updateed');
+					set_notification($this->data,'SMTP Detail Updateed');
 				}else{
 					alertify::alert('Successfully Configured');
-					set_notification($data,'SMTP Detail Configurred');
+					set_notification($this->data,'SMTP Detail Configurred');
 				}
 			}
 			
@@ -54,80 +54,80 @@ class ajax extends ctrl{
 		}
 	}
 	
-	function createuser($data){
-		if(isAjax($data)){
+	function createuser(){
+		if(isAjax($this->data)){
 			if(isset($_POST['action'])){
-				$this->ajax->process($_POST['action']);
+				$this->model->process($_POST['action']);
 			}
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function notification($data){
-		if(isAjax($data)){
-			echo json_encode($this->ajax->process('notification'));
+	function notification(){
+		if(isAjax($this->data)){
+			echo json_encode($this->model->process('notification'));
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function verify($data){
+	function verify(){
 		
-		if(isAjax($data)){
+		if(isAjax($this->data)){
 			if(isset($_POST['action'])){
-				$this->ajax->process("verify");
+				$this->model->process("verify");
 			}
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function logout($data){
-		if(isAjax($data)){
-			unset($_SESSION[$data['config']['session']]);
+	function logout(){
+		if(isAjax($this->data)){
+			unset($_SESSION[$this->data['config']['session']]);
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function index($data){
-		if(!isAjax($data)){
+	function index(){
+		if(!isAjax($this->data)){
 			$this->load->view('deny');
 		}
 	}
 	
-	function update($data){
-		if(isAjax($data)){
-			$this->ajax->process("profile");
+	function update(){
+		if(isAjax($this->data)){
+			$this->model->process("profile");
 		}else{
 			$this->load->view('deny');
 		}
 	}
 
-	function chat($data){
-		if(isAjax($data)){
-			$this->ajax->process("msgs");
+	function chat(){
+		if(isAjax($this->data)){
+			$this->model->process("msgs");
 		}else{
 			$this->load->view('deny');
 		}
 	}
 	
-	function typing($data){
-		$array = $this->ajax->process("typing");
+	function typing(){
+		$array = $this->model->process("typing");
 	}
 	
-	function create_chat($data){
-		$this->ajax->process("createchat");
+	function create_chat(){
+		$this->model->process("createchat");
 	}
 	
-	function deleteuser($data){
-		if($data['user']['role'] !== 1){
+	function deleteuser(){
+		if($this->data['user']['role'] !== 1){
 			return false;
 		}
 		
 		if(!empty($_POST['uname'])){
-			$stmt = $data['pdo']->prepare("DELETE FROM {$this->dbprefix}users WHERE id=:id;");
+			$stmt = $this->data['pdo']->prepare("DELETE FROM {$this->dbprefix}users WHERE id=:id;");
 			$stmt->execute(
 				array(
 					'id' => $_POST['uname'],
@@ -136,20 +136,20 @@ class ajax extends ctrl{
 		}
 	}
 	
-	function adddept($data){
-		if($data['user']['role'] !== 1){
+	function adddept(){
+		if($this->data['user']['role'] !== 1){
 			return false;
 		}
 		
 		if(!empty($_POST['dept']) && !empty($_POST['desc'])){
 			
-			$stmt = $data['pdo']->prepare("SELECT `dept` FROM {$this->dbprefix}department where dept =:dept");
+			$stmt = $this->data['pdo']->prepare("SELECT `dept` FROM {$this->dbprefix}department where dept =:dept");
 			$stmt->execute(array('dept' => $_POST['dept']));
 			$row = $stmt->fetch();
 			if(!empty($row)){
 				return false;
 			}
-			$stmt = $data['pdo']->prepare("INSERT INTO {$this->dbprefix}department (`dept`,`discription`) VALUES (:dept,:desc)");
+			$stmt = $this->data['pdo']->prepare("INSERT INTO {$this->dbprefix}department (`dept`,`discription`) VALUES (:dept,:desc)");
 			$stmt->execute(
 				array(
 					'dept' => $_POST['dept'],
@@ -159,7 +159,7 @@ class ajax extends ctrl{
 		}
 	}
 	
-	function settings($data){
+	function settings(){
 		$setting = array();
 		if(!empty($_POST['settings'])){
 			$setting = $_POST['settings'];
@@ -168,7 +168,7 @@ class ajax extends ctrl{
 		foreach($setting[0] as $k => $v){
 			if(isset($setting[1][$k])){
 				$sql = "UPDATE {$this->dbprefix}setting SET `value` = :value WHERE `key` = :key";
-				$stmt = $data['pdo']->prepare($sql);
+				$stmt = $this->data['pdo']->prepare($sql);
 				$stmt->execute(array(
 					'value' => $setting[1][$k],
 					'key' => $setting[0][$k],
@@ -177,8 +177,8 @@ class ajax extends ctrl{
 		}
 	}
 	
-	function install($data){
-		if(isset($data['db'])){
+	function install(){
+		if(isset($this->data['db'])){
 			return false;
 		}
 		
@@ -201,7 +201,7 @@ class ajax extends ctrl{
 			PDO::MYSQL_ATTR_FOUND_ROWS => TRUE
 		);
 		
-		$data['pdo'] = new PDO("mysql:host=".$_POST['host'].";dbname=".$_POST['database'].";port=".$_POST['port'].";charset=utf8", $_POST['username'], $_POST['password'],$opt);
+		$this->data['pdo'] = new PDO("mysql:host=".$_POST['host'].";dbname=".$_POST['database'].";port=".$_POST['port'].";charset=utf8", $_POST['username'], $_POST['password'],$opt);
 		
 		$db = array(
 			"db_host" => $_POST['host'],
@@ -213,32 +213,32 @@ class ajax extends ctrl{
 		);
 		
 		
-		if($data['pdo']){
+		if($this->data['pdo']){
 			
 			if(!fcreate("config/db.php",pcode($db))){
 				return false;
 			}
 			//create mysql structure
-			$fsql = fopen( $data['config']['path'] . '/kchat/sql/kchat.struct.sql.php', "r") or die("The SQL File could not be opened.");
-			$data['db']['db_prefix'] = $_POST['dbprefix'];
+			$fsql = fopen( $this->data['config']['path'] . '/kchat/sql/kchat.struct.sql.php', "r") or die("The SQL File could not be opened.");
+			$this->data['db']['db_prefix'] = $_POST['dbprefix'];
 			while($sql = trim(nextQuery($fsql))){
 				if(empty($sql)){
 					continue;
 				}
-				$sql = presql($data,$sql);
-				$stmt = $data['pdo']->prepare($sql);
+				$sql = presql($this->data,$sql);
+				$stmt = $this->data['pdo']->prepare($sql);
 				$stmt->execute(array());
 				echo '.';
 			}
 			//insert mysql data
-			$fsql = fopen( $data['config']['path'] . '/kchat/sql/kchat.data.sql.php', "r") or die("The SQL File could not be opened.");
-			$data['db']['db_prefix'] = $_POST['dbprefix'];
+			$fsql = fopen( $this->data['config']['path'] . '/kchat/sql/kchat.data.sql.php', "r") or die("The SQL File could not be opened.");
+			$this->data['db']['db_prefix'] = $_POST['dbprefix'];
 			while($sql = trim(nextQuery($fsql))){
 				if(empty($sql)){
 					continue;
 				}
-				$sql = presql($data,$sql);
-				$stmt = $data['pdo']->prepare($sql);
+				$sql = presql($this->data,$sql);
+				$stmt = $this->data['pdo']->prepare($sql);
 				$stmt->execute(array());
 				echo '.';
 			}

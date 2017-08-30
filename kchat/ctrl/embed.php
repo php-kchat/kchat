@@ -7,7 +7,7 @@
 */
 
 class embed extends ctrl{
-	function index($data){
+	function index(){
 		$array = array(
 			'title' => "Embed",
 		);
@@ -24,7 +24,7 @@ class embed extends ctrl{
 		$this->load->view('embed');
 		$this->load->view('footer');
 	}
-	function setting($data){
+	function setting(){
 		$array = array(
 			'title' => "Embed Settnig",
 		);

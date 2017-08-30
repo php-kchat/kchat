@@ -80,8 +80,8 @@ if(session::get_Data($data)){
 }
 
 if(isset($data['user']['role'])){
-	$data = sitebar_access($data);
-	$path = access($path,$data['user']['role']);
+	$data = permission::sitebar_access($data);
+	$path = permission::access($path,$data['user']['role']);
 }
 
 if($allow){

@@ -9,9 +9,9 @@
   <title>KChat Install</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="<?php echo $data['config']['url']."/"; ?>kchat/assets/js/jquery.min.js"></script>
-  <script src="<?php echo $data['config']['url']."/"; ?>kchat/assets/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="<?php echo $data['config']['url']."/"; ?>kchat/assets/css/bootstrap.min.css" />
+  <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/jquery.min.js"></script>
+  <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/css/bootstrap.min.css" />
   <style>
 		#proc img{
 			width:100%;
@@ -21,9 +21,9 @@
 		}
   </style>
 <script>
- var posturl = "<?php if(isset($data['param'][0])){ echo $data['param'][0];} ?>"; 
- var purl = "<?php print_r($data['config']['purl']); ?>";
- var kurl = "<?php print_r($data['config']['url']); ?>";
+ var posturl = "<?php if(isset($this->data['param'][0])){ echo $this->data['param'][0];} ?>"; 
+ var purl = "<?php print_r($this->data['config']['purl']); ?>";
+ var kurl = "<?php print_r($this->data['config']['url']); ?>";
 </script>
 </head>
 <body>
@@ -87,7 +87,7 @@
 											</div>
 										</div>
 										<div class="form-group" id="proc" >
-											<img src="<?php echo $data['config']['url']."/"; ?>kchat/assets/images/installing.gif" />
+											<img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/installing.gif" />
 										</div>
 										<div class="form-group">
 											<input type="button" class="btn btn-lg btn-primary btn-block" value="Continue" id="install" name="install" />
@@ -97,13 +97,13 @@
 							</fieldset>
 					</div>
 					<div class="panel-footer ">
-						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $data['config']['version']; ?>
+						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $this->data['config']['version']; ?>
 					</div>
                 </div>
 			</div>
 		</div>
 	</div>
-<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
+<script src="<?php echo $this->data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
 <script>
 	document.body.addEventListener('keydown', function(e) {
 		if(e.keyCode == 13){

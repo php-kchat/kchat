@@ -8,7 +8,7 @@
 
 class users extends ctrl{
 	
-	function index($data){
+	function index(){
 		$array = array(
 			'title' => "profile"
 		);
@@ -20,11 +20,11 @@ class users extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function ulist($data){
+	function ulist(){
 		$array = array(
 			'title' => "Users"
 		);
-		$array['users'] = $this->ajax->process("userslist");
+		$array['users'] = $this->model->process("userslist");
 		$this->load->set($array);
 		$this->load->view('header');
 		$this->load->view('menu');
@@ -33,11 +33,11 @@ class users extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function glist($data){
+	function glist(){
 		$array = array(
 			'title' => "Guest list"
 		);
-		$array['users'] = $this->ajax->process("guestlist");
+		$array['users'] = $this->model->process("guestlist");
 		$this->load->set($array);
 		$this->load->view('header');
 		$this->load->view('menu');
@@ -46,11 +46,11 @@ class users extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function groups($data){
+	function groups(){
 		$array = array(
 			'title' => "Group Chat"
 		);
-		$array['users'] = $this->ajax->process("userslist");
+		$array['users'] = $this->model->process("userslist");
 		$this->load->set($array);
 		$this->load->view('header');
 		$this->load->view('menu');
@@ -59,7 +59,7 @@ class users extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function cuser($data){
+	function cuser(){
 		$array = array(
 			'title' => "Create User"
 		);
@@ -69,7 +69,7 @@ class users extends ctrl{
 			)
 		);
 		$this->load->appendfile($assets);
-		$array['department'] = $this->ajax->process("getdepart");
+		$array['department'] = $this->model->process("getdepart");
 		$this->load->set($array);
 		$this->load->view('header');
 		$this->load->view('menu');
@@ -78,7 +78,7 @@ class users extends ctrl{
 		$this->load->view('footer');
 	}
 	
-	function profile($data){
+	function profile(){
 		$array = array(
 			'title' => "profile"
 		);
@@ -89,7 +89,5 @@ class users extends ctrl{
 		$this->load->view('profile');
 		$this->load->view('footer');
 	}
-	
-	
 	
 }

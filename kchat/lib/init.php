@@ -36,6 +36,6 @@ require_once "kchat/lib/alertify.php";
 require_once "kchat/lib/permission.php";
 require_once "kchat/lib/session.php";
 require_once "kchat/lib/config.php";
-require_once "kchat/lib/ctrl.php";
+require_once "kchat/lib/mvc.php";
 require_once "kchat/lib/route.php";
 

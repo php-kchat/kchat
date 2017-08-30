@@ -12,7 +12,7 @@ class alertify{
 	
 	public static function get_alert(){
 		if(isset($_SESSION['alert'])){
-			__("<script> alertify.alert('".$_SESSION['alert']."'); </script>");
+			echo "<script> alertify.alert('".$_SESSION['alert']."'); </script>";
 			unset($_SESSION['alert']);
 		}
 	}

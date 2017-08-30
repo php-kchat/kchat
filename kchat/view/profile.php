@@ -7,17 +7,17 @@
             <div class="row">
                <div class="col-xs-12 col-sm-4 col-md-4">
                   <div class="form-group">
-                     <input type="text" value="<?php echo $data['user']['uname']; ?>" name="uname" id="uname" class="form-control" placeholder="User Name" disabled>
+                     <input type="text" value="<?php echo $this->data['user']['uname']; ?>" name="uname" id="uname" class="form-control" placeholder="User Name" disabled>
                   </div>
                </div>
                <div class="col-xs-12 col-sm-4 col-md-4">
                   <div class="form-group">
-                     <input type="text" value="<?php echo $data['user']['fname']; ?>" name="fname" id="fname" class="form-control" placeholder="First Name" >
+                     <input type="text" value="<?php echo $this->data['user']['fname']; ?>" name="fname" id="fname" class="form-control" placeholder="First Name" >
                   </div>
                </div>
                <div class="col-xs-12 col-sm-4 col-md-4">
                   <div class="form-group">
-                     <input type="text" value="<?php echo $data['user']['lname']; ?>" name="lname" id="lname" class="form-control " placeholder="Last Name" >
+                     <input type="text" value="<?php echo $this->data['user']['lname']; ?>" name="lname" id="lname" class="form-control " placeholder="Last Name" >
                   </div>
                </div>
             </div>

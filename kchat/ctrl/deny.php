@@ -7,7 +7,7 @@
 */
 
 class deny{
-	function index($data){
+	function index(){
 		$this->load->view('deny');
 	}
 }

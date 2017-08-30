@@ -8,28 +8,28 @@
 
 class login extends ctrl{
 	
-	function index($data){
-		if(isset($data['db'])){
+	function index(){
+		if(isset($this->data['db'])){
 			$this->load->view('login');
 		}else{
 			$this->load->view('install');
 		}
 	}
 	
-	function verify($data){
+	function verify(){
 		
-		if(isset($data['param'][0])){
-			$arr = $data['param'][0];
+		if(isset($this->data['param'][0])){
+			$arr = $this->data['param'][0];
 		}
 		
-		if(!isset($data['param'][0])){
+		if(!isset($this->data['param'][0])){
 			$this->load->view('login');
-			return $data;
+			return $this->data;
 		}
 		
 		$arr = @unserialize(trim(substr(base64_decode($arr),64,strlen(base64_decode($arr)))));
 		
-		$stmt = $data['pdo']->prepare("SELECT `dept` FROM {$this->dbprefix}department where id =:id");
+		$stmt = $this->data['pdo']->prepare("SELECT `dept` FROM {$this->dbprefix}department where id =:id");
 		$stmt->execute(array('id' => $arr['verify']['dept']));
 		$row = $stmt->fetch();
 		if(isset($row['dept'])){

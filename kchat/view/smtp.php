@@ -7,21 +7,21 @@
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                     <input type="text" name="smtp_host" id="smtp_host" class="form-control" placeholder="SMTP Host" value="<?php echo $data['smtp']['host']; ?>" />
+                     <input type="text" name="smtp_host" id="smtp_host" class="form-control" placeholder="SMTP Host" value="<?php echo $this->data['smtp']['host']; ?>" />
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                     <input type="text" name="smtp_port" id="smtp_port" class="form-control" placeholder="SMTP PORT" value="<?php echo $data['smtp']['port']; ?>" />
+                     <input type="text" name="smtp_port" id="smtp_port" class="form-control" placeholder="SMTP PORT" value="<?php echo $this->data['smtp']['port']; ?>" />
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                     <input type="text" name="smtp_email" id="smtp_email" class="form-control" placeholder="SMTP User" value="<?php echo $data['smtp']['email']; ?>" />
+                     <input type="text" name="smtp_email" id="smtp_email" class="form-control" placeholder="SMTP User" value="<?php echo $this->data['smtp']['email']; ?>" />
                   </div>
                </div>
             </div>
@@ -41,7 +41,7 @@
                <div class="col-xs-6 col-sm-2 col-md-2">
                   <div class="form-group">
                      <select name="smtp_secure" id="smtp_secure" class="form-control" >
-						<?php $a1 = $a2 = '';if($data['smtp']['secure']){$a2 = 'selected';}else{$a1 = 'selected'; }?>
+						<?php $a1 = $a2 = '';if($this->data['smtp']['secure']){$a2 = 'selected';}else{$a1 = 'selected'; }?>
 						<option value="0" <?php echo $a1; ?>>SSL</option>
 						<option value="1" <?php echo $a2; ?>>TLS</option>
 					 </select>
@@ -56,7 +56,7 @@
                   </div>
                </div>
                <div class="col-xs-6 col-sm-2 col-md-2">
-                  <div class="form-group"><?php $auth = ''; if($data['smtp']['auth'] == 'true'){ $auth = 'checked'; } ?>
+                  <div class="form-group"><?php $auth = ''; if($this->data['smtp']['auth'] == 'true'){ $auth = 'checked'; } ?>
                      <input type="checkbox" name="smtp_auth" id="smtp_auth" class="form-control" <?php echo $auth; ?>>
                   </div>
                </div>

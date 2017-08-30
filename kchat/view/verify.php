@@ -1,18 +1,18 @@
-<!DOCTYPE html><?php //print_r($data); ?>
+<!DOCTYPE html><?php //print_r($this->data); ?>
 <html>
 <head>
   <title>KChat Verification link</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="<?php echo $data['config']['url']."/"; ?>kchat/assets/css/bootstrap.min.css" />
-  <script src="<?php echo $data['config']['url']."/"; ?>kchat/assets/js/jquery.min.js"></script>
-  <script src="<?php echo $data['config']['url']."/"; ?>kchat/assets/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="<?php echo $data['config']['url']."/"; ?>kchat/assets/alertify/alertify.css"/>
-  <script src="<?php echo $data['config']['url']; ?>/kchat/assets/angular/angular.min.js"></script>
+  <link rel="stylesheet" href="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/css/bootstrap.min.css" />
+  <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/jquery.min.js"></script>
+  <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/alertify/alertify.css"/>
+  <script src="<?php echo $this->data['config']['url']; ?>/kchat/assets/angular/angular.min.js"></script>
 <script>
- var posturl = "<?php if(isset($data['param'][0])){ echo $data['param'][0];} ?>"; 
- var purl = "<?php print_r($data['config']['purl']); ?>";
- var kurl = "<?php print_r($data['config']['url']); ?>";
+ var posturl = "<?php if(isset($this->data['param'][0])){ echo $this->data['param'][0];} ?>"; 
+ var purl = "<?php print_r($this->data['config']['purl']); ?>";
+ var kurl = "<?php print_r($this->data['config']['url']); ?>";
 </script>
 </head>
 <body>
@@ -32,7 +32,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="Username" name="username"  id="username" type="text" value="<?php echo $data['verify']['uname']; ?>" disabled>
+												<input class="form-control" placeholder="Username" name="username"  id="username" type="text" value="<?php echo $this->data['verify']['uname']; ?>" disabled>
 											</div>
 										</div>
 										<div class="form-group">
@@ -40,7 +40,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="First Name" name="fname"  id="fname" type="text" value="<?php echo $data['verify']['fname']; ?>" >
+												<input class="form-control" placeholder="First Name" name="fname"  id="fname" type="text" value="<?php echo $this->data['verify']['fname']; ?>" >
 											</div>
 										</div>
 										<div class="form-group">
@@ -48,7 +48,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="Last Name" name="lname"  id="lname" type="text" value="<?php echo $data['verify']['lname']; ?>" >
+												<input class="form-control" placeholder="Last Name" name="lname"  id="lname" type="text" value="<?php echo $this->data['verify']['lname']; ?>" >
 											</div>
 										</div>
 										<div class="form-group">
@@ -72,7 +72,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="dept_name" name="dept_name"  id="dept_name" type="text" value="<?php echo $data['verify']['dept_name']; ?>" disabled>
+												<input class="form-control" placeholder="dept_name" name="dept_name"  id="dept_name" type="text" value="<?php echo $this->data['verify']['dept_name']; ?>" disabled>
 											</div>
 										</div>
 										<div class="form-group">
@@ -80,12 +80,12 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-envelope"></i>
 												</span> 
-												<input class="form-control" placeholder="E-Mail" name="email"  id="email" type="text" value="<?php echo $data['verify']['user_email']; ?>" >
+												<input class="form-control" placeholder="E-Mail" name="email"  id="email" type="text" value="<?php echo $this->data['verify']['user_email']; ?>" >
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="hidden" name="secret" id="secret" value="<?php echo $data['verify']['secret']; ?>" />
-											<input type="hidden" name="dept" id="dept" value="<?php echo $data['verify']['dept']; ?>" />
+											<input type="hidden" name="secret" id="secret" value="<?php echo $this->data['verify']['secret']; ?>" />
+											<input type="hidden" name="dept" id="dept" value="<?php echo $this->data['verify']['dept']; ?>" />
 											<input type="button" class="btn btn-lg btn-primary btn-block" value="Verify" id="verify" name="verify" />
 										</div>
 									</div>
@@ -102,9 +102,9 @@
 <script>
 angular.module("myApp", ["ngAlertify"]).controller("myController", function($scope, alertif){});
 </script>
-<script src="<?php echo $data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
-<script src="<?php echo $data['config']['url']; ?>/kchat/assets/alertify/alertify.js" ></script>
-<script src="<?php echo $data['config']['url']; ?>/kchat/assets/alertify/ngAlertify.js" ></script>
+<script src="<?php echo $this->data['config']['url']; ?>/kchat/assets/js/kchat.js" ></script>
+<script src="<?php echo $this->data['config']['url']; ?>/kchat/assets/alertify/alertify.js" ></script>
+<script src="<?php echo $this->data['config']['url']; ?>/kchat/assets/alertify/ngAlertify.js" ></script>
 <script>
 	document.body.addEventListener('keydown', function(e) {
 		if(e.keyCode == 13){
