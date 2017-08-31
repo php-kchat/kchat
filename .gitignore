@@ -50,6 +50,9 @@ Temporary Items
 config/*
 !config/.gitkeep
 !config/.htaccess
+cache/*
+!cache/.gitkeep
+!cache/.htaccess
 docs
 README.txt
 kchat.zip
