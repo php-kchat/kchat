@@ -7,7 +7,7 @@
 */
 
 class profile extends action{
-	function action($data){
+	function action(){
 		
 		$arr = array(
 			'profile' => array(
@@ -22,7 +22,7 @@ class profile extends action{
 			echo "Password Doesn't match";
 		}
 		
-		$stmt = $data['pdo']->prepare("SELECT * FROM {$this->dbprefix}users where uname =:uname");
+		$stmt = $this->data['pdo']->prepare("SELECT * FROM {$this->dbprefix}users where uname =:uname");
 		$stmt->execute(array('uname' => $_POST['uname']));
 		$row = $stmt->fetch();
 		if(empty($arr['profile']['password'])){
@@ -30,9 +30,9 @@ class profile extends action{
 		}
 		if(isset($row['uname'])){
 			$sql = "UPDATE {$this->dbprefix}users SET fname = :fname,lname = :lname,password = :password WHERE uname = :uname";
-			$stmt = $data['pdo']->prepare($sql);
+			$stmt = $this->data['pdo']->prepare($sql);
 			$stmt->execute($arr['profile']);
-			session::setSession($data,$row);
+			session::setSession($this->data,$row);
 		}else{
 			echo "There is no such user";
 		}

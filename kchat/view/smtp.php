@@ -28,7 +28,7 @@
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                     <input type="password" name="smtp_pass" id="smtp_pass" class="form-control" placeholder="SMTP Password -- leave blank in don't want to update" value="" />
+                     <input type="password" name="smtp_pass" id="smtp_pass" class="form-control" placeholder="SMTP Password -- leave blank if don't want to update" value="" />
                   </div>
                </div>
             </div>

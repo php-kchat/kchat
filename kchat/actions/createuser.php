@@ -8,7 +8,7 @@
 
 class createuser extends action{
 	
-	function action($data){
+	function action(){
 				
 		$arr = array(
 			'verify' => array(
@@ -21,7 +21,7 @@ class createuser extends action{
 			)
 		);
 		
-		$stmt = $data['pdo']->prepare("SELECT uname FROM {$this->dbprefix}users where uname =:uname");
+		$stmt = $this->data['pdo']->prepare("SELECT uname FROM {$this->dbprefix}users where uname =:uname");
 		$stmt->execute(array('uname' => $_POST['user_name']));
 		$row = $stmt->fetch();
 		if(isset($row['uname'])){
@@ -29,9 +29,9 @@ class createuser extends action{
 			return false;
 		}
 		
-		$stmt = $data['pdo']->prepare("insert into {$this->dbprefix}pusers values(:fname,:lname,:uname,:secret,:dept,:user_email)");
+		$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}pusers values(:fname,:lname,:uname,:secret,:dept,:user_email)");
 		$stmt->execute($arr['verify']);
-		$link = $data['config']['purl'].'/login/verify/'.base64_encode($arr['verify']['secret'].serialize($arr));
+		$link = $this->data['config']['purl'].'/login/verify/'.base64_encode($arr['verify']['secret'].serialize($arr));
 		//SENDING MAIL TO NEW USER EMAIL
 		if(file_exists('config/smtp.php')){
 			$smtp_conf = include 'config/smtp.php';
@@ -45,7 +45,7 @@ class createuser extends action{
 			$mail->SMTPSecure = (($smtp_conf['secure'])? 'tls' : 'ssl');;
 			$mail->Port = $smtp_conf['port'];  
 
-			$mail->setFrom($smtp_conf['email'], $data['user']['fname'].' '.$data['user']['lname']);
+			$mail->setFrom($smtp_conf['email'], $this->data['user']['fname'].' '.$this->data['user']['lname']);
 			$mail->addAddress($arr['verify']['user_email'], $arr['verify']['fname'].' '.$arr['verify']['lname']);
 			$mail->addReplyTo($arr['verify']['user_email'], 'Information');
 			$mail->isHTML(true);
@@ -55,7 +55,7 @@ class createuser extends action{
 			
 			if($mail->send()){
 				$alert = 'Successfull Send';
-				set_notification($data,'Verification Mail Send to '.$data['user']['fname'].' '.$data['user']['lname']);
+				set_notification($this->data,'Verification Mail Send to '.$this->data['user']['fname'].' '.$this->data['user']['lname']);
 			} else {
 				$alert = $mail->ErrorInfo;
 			}

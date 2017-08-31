@@ -7,11 +7,11 @@
 */
 
 class userslist extends action{
-	function action($data){
+	function action(){
 		$users = array();
 		
-		if(isset($data['param'])){
-			$hsdjhd = explode(',',base64_decode(urldecode($data['param'][0])));
+		if(isset($this->data['param'])){
+			$hsdjhd = explode(',',base64_decode(urldecode($this->data['param'][0])));
 			$offset = $hsdjhd[0];
 			$limit  = $hsdjhd[1];
 		}else{
@@ -19,7 +19,7 @@ class userslist extends action{
 			$limit = 10;
 		}
 		
-		$stmt = $data['pdo']->prepare("SELECT (select `dept` from {$this->dbprefix}department where id = role) as role,id,fname,lname,uname,ctime FROM {$this->dbprefix}users WHERE `role` != 3 limit :limit offset :offset");
+		$stmt = $this->data['pdo']->prepare("SELECT (select `dept` from {$this->dbprefix}department where id = role) as role,id,fname,lname,uname,ctime FROM {$this->dbprefix}users WHERE `role` != 3 limit :limit offset :offset");
 		$stmt->execute(array('limit' => $limit,'offset' => $offset));
 		while ($row = $stmt->fetch())
 		{
@@ -35,7 +35,7 @@ class userslist extends action{
 		}
 		
 		
-		$stmt = $data['pdo']->query("SELECT count(uname) as userno FROM {$this->dbprefix}users WHERE `role` != 3 ");
+		$stmt = $this->data['pdo']->query("SELECT count(uname) as userno FROM {$this->dbprefix}users WHERE `role` != 3 ");
 		$row = $stmt->fetch();
 		$users['no'] = $row['userno'];
 		

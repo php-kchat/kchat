@@ -33,12 +33,6 @@ if(isset($_SERVER['KChat'])){
 
 $path = explode("/",trim($path,"/"));
 
-if(isset($path[0])){
-	if($path[0] == urldecode("%F0%9F%92%AC")){
-		$path[0] = 'msgs';
-	}
-}
-
 $p = 2;
 while(isset($path[$p])){
 	$data["param"][] = $path[$p++];

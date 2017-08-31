@@ -7,7 +7,7 @@
 */
 
 class createchat extends action{
-	function action($data){
+	function action(){
 		
 		if(!isset($_POST['users'])){
 			return true;
@@ -20,7 +20,7 @@ class createchat extends action{
 			return true;
 		}
 		
-		$users[] = $data['user']['id'];
+		$users[] = $this->data['user']['id'];
 		
 		$groupid = array();
 		foreach($users as $guser){
@@ -32,7 +32,7 @@ class createchat extends action{
 		
 		$group = kchat_rand();
 		
-		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
+		$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
 		$stmt->execute(
 			array(
 				'id' => $group,
@@ -41,7 +41,7 @@ class createchat extends action{
 		);
 		
 		foreach($users as $user){
-			$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
+			$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
 			$stmt->execute(
 				array(
 					'grupid' => $group,
@@ -50,12 +50,12 @@ class createchat extends action{
 			);
 		}
 		
-		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
+		$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
 		$stmt->execute(
 			array(
 				'msg' => 'You are now connected on KChat',
 				'grp_id' => $group,
-				'sender_id' => $data['user']['id'],
+				'sender_id' => $this->data['user']['id'],
 			)
 		);
 		

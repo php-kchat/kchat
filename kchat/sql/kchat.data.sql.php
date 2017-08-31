@@ -19,7 +19,8 @@ INSERT INTO `%dbprefix%department` VALUES
 
 INSERT INTO `%dbprefix%role` VALUES
 (1, 'admin', 'user with all privileges'),
-(2, 'user', 'user with few privileges');
+(2, 'user', 'user with few privileges'),
+(3, 'guest', 'user with No privileges');
 
 --
 -- Dumping data for table `%dbprefix%users`

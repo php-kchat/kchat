@@ -7,11 +7,11 @@
 */
 
 class guestlist extends action{
-	function action($data){
+	function action(){
 		$users = array();
-				
-		if(isset($data['param'])){
-			$hsdjhd = explode(',',base64_decode(urldecode($data['param'][0])));
+		
+		if(isset($this->data['param'])){
+			$hsdjhd = explode(',',base64_decode(urldecode($this->data['param'][0])));
 			$offset = $hsdjhd[0];
 			$limit  = $hsdjhd[1];
 		}else{
@@ -19,7 +19,7 @@ class guestlist extends action{
 			$limit = 10;
 		}
 		
-		$stmt = $data['pdo']->prepare("SELECT u.id,u.fname,u.lname,u.uname,g.ip,g.country_code,g.time_zone,g.latitude,g.longitude,u.ctime FROM {$this->dbprefix}users u join {$this->dbprefix}guest g WHERE u.role = 3 and u.id = g.id limit :limit offset :offset");
+		$stmt = $this->data['pdo']->prepare("SELECT u.id,u.fname,u.lname,u.uname,g.ip,g.country_code,g.time_zone,g.latitude,g.longitude,u.ctime FROM {$this->dbprefix}users u join {$this->dbprefix}guest g WHERE u.role = 3 and u.id = g.id limit :limit offset :offset");
 		$stmt->execute(array('limit' => $limit,'offset' => $offset));
 		while ($row = $stmt->fetch())
 		{
@@ -39,7 +39,7 @@ class guestlist extends action{
 		}
 		
 		
-		$stmt = $data['pdo']->query("SELECT count(uname) as userno FROM {$this->dbprefix}users WHERE `role` = 3 ");
+		$stmt = $this->data['pdo']->query("SELECT count(uname) as userno FROM {$this->dbprefix}users WHERE `role` = 3 ");
 		$row = $stmt->fetch();
 		$users['no'] = $row['userno'];
 		

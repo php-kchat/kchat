@@ -43,8 +43,7 @@ function fcreate($file,$data){
 	return file_put_contents($folders.$file,$data);
 }
 
-function isAjax()
-{
+function isAjax(){
     $header = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? $_SERVER['HTTP_X_REQUESTED_WITH'] : null;
     return ($header === 'XMLHttpRequest');
 }

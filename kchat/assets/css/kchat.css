@@ -144,3 +144,14 @@
 	border-radius: .25em;
 	margin-right: 10px;
 }
+
+.error{
+	width: 100%;
+	padding: 10px;
+	margin: 0px;
+	border-color: #f00;
+	border-width: 1px;
+	background-color: #ffd6d6;
+	color: #f00;
+	border-style: solid;
+}

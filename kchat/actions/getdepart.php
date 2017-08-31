@@ -8,10 +8,10 @@
 
 class getdepart extends action{
 	
-	function action($data){
+	function action(){
 		$dept = array();
 				
-		$stmt = $data['pdo']->prepare("SELECT * FROM `{$this->dbprefix}department`");
+		$stmt = $this->data['pdo']->prepare("SELECT * FROM `{$this->dbprefix}department`");
 		$stmt->execute(array());
 		while ($row = $stmt->fetch())
 		{

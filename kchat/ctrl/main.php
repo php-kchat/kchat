@@ -20,8 +20,9 @@ class main extends ctrl{
 				"assets/leaflet/leaflet.css",
 			),
 		);
-		$this->load->appendfile($assets);
+		$array['plotly'] = $this->model->process("plotly");
 		$this->load->set($array);
+		$this->load->appendfile($assets);
 		$this->load->view('header');
 		$this->load->view('menu');
 		$this->load->view('sitebar');

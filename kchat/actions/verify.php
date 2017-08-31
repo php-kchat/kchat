@@ -7,7 +7,7 @@
 */
 
 class verify extends action{
-	function action($data){
+	function action(){
 		
 		$username = $_POST['username'];
 		$fname = $_POST['fname'];
@@ -23,13 +23,13 @@ class verify extends action{
 			return false;
 		}
 		
-		$stmt = $data['pdo']->prepare("SELECT secret FROM {$this->dbprefix}pusers where uname = :username");
+		$stmt = $this->data['pdo']->prepare("SELECT secret FROM {$this->dbprefix}pusers where uname = :username");
 		$stmt->execute(array('username' => $username));
 		$row = $stmt->fetch();
 		$secret2 = $row['secret'];
 		if($secret == $secret2){
 			
-			$stmt = $data['pdo']->prepare("insert into {$this->dbprefix}users (`id`,`fname`,`lname`,`uname`,`password`,`role`,`dept`,`email`) values (:id, :fname, :lname, :uname, :password , 2 ,:dept,:email);");
+			$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}users (`id`,`fname`,`lname`,`uname`,`password`,`role`,`dept`,`email`) values (:id, :fname, :lname, :uname, :password , 2 ,:dept,:email);");
 			try {
 				$stmt->execute(array(
 					'id' => kchat_rand(),
@@ -40,8 +40,8 @@ class verify extends action{
 					'dept' => $dept,
 					'email' => $email,
 				));
-				$data['Admin'] = $data['config']['Admin'];
-				set_notification($data,"User $fname $lname Verified. User ID - $username");
+				$this->data['Admin'] = $this->data['config']['Admin'];
+				set_notification($this->data,"User $fname $lname Verified. User ID - $username");
 			} catch (PDOException $e) {
 				if ($e->getCode() == 1062) {
 					alertify::alert("User Exist All ready");
@@ -52,7 +52,7 @@ class verify extends action{
 			
 			$secret2 = $row['secret'];
 			
-			$stmt = $data['pdo']->prepare("delete from {$this->dbprefix}pusers where uname=:uname;");
+			$stmt = $this->data['pdo']->prepare("delete from {$this->dbprefix}pusers where uname=:uname;");
 			$stmt->execute(array('uname' => $username));	
 		}else{
 			alertify::alert("verify link is Invalid");

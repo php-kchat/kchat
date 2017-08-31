@@ -1,9 +1,4 @@
-<?php
-	$chrs = range('a','z');
-	$dbprefix = 'kc'.$chrs[rand(0,25)].$chrs[rand(0,25)].'_';
-	$host     = $_SERVER['HTTP_HOST'];
-?>
-<!DOCTYPE html>
+<!DOCTYPE html><?php //print_r($this->data); ?>
 <html>
 <head>
   <title>KChat Install</title>
@@ -19,6 +14,16 @@
 		#proc{
 			display:none;
 		}
+		.error {
+			width: 100%;
+			padding: 10px;
+			margin: 0px;
+			border-color: #f00;
+			border-width: 1px;
+			background-color: #ffd6d6;
+			color: #f00;
+			border-style: solid;
+		}
   </style>
 <script>
  var posturl = "<?php if(isset($this->data['param'][0])){ echo $this->data['param'][0];} ?>"; 
@@ -30,6 +35,7 @@
     <div class="container" style="margin-top:40px">
 		<div class="row">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
+				<?php if(!isset($this->data['error'])){ ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<strong>KChat : Database Settings</strong>
@@ -59,7 +65,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" autofocus="autofocus" placeholder="HOST" name="host"  id="host" type="text" value="<?php echo $host;?>" >
+												<input class="form-control" autofocus="autofocus" placeholder="HOST" name="host"  id="host" type="text" value="<?php echo $this->data['host']; ?>" >
 											</div>
 										</div>
 										<div class="form-group">
@@ -75,7 +81,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" autofocus="autofocus" placeholder="DBPREFIX" name="dbprefix"  id="dbprefix" type="text" value="<?php echo $dbprefix; ?>">
+												<input class="form-control" autofocus="autofocus" placeholder="DBPREFIX" name="dbprefix"  id="dbprefix" type="text" value="<?php echo $this->data['dbprefix']; ?>">
 											</div>
 										</div>
 										<div class="form-group">
@@ -99,6 +105,26 @@
 					<div class="panel-footer ">
 						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $this->data['config']['version']; ?>
 					</div>
+					<?php }else{ ?>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<strong>KChat : Requirement</strong>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-sm-12 col-md-10  col-md-offset-1 ">
+									<?php foreach($this->data['error'] as $error){ ?>
+										<div class="error" >
+											<?php echo $error; ?>
+										</div>
+									<?php } ?>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer ">
+							KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $this->data['config']['version']; ?>
+						</div>
+					<?php } ?>
                 </div>
 			</div>
 		</div>
