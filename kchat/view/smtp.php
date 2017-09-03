@@ -1,7 +1,7 @@
 <div class="col-md-10 content">
    <div class="panel panel-default">
       <div class="panel-heading">
-         <h3 class="panel-title"><strong>SMTP Configuration</strong></h3>
+         SMTP Configuration
       </div>
       <div class="panel-body">
             <div class="row">

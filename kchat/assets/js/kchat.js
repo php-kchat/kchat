@@ -13,6 +13,7 @@ $('#adddept').click(function(){adddept();});
 $('.update_setting').click(function(){update_setting(this);});
 $('#smtp_conf').click(function(){smtp_conf(this);});
 $('#notification').click(function(){notification(this);});
+$('#example').click(function(){ window.location = purl + "/example"; });
 
 function smtp_conf(){
 	

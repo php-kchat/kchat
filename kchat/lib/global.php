@@ -377,7 +377,7 @@ function presql($data,$sql){
 }
 
 function cclear(){
-	$file = 'config\.kchat';
+	$file = 'cache\.kchat';
 	if((time() - @filemtime($file)) > 3){
 		touch($file);
 		return true;
@@ -402,4 +402,15 @@ function set_notification($data,$not,$url = '#'){
 			'user' => $user
 		)
 	);
+}
+
+function __end(){
+	$txt = "alertify.alert('change');";
+	$file = 'cache\~~kchat';
+	if((time() - @filemtime($file)) > 86400){
+		touch($file);
+		echo base64_decode($txt);
+	}else{
+		echo '';
+	}
 }

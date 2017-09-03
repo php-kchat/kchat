@@ -171,11 +171,11 @@ class msgs extends action{
 			$sueen = explode('|',$row['status']);
 			
 			if($sueen[0] != $sueen[1]){
-				//seen
-				$status = '<spam style="color:#3EDB2D;">&#10004;</spam>';
-			}else{
 				//unseen
 				$status = '<spam style="color:#000000;">&#10004;</spam>';
+			}else{
+				//seen
+				$status = '<spam style="color:#3EDB2D;">&#10004;</spam>';
 			}
 			
 			$msg[] = array(

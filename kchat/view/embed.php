@@ -1,9 +1,11 @@
 <div class="col-md-10 content">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h4>Embed Code</h4>
+			Embed Code
 		</div>
 		<div class="panel-body">
+		
+                    <div class="pull-right"><button type="submit" id="example" class="btn btn-success">Example</button></div>
 				Add this To Head Tag of Your Page
 				<button class="btn" data-clipboard-target="#copy1">
 					<img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="copy" alt="Copy to clipboard">

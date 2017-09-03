@@ -23,7 +23,9 @@ class login extends ctrl{
 			$install['writable'] = array(
 				"config",
 				"logs",
+				"cache",
 				"logs/kchat.log.php",
+				"kchat/kchat/box/config",
 			);
 			$install['modules'] = array(
 				"mod_rewrite"

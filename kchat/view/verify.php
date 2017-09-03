@@ -93,7 +93,7 @@
 							</fieldset>
 						</div>
 					<div class="panel-footer ">
-						&copy; Ganesh Kandu
+						KChat&nbsp;&copy; 2017 ,KChat&nbsp;v<?php echo $this->data['config']['version']; ?>
 					</div>
                 </div>
 			</div>
