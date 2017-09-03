@@ -155,3 +155,37 @@
 	color: #f00;
 	border-style: solid;
 }
+
+/* EMBEDDED */
+.sc1 {
+	color: #0000FF;
+}
+.sc40 {
+}
+.sc41 {
+	background: #F2F4FF;
+}
+.sc46 {
+	background: #F2F4FF;
+}
+.sc49 {
+	color: #808080;
+	background: #F2F4FF;
+}
+.sc50 {
+	font-weight: bold;
+	background: #F2F4FF;
+}
+
+.sc1 {
+	color: #0000FF;
+}
+.sc3 {
+	color: #FF0000;
+}
+.sc6 {
+	font-weight: bold;
+	color: #8000FF;
+}
+.sc8 {
+}

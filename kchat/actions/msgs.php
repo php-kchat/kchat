@@ -254,13 +254,15 @@ class msgs extends action{
 			$count = $stmt->rowCount();
 			if($count == 0){
 				// process 2 new msg
-				$sql = "INSERT INTO `{$this->dbprefix}cache` (`fname`,`lname`,`time`,`uname`,`group`,`process`,`value`)
-				VALUES (:fname,:lname,UNIX_TIMESTAMP(),:uname,:group,2,1);";
+				$sql = "INSERT INTO `{$this->dbprefix}cache` (`fname`,`lname`,`time`,`uname`,`group`,`process`,`value`,`dept`,`support_id`)
+				VALUES (:fname,:lname,UNIX_TIMESTAMP(),:uname,:group,2,1,:dept,:support_id);";
 				$sql_array = array(
 					'fname' => $data['user']['fname'],
 					'lname' => $data['user']['lname'],
 					'uname' => $data['user']['uname'],
 					'group' => $grp,
+					'dept' => $data['user']['dept'],
+					'support_id' => $data['user']['id'],
 				);
 				$stmt = $data['pdo']->prepare($sql);
 				$stmt->execute($sql_array);
@@ -321,7 +323,11 @@ class msgs extends action{
 			if(!isset($lastseen)){
 				$lastseen = 0;
 			}
-			$_SESSION['offset'] = $row['mid'];
+			
+			if($_POST['first_run'] == 'true'){
+				$_SESSION['offset'] = $row['mid'];
+			}
+			
 			$lastseen = ($lastseen > $row['mid'])?$lastseen:$row['mid'];
 		}
 		
@@ -427,13 +433,15 @@ class msgs extends action{
 		}
 		$count = $stmt->rowCount();
 		if($count == 0){
-			$sql = "INSERT INTO `{$this->dbprefix}cache` (`fname`,`lname`,`time`,`uname`,`group`,`process`,`value`)
-			VALUES (:fname,:lname,UNIX_TIMESTAMP(),:uname,:group,1,1);";
+			$sql = "INSERT INTO `{$this->dbprefix}cache` (`fname`,`lname`,`time`,`uname`,`group`,`process`,`value`,`dept`,`support_id`)
+			VALUES (:fname,:lname,UNIX_TIMESTAMP(),:uname,:group,1,1,:dept,:support_id);";
 			$sql_array = array(
 				'fname' => $data['user']['fname'],
 				'lname' => $data['user']['lname'],
 				'uname' => $data['user']['uname'],
 				'group' => getGroup($data),
+				'dept' => $data['user']['dept'],
+				'support_id' => $data['user']['id'],
 			);
 			$stmt = $data['pdo']->prepare($sql);
 			$this->qfired++;

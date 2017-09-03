@@ -9,38 +9,36 @@
 					<img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" class="copy" alt="Copy to clipboard">
 				</button>
 				<div class="code" id="copy1"  >
-					<span class="sc1">&lt;script</span>
-					<span class="sc8"> </span>
-					<span class="sc3">src</span>
-					<span class="sc8">=</span>
-					<span class="sc6">"<?php echo $this->data['KChat_conf']['kchat_url']; ?>/assets/js/kchat.js"</span>
-					<span class="sc1">&gt;&lt;/script&gt;</span>
-				</div>
-				Add this To Head Tag of Your Page
-				<button class="btn" data-clipboard-target="#copy2">
-					<img class="copy" src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
-				</button>
-				<div class="code" id="copy2" >
-					<span class="sc1">&lt;link</span>
-					<span class="sc8">  </span>
-					<span class="sc3">rel</span>
-					<span class="sc8">=</span>
-					<span class="sc6">"stylesheet"</span>
-					<span class="sc8"> </span>
-					<span class="sc3">href</span>
-					<span class="sc8">=</span>
-					<span class="sc6">"<?php echo $this->data['KChat_conf']['kchat_url']; ?>/assets/css/kchat.css"</span>
-					<span class="sc11">/&gt;</span>
+<?php 
+
+$js_box = 'Javascript URL ie. kchat.js';
+
+$assets_url = 'base url where kchat.js is located';
+
+if(isset($this->data['KChat_conf']['kchat_url'])){
+	$js_box = $this->data['KChat_conf']['kchat_url'].'/assets/js/kchat.js';
+	$assets_url = $this->data['KChat_conf']['kchat_url'].'/';
+}
+
+
+?>
+<pre>
+<span class="sc1">&lt;script</span><span class="sc8"> </span><span class="sc3">src</span><span class="sc8">=</span><span class="sc6">"<?php echo $js_box; ?>"</span><span class="sc1">&gt;&lt;/script&gt;</span>
+</pre>
 				</div>
 				Add This to Any Where in Body Tag
 				<button class="btn" data-clipboard-target="#copy3">
 					<img class="copy" src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
 				</button>
 				<div class="code" id="copy3" >
-					<span class="sc1">&lt;script&gt;</span><br/>
-					<span class="sc46">&nbsp;&nbsp;&nbsp;&nbsp;kchat.init</span>
-					<span class="sc50">();</span><br/>
-					<span class="sc1">&lt;/script&gt;</span>
+<pre>
+<span class="sc1">&lt;script&gt;</span><span class="sc40">
+</span><span class="sc41">  </span><span class="sc46">data</span><span class="sc41"> </span><span class="sc50">=</span><span class="sc41"> </span><span class="sc50">{</span><span class="sc41">
+    </span><span class="sc49">'url'</span><span class="sc50">:</span><span class="sc41"> </span><span class="sc49">'<?php echo $assets_url; ?>'</span><span class="sc50">,</span><span class="sc41">
+    </span><span class="sc49">'key'</span><span class="sc50">:</span><span class="sc41"> </span><span class="sc49">'<?php echo $this->data['config']['key']; ?>'</span><span class="sc41">
+  </span><span class="sc50">};</span><span class="sc41">
+  </span><span class="sc46">kchat.init</span><span class="sc50">(</span><span class="sc46">data</span><span class="sc50">);</span><span class="sc41">
+</span><span class="sc1">&lt;/script&gt;</span></pre>
 				</div>
 		</div>
 	</div>

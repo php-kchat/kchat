@@ -18,7 +18,9 @@ CREATE TABLE `%dbprefix%cache` (
   `uname` varchar(32) DEFAULT NULL,
   `group` varchar(32) DEFAULT NULL,
   `process` int(3) DEFAULT NULL,
-  `value` int(32) DEFAULT NULL
+  `value` int(32) DEFAULT NULL,
+  `dept` int(11) DEFAULT NULL,
+  `support_id` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -113,6 +115,18 @@ CREATE TABLE `%dbprefix%notification` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `%dbprefix%plotly`
+--
+
+CREATE TABLE `%dbprefix%plotly` (
+  `id` int(11) NOT NULL,
+  `y` int(11) NOT NULL DEFAULT '0',
+  `x` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `%dbprefix%pusers`
 --
 
@@ -121,8 +135,8 @@ CREATE TABLE `%dbprefix%pusers` (
   `lname` varchar(20) NOT NULL,
   `uname` varchar(20) NOT NULL,
   `secret` varchar(128) NOT NULL,
-  `depart` int(3) NOT NULL,
-  `email` varchar(40) NOT NULL
+  `depart` int(3) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -175,8 +189,9 @@ CREATE TABLE `%dbprefix%users` (
 --
 -- Structure for view `%dbprefix%temp`
 --
+DROP TABLE IF EXISTS `%dbprefix%temp`;
 
-CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix%cache`.`fname` AS `fname`,`%dbprefix%cache`.`lname` AS `lname`,`%dbprefix%cache`.`time` AS `time`,`%dbprefix%cache`.`uname` AS `uname`,`%dbprefix%cache`.`group` AS `group`,`%dbprefix%cache`.`process` AS `process`,`%dbprefix%cache`.`value` AS `value` from `%dbprefix%cache` where (`%dbprefix%cache`.`time` > (unix_timestamp() - 5));
+CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix%cache`.`fname` AS `fname`,`%dbprefix%cache`.`lname` AS `lname`,`%dbprefix%cache`.`time` AS `time`,`%dbprefix%cache`.`uname` AS `uname`,`%dbprefix%cache`.`group` AS `group`,`%dbprefix%cache`.`process` AS `process`,`%dbprefix%cache`.`value` AS `value`,`%dbprefix%cache`.`dept` AS `dept`,`%dbprefix%cache`.`support_id` AS `support_id` from `%dbprefix%cache` where (`%dbprefix%cache`.`time` > (unix_timestamp() - 5));
 
 --
 -- Indexes for dumped tables
@@ -186,7 +201,7 @@ CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix
 -- Indexes for table `%dbprefix%cache`
 --
 ALTER TABLE `%dbprefix%cache`
-  ADD PRIMARY KEY (`id`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`);
+  ADD PRIMARY KEY (`id`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`), ADD KEY `dept` (`dept`), ADD KEY `support_id` (`support_id`), ADD KEY `support_id_2` (`support_id`), ADD KEY `dept_2` (`dept`);
 
 --
 -- Indexes for table `%dbprefix%department`
@@ -223,6 +238,12 @@ ALTER TABLE `%dbprefix%msgs`
 --
 ALTER TABLE `%dbprefix%notification`
   ADD PRIMARY KEY (`id`), ADD KEY `user` (`user`);
+
+--
+-- Indexes for table `%dbprefix%plotly`
+--
+ALTER TABLE `%dbprefix%plotly`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `%dbprefix%pusers`
@@ -278,6 +299,11 @@ ALTER TABLE `%dbprefix%msgs`
 ALTER TABLE `%dbprefix%notification`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
+-- AUTO_INCREMENT for table `%dbprefix%plotly`
+--
+ALTER TABLE `%dbprefix%plotly`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `%dbprefix%role`
 --
 ALTER TABLE `%dbprefix%role`
@@ -296,7 +322,9 @@ ALTER TABLE `%dbprefix%setting`
 --
 ALTER TABLE `%dbprefix%cache`
 ADD CONSTRAINT `cache_ibfk_1` FOREIGN KEY (`group`) REFERENCES `%dbprefix%groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `cache_ibfk_2` FOREIGN KEY (`uname`) REFERENCES `%dbprefix%users` (`uname`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `cache_ibfk_2` FOREIGN KEY (`uname`) REFERENCES `%dbprefix%users` (`uname`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `%dbprefix%cache_ibfk_1` FOREIGN KEY (`support_id`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `%dbprefix%cache_ibfk_2` FOREIGN KEY (`dept`) REFERENCES `%dbprefix%department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `%dbprefix%group_users`
