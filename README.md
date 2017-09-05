@@ -48,6 +48,10 @@ Give a Writable Permission on
 Visit the subfolder https://mydomain.com/index.php in your web-browser.
 The installation script will start automatically and guide you through the installation process.
 
+#### Login with
+* Admin - admin
+* Password - pass
+
 #### Maintainers
 
 - [Ganesh Kandu](https://github.com/GaneshKandu)
