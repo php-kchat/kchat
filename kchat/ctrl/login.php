@@ -17,8 +17,8 @@ class login extends ctrl{
 			$array['host']     = $_SERVER['HTTP_HOST'];
 			$install = array();
 			$install['extensions'] = array(
-				"gd",
-				"zip"
+				"json",
+				"pdo"
 			);
 			$install['writable'] = array(
 				'config',

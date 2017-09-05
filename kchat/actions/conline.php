@@ -22,7 +22,7 @@ class conline extends action{
 		$ip4db = $this->data['config']['path'].'/kchat/data/GeoLiteCity.dat';
 		$ip6db = $this->data['config']['path'].'/kchat/data/GeoLiteCityv6.dat';
 		
-		$stmt = $this->data['pdo']->prepare("SELECT `id`,(SELECT concat(`fname`,' ',`lname`) from {$this->dbprefix}users WHERE id = {$this->dbprefix}guest.id) as guest ,`ip`,`country_code`,`time_zone`,`latitude`,`longitude` from {$this->dbprefix}guest;");
+		$stmt = $this->data['pdo']->prepare("SELECT `id`,(SELECT concat(`fname`,' ',`lname`) from {$this->dbprefix}users WHERE id = {$this->dbprefix}guest.id) as guest ,`ip`,`country_code`,`time_zone`,`latitude`,`longitude` from {$this->dbprefix}guest where `id` IN (SELECT `support_id` FROM `{$this->dbprefix}temp`);");
 		$stmt->execute();
 		while ($row = $stmt->fetch())
 		{
