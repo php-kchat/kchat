@@ -31,6 +31,7 @@ $data['reqps'] = explode('.',$data['_start']);
 $data['reqps'] = $data['reqps'][0];
 
 require_once "kchat/lib/global.php";
+require_once "kchat/lib/action.php";
 require_once "kchat/lib/TempCache.php";
 require_once "kchat/lib/alertify.php";
 require_once "kchat/lib/permission.php";

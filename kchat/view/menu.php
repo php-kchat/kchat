@@ -29,7 +29,7 @@
                 </li>
 			    <li class="dropdown">
 					<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" id="notification" >
-					<span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Notification<span class="caret"></span>
+					<span class="glyphicon glyphicon-bell"></span>&nbsp;&nbsp;Notification<span class="caret"></span>
 					</a>
                     <ul class="dropdown-menu" id="set_notification">
                         <li><a href="javascript:void(0);" class="text-center"><img src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/loading.gif" /></a></li>

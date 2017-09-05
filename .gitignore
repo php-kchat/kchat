@@ -56,3 +56,4 @@ cache/*
 docs
 README.txt
 kchat.zip
+box/logs/error.log

@@ -50,7 +50,7 @@ function config(){
 		"secret" => _rand(64),
 		"session" => "KChat_"._rand(8),
 		"salt" => _rand(32),
-		"key" => _rand(8),
+		"key" => _rand(12),
 		"Admin" => "KkEtq2SNzvl02OR", //_rand(8),
 		"version" => "1.0.0",
 	);

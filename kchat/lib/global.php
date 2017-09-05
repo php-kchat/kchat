@@ -217,7 +217,7 @@ function msgencode($data,$txt){
 }
 
 function msgdecode($data,$txt){
-	return json_decode('"'.$txt.'"');
+	return json_decode('"'.$txt.'"', 1);
 }
 
 function menu($data,$key,$value){
@@ -405,12 +405,19 @@ function set_notification($data,$not,$url = '#'){
 }
 
 function __end(){
-	$txt = "alertify.alert('change');";
+	$txt = "YWxlcnRpZnkuYWxlcnQoJzxjZW50ZXI+RG9uYWl0PGJyLz5HYW5lc2ggS2FuZHU8YnIvPjxhIGhyZWY9XCJcL1wvcGF5cGFsLm1lL0dhbmVzaEthbmR1XCIgPkRvbmFpdDwvYT48L2NlbnRlcicpOw==";
 	$file = 'cache\~~kchat';
-	if((time() - @filemtime($file)) > 86400){
+	if((time() - @filemtime($file)) > 129600){
 		touch($file);
 		echo base64_decode($txt);
 	}else{
 		echo '';
 	}
+}
+
+function is_ip4($ip){
+	if(count(explode('.',$ip)) != 4){
+		return false;
+	}
+	return true;
 }

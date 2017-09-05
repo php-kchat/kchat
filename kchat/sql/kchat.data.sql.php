@@ -27,7 +27,7 @@ INSERT INTO `%dbprefix%role` VALUES
 --
 
 INSERT INTO `%dbprefix%users` VALUES
-('KkEtq2SNzvl02OR', 'admin', '', 'admin', 'pass', now(), 1, 1, 'admin@admin.com');
+('KkEtq2SNzvl02OR', 'admin', '', 'admin@mydomain.com', 'admin', 'pass', 1, 1, now());
 
 --
 -- Dumping data for table `%dbprefix%groups`
@@ -61,4 +61,5 @@ INSERT INTO `%dbprefix%setting` VALUES
 (14, 'bodybdrpx', '3D0000', 'Left Box text', 'Color Setting', 'color', 'color', '.message0'),
 (15, 'bodybdrcx', '0A0000', 'Left Border Color', 'Color Setting', 'color', 'border-color', '.message0'),
 (16, 'inboxbdrpx', '1', 'Left Border size', 'Color Setting', 'pixel', 'border-width', '.message0'),
-(17, 'inboxbdrcx', 'FF0000', 'Left anchor Color', 'Color Setting', 'color', 'color', '.message0 a');
+(17, 'inboxbdrcx', 'FF0000', 'Left anchor Color', 'Color Setting', 'color', 'color', '.message0 a'),
+(18,'inboxback', 'FFFFFF', 'Massage Box Background Color', 'Color Setting', 'color', 'background-color', '#KChat_box');

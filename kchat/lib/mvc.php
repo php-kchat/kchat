@@ -77,7 +77,6 @@ class model{
 			}
 			$path = $this->data['config']['path']."/kchat/actions/".$action[0].".php";
 			if(file_exists($path)){
-				include $this->data['config']['path']."/kchat/lib/action.php";;
 				include $path;
 				$actn = new $action[0]($this->data);
 				if(method_exists($actn,$action[1])){

@@ -14,7 +14,7 @@ class example extends ctrl{
 		);
 		$assets = array(
 			"jsh" => array(
-				$this->data['config']['url']."/kchat/box/assets/js/kchat.js"
+				$this->data['config']['url']."/box/assets/js/kchat.js"
 			)
 		);
 		$this->load->appendfile($assets);
@@ -23,7 +23,6 @@ class example extends ctrl{
 		$this->load->view('menu');
 		$this->load->view('sitebar');
 		$this->load->view('example');
-		$this->load->view('footer');
 	}
 	
 }

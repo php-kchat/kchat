@@ -41,7 +41,7 @@ class verify extends action{
 					'email' => $email,
 				));
 				$this->data['Admin'] = $this->data['config']['Admin'];
-				set_notification($this->data,"User $fname $lname Verified. User ID - $username");
+				set_notification($this->data,"User $fname $lname Verified.<br/>User ID - $username");
 			} catch (PDOException $e) {
 				if ($e->getCode() == 1062) {
 					alertify::alert("User Exist All ready");

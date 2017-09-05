@@ -10,11 +10,12 @@ class plotly extends action{
 	function action(){
 		
 		$graph_json = array();
+		$json = array();
 		$return = array();
 		
 		$json = 'cache/Plotly.json';
-		if((time() - @filemtime($json)) > 3600){
-			$stmt = $this->data['pdo']->prepare("SELECT `x`, `y` from {$this->dbprefix}plotly;");
+		if((time() - @filemtime($json)) > 5){
+			$stmt = $this->data['pdo']->prepare("SELECT `x`, `y` from {$this->dbprefix}plotly");
 			$stmt->execute();
 			while ($row = $stmt->fetch())
 			{

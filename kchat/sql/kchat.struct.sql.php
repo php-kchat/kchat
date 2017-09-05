@@ -122,7 +122,7 @@ CREATE TABLE `%dbprefix%plotly` (
   `id` int(11) NOT NULL,
   `y` int(11) NOT NULL DEFAULT '0',
   `x` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -134,9 +134,9 @@ CREATE TABLE `%dbprefix%pusers` (
   `fname` varchar(20) NOT NULL,
   `lname` varchar(20) NOT NULL,
   `uname` varchar(20) NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `secret` varchar(128) NOT NULL,
-  `depart` int(3) DEFAULT NULL,
-  `email` varchar(40) DEFAULT NULL
+  `depart` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -168,6 +168,8 @@ CREATE TABLE `%dbprefix%setting` (
   `selecter` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `%dbprefix%users`
 --
@@ -176,12 +178,12 @@ CREATE TABLE `%dbprefix%users` (
   `id` varchar(32) NOT NULL DEFAULT '',
   `fname` varchar(20) NOT NULL,
   `lname` varchar(20) DEFAULT NULL,
+  `email` varchar(40) NOT NULL,
   `uname` varchar(20) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role` int(3) DEFAULT NULL,
   `dept` int(3) DEFAULT NULL,
-  `email` varchar(40) NOT NULL
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -201,7 +203,7 @@ CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix
 -- Indexes for table `%dbprefix%cache`
 --
 ALTER TABLE `%dbprefix%cache`
-  ADD PRIMARY KEY (`id`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`), ADD KEY `dept` (`dept`), ADD KEY `support_id` (`support_id`), ADD KEY `support_id_2` (`support_id`), ADD KEY `dept_2` (`dept`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `uname` (`uname`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`), ADD KEY `dept` (`dept`), ADD KEY `support_id` (`support_id`), ADD KEY `support_id_2` (`support_id`), ADD KEY `dept_2` (`dept`);
 
 --
 -- Indexes for table `%dbprefix%department`
@@ -243,7 +245,7 @@ ALTER TABLE `%dbprefix%notification`
 -- Indexes for table `%dbprefix%plotly`
 --
 ALTER TABLE `%dbprefix%plotly`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `x` (`x`);
 
 --
 -- Indexes for table `%dbprefix%pusers`
@@ -302,7 +304,7 @@ ALTER TABLE `%dbprefix%notification`
 -- AUTO_INCREMENT for table `%dbprefix%plotly`
 --
 ALTER TABLE `%dbprefix%plotly`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `%dbprefix%role`
 --

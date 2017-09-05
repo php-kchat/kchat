@@ -39,7 +39,7 @@ if(isset($this->data['KChat_conf']['kchat_url'])){
     </span><span class="sc49">'url'</span><span class="sc50">:</span><span class="sc41"> </span><span class="sc49">'<?php echo $assets_url; ?>'</span><span class="sc50">,</span><span class="sc41">
     </span><span class="sc49">'key'</span><span class="sc50">:</span><span class="sc41"> </span><span class="sc49">'<?php echo $this->data['config']['key']; ?>'</span><span class="sc41">
   </span><span class="sc50">};</span><span class="sc41">
-  </span><span class="sc46">kchat.init</span><span class="sc50">(</span><span class="sc46">data</span><span class="sc50">);</span><span class="sc41">
+  </span><span class="sc46">kbox.init</span><span class="sc50">(</span><span class="sc46">data</span><span class="sc50">);</span><span class="sc41">
 </span><span class="sc1">&lt;/script&gt;</span></pre>
 				</div>
 		</div>

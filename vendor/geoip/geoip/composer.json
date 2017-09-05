@@ -1,0 +1,29 @@
+{
+    "name": "geoip/geoip",
+    "description": "MaxMind GeoIP PHP API",
+    "keywords": ["geoip", "geolocation", "maxmind"],
+    "homepage": "http://dev.maxmind.com/geoip/legacy/downloadable",
+    "type": "library",
+    "license": "LGPL 2.1+",
+    "authors": [
+        {
+            "name": "MaxMind, Inc.",
+            "email": "support@maxmind.com",
+            "homepage": "http://www.maxmind.com/"
+        }
+    ],
+    "autoload": {
+        "files": [
+        "src/geoip.inc",
+        "src/geoipcity.inc",
+        "src/timezone.php"
+        ]
+    },
+    "conflict": {
+        "ext-geoip": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "satooshi/php-coveralls": "1.0.*"
+    }
+}

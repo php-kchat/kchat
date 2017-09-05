@@ -29,7 +29,7 @@ class createuser extends action{
 			return false;
 		}
 		
-		$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}pusers values(:fname,:lname,:uname,:secret,:dept,:user_email)");
+		$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}pusers (`fname`, `lname`, `uname`, `secret`, `depart`, `email`) values(:fname,:lname,:uname,:secret,:dept,:user_email)");
 		$stmt->execute($arr['verify']);
 		$link = $this->data['config']['purl'].'/login/verify/'.base64_encode($arr['verify']['secret'].serialize($arr));
 		//SENDING MAIL TO NEW USER EMAIL

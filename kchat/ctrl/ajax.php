@@ -33,7 +33,7 @@ class ajax extends ctrl{
 				"host" => $_POST['smtp_host'],
 				"port" => (int)$_POST['smtp_port'],
 				"secure" => (int)$_POST['smtp_secure'],
-				"auth" => json_decode($_POST['smtp_auth']),
+				"auth" => json_decode($_POST['smtp_auth'], 1),
 				"email" => $_POST['smtp_email'],
 				"pass" => $_POST['smtp_pass'],
 			);

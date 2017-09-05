@@ -21,14 +21,14 @@ class login extends ctrl{
 				"zip"
 			);
 			$install['writable'] = array(
-				"config",
-				"logs",
-				"cache",
-				"logs/kchat.log.php",
-				"kchat/kchat/box/config",
+				'config',
+				'logs',
+				'cache',
+				'logs/kchat.log.php',
+				'box/config',
 			);
 			$install['modules'] = array(
-				"mod_rewrite"
+				//"mod_rewrite"
 			);
 			foreach($install['extensions'] as $extension){
 				if(!extension_loaded($extension)){

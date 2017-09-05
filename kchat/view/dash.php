@@ -2,7 +2,7 @@
 	<div class="col-md-12 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Dashboard
+				No of Guest
 			</div>
 			<div class="panel-body" >
 			<div id='chart' style="width:100%;height:300px"></div>
@@ -13,22 +13,20 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6 content">
+	<div class="col-md-12 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Dashboard
+				Online
 			</div>
 			<div class="panel-body" >
-			<div id='map' style="width:100%;height:300px"></div>
+			<div id='map' style="width:100%;height:400px"></div>
 			<script>
 				var cities = new L.LayerGroup();
-
-				L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
-				L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
-				L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
-				L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
-
-
+<?php 
+	foreach($this->data['conline'] as $value){
+		?>L.marker([<?php echo $value['latitude']; ?>,<?php echo $value['longitude']; ?>]).bindPopup(<?php echo json_encode($value['guest']); ?>).addTo(cities);<?php
+	}
+?>
 				var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 						'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 						'Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -57,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6 content">
+	<!--div class="col-md-6 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Dashboard
@@ -190,5 +188,5 @@
 			</script>
 			</div>
 		</div>
-	</div>
+	</div-->
 </div>
