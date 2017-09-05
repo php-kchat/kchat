@@ -15,6 +15,9 @@ class getdepart extends action{
 		$stmt->execute(array());
 		while ($row = $stmt->fetch())
 		{
+			if(strtolower($row['dept']) == 'admin'){
+				continue;
+			}
 			$dept[] = array(
 				'id' => $row['id'],
 				'dept' => $row['dept'],

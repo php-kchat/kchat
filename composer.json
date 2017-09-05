@@ -1,5 +1,5 @@
 {
-    "name": "ganeshkandu/kchat",
+    "name": "php-kchat/kchat",
     "type": "application",
     "description": "PHP Based Chating Aplication",
     "keywords": ["php","mysql","maria","chating","support","helpdesk"],
@@ -12,8 +12,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ganeshkandu/kchat/issues",
-        "source": "https://github.com/ganeshkandu/kchat"
+        "issues": "https://github.com/php-kchat/kchat/issues",
+        "source": "https://github.com/php-kchat/kchat"
     },
     "require": {
         "php": ">=5.3.0",

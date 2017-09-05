@@ -57,3 +57,6 @@ docs
 README.txt
 kchat.zip
 box/logs/error.log
+box/config/*
+!box/config/.gitkeep
+!box/config/.htaccess

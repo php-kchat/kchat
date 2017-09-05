@@ -18,7 +18,7 @@
 #### Using with Composer
 
 ```
-composer require ganeshkandu/kchat
+composer require php-kchat/kchat
 ```
 
 #### Or
@@ -26,20 +26,23 @@ composer require ganeshkandu/kchat
 #### Using with git
 
 ```
-git clone https://github.com/ganeshkandu/kchat.git
+git clone git@github.com:php-kchat/kchat.git
 ```
 
 #### Or
 
-[Download Zip](https://github.com/ganeshkandu/kchat/archive/master.zip)
+[Download Zip](https://github.com/php-kchat/kchat/archive/master.zip)
 and Extract to your Web Direcotory
 
 #### And
 
 Give a Writable Permission on
 
-- config
-- logs/*
+* config
+* logs
+* cache
+* logs/kchat.log.php
+* box/config
 
 
 Visit the subfolder https://mydomain.com/index.php in your web-browser.
