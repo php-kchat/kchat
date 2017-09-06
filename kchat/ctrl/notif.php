@@ -18,7 +18,7 @@ class notif extends ctrl{
 		$this->load->view('header');
 		$this->load->view('menu');
 		$this->load->view('sitebar');
-		$this->load->view('Notification');
+		$this->load->view('notification');
 		$this->load->view('footer');
 	}
 	

@@ -18,7 +18,7 @@
 #### Using with Composer
 
 ```
-composer require php-kchat/kchat
+composer create-project php-kchat/kchat
 ```
 
 #### Or

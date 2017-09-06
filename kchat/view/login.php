@@ -10,6 +10,7 @@
   <title>KChat Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="<?php echo $this->data['config']['url']."/"; ?>favicon.ico" type="image/x-icon" />
   <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/jquery.min.js"></script>
   <script src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/css/bootstrap.min.css" />

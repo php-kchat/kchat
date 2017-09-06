@@ -378,6 +378,9 @@ function presql($data,$sql){
 
 function cclear(){
 	$file = 'cache\.kchat';
+	if(!file_exists($file)){
+		file_put_contents($file,'');
+	}
 	if((time() - @filemtime($file)) > 3){
 		touch($file);
 		return true;
@@ -407,6 +410,9 @@ function set_notification($data,$not,$url = '#'){
 function __end(){
 	$txt = "YWxlcnRpZnkuYWxlcnQoJzxjZW50ZXI+RG9uYXRlPGJyLz5HYW5lc2ggS2FuZHU8YnIvPjxhIGhyZWY9XCJodHRwczovL3d3dy5wYXlwYWwubWUvR2FuZXNoS2FuZHVcIiBUQVJHRVQ9XCJfQkxBTktcIiA+RG9uYXRlPC9hPjwvY2VudGVyPicpOw==";
 	$file = 'cache\~~kchat';
+	if(!file_exists($file)){
+		file_put_contents($file,'');
+	}
 	if((time() - @filemtime($file)) > 129600){
 		touch($file);
 		echo base64_decode($txt);

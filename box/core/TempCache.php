@@ -14,9 +14,9 @@ class TempCache{
 		$temp[] = sys_get_temp_dir();
 		$temp[] = ini_get('upload_tmp_dir');
 		foreach($temp as $key => $value){
-			$temp[$key] = trim(trim($value,'\\'),'/');
+			$temp[$key] = rtrim(rtrim($value,'\\'),'/');
 		}
-		return $temp;
+		return array_filter($temp);
 	}
 
 	function getTemp($temp){
