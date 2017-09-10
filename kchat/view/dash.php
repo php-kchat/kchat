@@ -2,7 +2,7 @@
 	<div class="col-md-12 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				No of Guest
+				No of Guest started chat in per hours
 			</div>
 			<div class="panel-body" >
 			<div id='chart' style="width:100%;height:300px"></div>
@@ -37,7 +37,7 @@
 
 				var map = L.map('map', {
 					center: [39.73, -104.99],
-					zoom: 1,
+					zoom: 2,
 					layers: [grayscale, cities]
 				});
 

@@ -17,7 +17,6 @@
                       <tbody>
                         <tr>
                           <!--td>Check</td-->
-                          <td><b>Id</b></td>
                           <td><b>Fisrt Name</b></td>
                           <td><b>Last name</b></td>
                           <td><b>ip</b></td>
@@ -32,7 +31,7 @@
 							<?php if(is_array($user)){ ?>
 							<tr>
 							  <!--td><input id="user<?php echo $user['id']; ?>" type="checkbox"></td-->
-							  <td><b><?php echo $user['id']; ?></b></td>
+							  <!--td><b><?php echo $user['id']; ?></b></td-->
 							  <td><b><?php echo $user['fname']; ?></b></td>
 							  <td><b><?php echo $user['lname']; ?></b></td>
 							  <td><b><?php echo $user['ip']; ?></b></td>

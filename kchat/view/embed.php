@@ -28,7 +28,7 @@ if(isset($this->data['KChat_conf']['kchat_url'])){
 <span class="sc1">&lt;script</span><span class="sc8"> </span><span class="sc3">src</span><span class="sc8">=</span><span class="sc6">"<?php echo $js_box; ?>"</span><span class="sc1">&gt;&lt;/script&gt;</span>
 </pre>
 				</div>
-				Add This to Any Where in Body Tag
+				Add This befor the end of Body Tag
 				<button class="btn" data-clipboard-target="#copy3">
 					<img class="copy" src="<?php echo $this->data['config']['url']."/"; ?>kchat/assets/images/clippy.svg" alt="Copy to clipboard">
 				</button>

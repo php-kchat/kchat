@@ -53,6 +53,7 @@ function config(){
 		"key" => _rand(12),
 		"Admin" => "KkEtq2SNzvl02OR", //_rand(8),
 		"version" => "1.0.0",
+		"timezone" => date_default_timezone_get(),
 	);
 }
 

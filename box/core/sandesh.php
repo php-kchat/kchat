@@ -24,6 +24,7 @@ class KChat{
 			$stmt = $this->global['pdo']->prepare("SELECT `id`,`group_id`,`guest_id` FROM `{$data['db_prefix']}guest` where guest_id = :guest_id;");
 			$stmt->execute(array('guest_id' => $guest));
 			$row = $stmt->fetch();
+
 			if(!empty($row['id'])){
 				$this->global['id'] = $row['id'];
 				$this->global['group_id'] = $row['group_id'];
@@ -131,7 +132,7 @@ class KChat{
 			);
 			// INSERT MSGS END
 			// INSERT PLOTLY
-			$x = gmdate('Y-m-d H:00:00');
+			$x = date('Y-m-d H:00:00');
 			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}plotly` (`y`,`x`) VALUES (1,:x) ON DUPLICATE KEY UPDATE y = y + 1");
 			$stmt->execute(array('x' => $x));
 			// INSERT PLOTLY END
@@ -189,7 +190,7 @@ class KChat{
 				'uname' => $this->global['id']
 			);
 			$stmt = $this->global['pdo']->prepare($sql);
-			$this->qfired++;
+			
 			$stmt->execute($sql_array);	
 			$count = $stmt->rowCount();
 			if($count == 0){
@@ -339,17 +340,19 @@ class KChat{
 		$row = $stmt->fetch();
 		if(!empty($row['fname'])){
 			$global_name = $row['fname'].' '.$row['lname'];
+		}else{
+			$global_name = 'KChat';
 		}
-		_p('global = new Object();');
-		_p('global.guest = '.$global_guest.';');
-		_p('global.name = \''.$global_name.'\';');
-		_p('global.heading = \'KChat Heading\';');
-		_p('global.dept = ');
+		_p("global = new Object();\n");
+		_p("global.guest = ".$global_guest.";\n");
+		_p("global.name = \"".$global_name."\";\n");
+		_p("global.heading = \"KChat Heading\";\n");
+		_p("global.dept = ");
 		$dept = array();
 		$stmt = $this->global['pdo']->prepare("SELECT `id`,`dept` FROM `{$data['db_prefix']}department`");
 		$stmt->execute(array());
 		$row = $stmt->fetchAll();
-		_p(json_encode($row).';');	
+		_p(json_encode($row).";\n");	
 	}
 	
 	function css($data){

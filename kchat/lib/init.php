@@ -9,12 +9,10 @@
 session_name('KChat_SESSION');
 session_start();
 
-date_default_timezone_set("Asia/Kolkata");
-
 ini_set('log_errors', true);
 ini_set('error_log', __DIR__ .'/../../logs/kchat.log.php');
-ini_set('html_errors', true);
-ini_set('display_errors', true);
+ini_set('html_errors', false);
+ini_set('display_errors', false);
 
 $e_all = defined('E_DEPRECATED') ? E_ALL & ~E_DEPRECATED : E_ALL;
 error_reporting($e_all);

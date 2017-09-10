@@ -413,7 +413,7 @@ function __end(){
 	if(!file_exists($file)){
 		file_put_contents($file,'');
 	}
-	if((time() - @filemtime($file)) > 129600){
+	if((time() - @filemtime($file)) > 1296000){
 		touch($file);
 		echo base64_decode($txt);
 	}else{

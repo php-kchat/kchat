@@ -42,6 +42,9 @@ while(isset($path[$p])){
 
 $data['config'] = include "config/config.php";
 
+//timezone 
+date_default_timezone_set($data['config']['timezone']);
+
 $data['KChat_conf']['installed'] = false;
 
 $data['KChat_conf'] = _config($data['config']['key']);

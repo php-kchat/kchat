@@ -60,7 +60,6 @@ class conline extends action{
 		if(isset($update)){
 			foreach($update as $value){
 				$stmt = $this->data['pdo']->prepare("UPDATE `{$this->dbprefix}guest` SET `country_code` = :country_code, `time_zone` = :time_zone, `latitude` = :latitude, `longitude` = :longitude where id = :id");
-				$this->qfired++;
 				$stmt->execute($value);
 			}
 		}

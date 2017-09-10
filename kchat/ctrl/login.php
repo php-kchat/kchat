@@ -16,6 +16,7 @@ class login extends ctrl{
 			$array['dbprefix'] = 'kc'.$chrs[rand(0,25)].$chrs[rand(0,25)].'_';
 			$array['host']     = $_SERVER['HTTP_HOST'];
 			$install = array();
+			$timezone = @date_default_timezone_get();
 			$install['extensions'] = array(
 				"json",
 				"pdo"
@@ -26,10 +27,14 @@ class login extends ctrl{
 				'cache',
 				'logs/kchat.log.php',
 				'box/config',
+				'box/logs/error.log',
 			);
 			$install['modules'] = array(
 				//"mod_rewrite"
 			);
+			if(empty($timezone)){
+				$array['error'][] = "Please set timezone in php.ini";
+			}
 			foreach($install['extensions'] as $extension){
 				if(!extension_loaded($extension)){
 					$array['error'][] = $extension." Extension is Not Loaded";

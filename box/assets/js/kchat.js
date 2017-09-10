@@ -81,18 +81,18 @@ kbox.LoadAssets = (function(){
 	var jq = document.createElement('link'); 
 	jq.type = 'text/css';
 	jq.rel = "stylesheet";
-	jq.href = this.url + 'assets/css/kchat.css';
+	jq.href = kbox.url + 'assets/css/kchat.css';
 	document.getElementsByTagName('head')[0].appendChild(jq);
 	
 	var jq = document.createElement('script'); 
 	jq.type = 'text/javascript';
-	jq.src = this.url + 'kchat.php?js/' + this.key;
+	jq.src = kbox.url + 'kchat.php?js/' + kbox.key;
 	document.getElementsByTagName('head')[0].appendChild(jq);
 	
 	var jq = document.createElement('link'); 
 	jq.type = 'text/css';
 	jq.rel = "stylesheet";
-	jq.href = this.url + 'kchat.php?css/' + this.key;
+	jq.href = kbox.url + 'kchat.php?css/' + kbox.key;
 	document.getElementsByTagName('head')[0].appendChild(jq);
 });
 
@@ -127,6 +127,7 @@ kbox.loadBox = (function(){
 	html += "<div id=\"KChat_scroll_panel\" >";
 	html += "<div id=\"KChat_scroll\" >";
 	html += "</div></div>";
+	html += "<div id=\"kchat_copy\" >&nbsp;<a href=\"https://github.com/php-kchat/kchat\" target=\"_blank\" >KChat &copy; 2017</a></div>";
 	html += "<div id=\"KChat_textarea\" >"+
 	"<textarea  class=\"kchatemoji\" autofocus=\"autofocus\" style=\"width:100%;height:100%\" id=\"kchattextarea\" ></textarea>"+
 	"</div>";
@@ -145,8 +146,8 @@ kbox.loademoji = (function(){
 				aa = new Date();
 				if(kbox.typing !== aa.getSeconds()){
 					kbox.typing = aa.getSeconds();
-					$.post(this.url + "kchat.php?typing",{
-					  key: this.key,
+					$.post(kbox.url + "kchat.php?typing",{
+					  key: kbox.key,
 					},function(data,status){
 						
 					});
@@ -159,10 +160,10 @@ kbox.loademoji = (function(){
 					if(msg == ""){
 						return false;
 					}
-					$.post(this.url + "kchat.php?msg",
+					$.post(kbox.url + "kchat.php?msg",
 					{
 					  msg: msg,
-					  key: this.key,
+					  key: kbox.key,
 					},
 					function(data,status){
 						if(status === "success"){
@@ -195,7 +196,7 @@ kbox.start = (function(){
 	var kchat_email = $( "#kchat_email" ).val();
 	var kchat_dept = $( "#kchat_dept" ).val();
 	var kchat_msg = $( "#kchat_msg" ).val();
-	$.post(this.url + "kchat.php?start",
+	$.post(kbox.url + "kchat.php?start",
 	{
 	  kchat_start: 'kchat_start',
 	  kchat_fname: kchat_fname,
@@ -203,13 +204,17 @@ kbox.start = (function(){
 	  kchat_email: kchat_email,
 	  kchat_dept: kchat_dept,
 	  kchat_msg: kchat_msg,
-	  key: this.key,
+	  key: kbox.key,
 	},
 	function(data,status){
 		global.name = kchat_fname + ' ' + kchat_lname;
 		kbox.loadBox();
 		$("#KChat_heading_title").html(global.name);
 	});
+	//guest is avoilable now
+	global.guest = true;
+	//start sync on msg start
+	kbox.sync();
 });
 
 String.prototype.ucfirst = function()
@@ -248,6 +253,9 @@ function kchat_json(data){
 }
 
 function kchat_init(first){
+	if(global.guest == false){
+		return false;
+	}
 	$.post(kbox.url + "kchat.php?getmsg",
 	{
 	  first_run: first,

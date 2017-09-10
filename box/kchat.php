@@ -15,4 +15,5 @@ ini_set('log_errors', true);
 ini_set('error_log', 'logs/error.log');
 
 require_once('core/sandesh.php');
+require_once('core/config.php');
 require_once('core/kchat.php');
