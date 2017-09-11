@@ -15,7 +15,6 @@ if(isset($path[1])){
 }
 
 if(!($data = @include "config/config.php")){
-	require_once('TempCache.php');
 	$config = new config();
 	$data = $conf = $config->config($cache);
 	$conf = $config->getconfig($conf);
@@ -23,19 +22,13 @@ if(!($data = @include "config/config.php")){
 }
 
 if(!isset($data['installed'])){
-	if(!class_exists('config')){
-		require_once('TempCache.php');
-		$config = new config();
-	}
+	$config = new config();
 	$t = new TempCache('~C~kchat~'.$global['key'].'~@~');
 	$conf = $config->config();
 	$t->setcache(base64_encode(serialize($conf)));
 }
 
 if(!isset($data['key'])){
-	if(!class_exists('config')){
-		require_once('TempCache.php');
-	}
 	$t = new TempCache('~S~kchat~'.$global['key'].'~@~');
 	$cache = $t->getcache();
 	$sdata = $cache = unserialize(base64_decode($cache));

@@ -377,7 +377,7 @@ function presql($data,$sql){
 }
 
 function cclear(){
-	$file = 'cache\.kchat';
+	$file = 'cache/.kchat';
 	if(!file_exists($file)){
 		file_put_contents($file,'');
 	}
@@ -409,7 +409,7 @@ function set_notification($data,$not,$url = '#'){
 
 function __end(){
 	$txt = "YWxlcnRpZnkuYWxlcnQoJzxjZW50ZXI+RG9uYXRlPGJyLz5HYW5lc2ggS2FuZHU8YnIvPjxhIGhyZWY9XCJodHRwczovL3d3dy5wYXlwYWwubWUvR2FuZXNoS2FuZHVcIiBUQVJHRVQ9XCJfQkxBTktcIiA+RG9uYXRlPC9hPjwvY2VudGVyPicpOw==";
-	$file = 'cache\~~kchat';
+	$file = 'cache/~~kchat';
 	if(!file_exists($file)){
 		file_put_contents($file,'');
 	}

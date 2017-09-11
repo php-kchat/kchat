@@ -41,7 +41,7 @@ class TempCache{
 		$temp = $this->getTempDir();
 		$tempdir = $this->getTemp($temp).'/';
 		if(!file_exists($tempdir.$file)){
-			file_put_contents($tempdir.$file,$data);
+			@file_put_contents($tempdir.$file,$data);
 		}else{
 			if(!is_writable($tempdir.$file)){
 				$i++;
@@ -60,7 +60,7 @@ class TempCache{
 				$i++;
 				$return = $this->getcache($i);
 			}else{
-				$return = file_get_contents($tempdir.$file);
+				$return = @file_get_contents($tempdir.$file);
 			}
 			return $return;
 		}
