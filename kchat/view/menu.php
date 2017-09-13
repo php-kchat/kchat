@@ -23,7 +23,7 @@
 			</form-->
 			<ul class="nav navbar-nav navbar-right">
 			    <li class="dropdown">
-					<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" >
+					<a href="<?php echo $this->data['config']['url']."/msgs"; ?>" >
 					<span class="glyphicon glyphicon-comment"></span>  Chats <span class="label label-primary" id="unread" >0</span>
 					</a>
                 </li>

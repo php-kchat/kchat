@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* PHP 5.3 >=
+* PHP version >= 5.3
     * Required extensions :
         * PDO_Mysql
         * json
@@ -15,15 +15,7 @@
 
 #### Downlaod Kchat Files
 
-#### Using with Composer
-
-```
-composer create-project php-kchat/kchat
-```
-
-#### Or
-
-#### Using with git
+#### Using git
 
 ```
 git clone git@github.com:php-kchat/kchat.git
@@ -37,12 +29,12 @@ and Extract to your Web Direcotory
 #### And
 
 Give a Writable Permission on
-
 * config
 * logs
 * cache
 * logs/kchat.log.php
 * box/config
+* box/logs/error.log
 
 
 Visit the subfolder https://mydomain.com/index.php in your web-browser.
