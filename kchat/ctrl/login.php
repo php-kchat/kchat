@@ -32,7 +32,7 @@ class login extends ctrl{
 			$install['modules'] = array(
 				//"mod_rewrite"
 			);
-			if($timezone){
+			if(!$timezone){
 				$array['error'][] = "Please set timezone in php.ini";
 			}
 			foreach($install['extensions'] as $extension){

@@ -203,7 +203,7 @@ CREATE VIEW `%dbprefix%temp` AS select `%dbprefix%cache`.`id` AS `id`,`%dbprefix
 -- Indexes for table `%dbprefix%cache`
 --
 ALTER TABLE `%dbprefix%cache`
-  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `uname` (`uname`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`), ADD KEY `dept` (`dept`), ADD KEY `support_id` (`support_id`), ADD KEY `support_id_2` (`support_id`), ADD KEY `dept_2` (`dept`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `uname` (`uname`,`process`), ADD KEY `group` (`group`), ADD KEY `cache_ibfk_2` (`uname`), ADD KEY `dept` (`dept`), ADD KEY `support_id` (`support_id`), ADD KEY `support_id_2` (`support_id`), ADD KEY `dept_2` (`dept`);
 
 --
 -- Indexes for table `%dbprefix%department`

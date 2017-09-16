@@ -29,8 +29,8 @@ class typing extends action{
 					'lname' => $this->data['user']['lname'],
 					'uname' => $this->data['user']['uname'],
 					'group' => $grp,
-					'dept' => $data['user']['dept'],
-					'support_id' => $data['user']['id'],
+					'dept' => $this->data['user']['dept'],
+					'support_id' => $this->data['user']['id'],
 				);
 				$stmt = $this->data['pdo']->prepare($sql);
 				$stmt->execute($sql_array);
