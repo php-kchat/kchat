@@ -16,7 +16,7 @@ class login extends ctrl{
 			$array['dbprefix'] = 'kc'.$chrs[rand(0,25)].$chrs[rand(0,25)].'_';
 			$array['host']     = $_SERVER['HTTP_HOST'];
 			$install = array();
-			$timezone = @date_default_timezone_get();
+			$timezone = get_cfg_var('date.timezone');
 			$install['extensions'] = array(
 				"json",
 				"pdo"
@@ -32,7 +32,7 @@ class login extends ctrl{
 			$install['modules'] = array(
 				//"mod_rewrite"
 			);
-			if(empty($timezone)){
+			if($timezone){
 				$array['error'][] = "Please set timezone in php.ini";
 			}
 			foreach($install['extensions'] as $extension){

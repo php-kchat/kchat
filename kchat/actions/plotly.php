@@ -16,7 +16,7 @@ class plotly extends action{
 		$json = 'cache/Plotly.json';
 		//create cache in every 5 second on access
 		if((time() - @filemtime($json)) > 5){
-			$stmt = $this->data['pdo']->prepare("SELECT `x`, `y` from {$this->dbprefix}plotly");
+			$stmt = $this->data['pdo']->prepare("SELECT `x`, `y` from {$this->dbprefix}plotly WHERE x >= DATE_SUB(NOW(), INTERVAL 7 DAY)");
 			$stmt->execute();
 			while ($row = $stmt->fetch())
 			{

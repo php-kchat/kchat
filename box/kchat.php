@@ -2,8 +2,6 @@
 
 $global = array();
 
-date_default_timezone_set("Asia/Kolkata");
-
 session_name('KChat_Client_SESSION');
 session_start();
 

@@ -16,9 +16,13 @@ if(isset($path[1])){
 
 if(!($data = @include "config/config.php")){
 	$config = new config();
-	$data = $conf = $config->config($cache);
+	$data = $conf = $config->config();
 	$conf = $config->getconfig($conf);
 	file_put_contents('config/config.php',$conf);
+}
+
+if(isset($data['timezone'])){
+	date_default_timezone_set($data['timezone']);
 }
 
 if(!isset($data['installed'])){

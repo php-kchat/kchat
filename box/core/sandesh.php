@@ -346,7 +346,7 @@ class KChat{
 		_p("global = new Object();\n");
 		_p("global.guest = ".$global_guest.";\n");
 		_p("global.name = \"".$global_name."\";\n");
-		_p("global.heading = \"KChat Heading\";\n");
+		_p("global.heading = \"KChat\";\n");
 		_p("global.dept = ");
 		$dept = array();
 		$stmt = $this->global['pdo']->prepare("SELECT `id`,`dept` FROM `{$data['db_prefix']}department`");

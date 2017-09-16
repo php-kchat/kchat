@@ -339,7 +339,7 @@ $(".kchatemoji").emojioneArea({
 				$.post(purl + "/ajax/chat/"+posturl,
 				{
 				  timestamp: chat.timestamp,
-				  msg: msg,
+				  msg: toanchor(msg),
 				  first_run: 'false',
 				  token : token
 				},
@@ -402,6 +402,7 @@ $(document).ready(function() {
 });
 
 function notify(msg){
+	msg += "\n\nKChat";
 	Push.create("KChat", {
 		body: msg,
 		icon: kurl + '/kchat/assets/images/lchat.png',
@@ -442,4 +443,9 @@ function html_notif(not){
 	html += "<li class=\"divider\"></li>";
 	html += "<li><a href=\"" +  purl + "/notif\" class=\"text-center\">View All</a></li>";
 	return html;
+}
+
+function toanchor(text) {
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+    return text.replace(exp,"<a href='$1'>$1</a>"); 
 }

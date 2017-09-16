@@ -8,6 +8,7 @@
 
 class test extends ctrl{
 	function index(){
+		//echo "<pre>";
 		//$array = $this->model->process("plotly");
 		//print_r($array);
 	}

@@ -1,4 +1,6 @@
 
+![](https://github.com/php-kchat/kchat/blob/master/kchat/assets/images/logo.png)
+
 # KChat
 #### PHP Based Chat Application.
 
@@ -18,7 +20,7 @@
 #### Using git
 
 ```
-git clone git@github.com:php-kchat/kchat.git
+git clone https://github.com/php-kchat/kchat.git
 ```
 
 #### Or
