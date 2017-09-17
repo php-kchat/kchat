@@ -400,7 +400,7 @@ function install(){
 		data : install,
 		success: function(data, textStatus, jqXHR)
 		{
-			location.reload();
+			window.location = purl + "?hint";
 		},
 		error: function (jqXHR, textStatus, errorThrown)
 		{	

@@ -31,6 +31,11 @@ class view{
 	}
 	
 	function appendfile($files){
+		if(isset($_GET['hint'])){
+			$this->data["jsh"][] = "<script src=\"".$this->data['config']['url']."/kchat/assets/enjoyhint/enjoyhint.js\" ></script>";
+			$this->data["css"][] = "<link rel=\"stylesheet\" href=\"".$this->data['config']['url']."/kchat/assets/enjoyhint/enjoyhint.css\" />";
+			$this->data["js"][] = "<script src=\"".$this->data['config']['url']."/kchat/assets/js/enjoyhint.js\" ></script>";
+		}
 		if(isset($files["jsh"])){
 			foreach($files["jsh"] as $jsh){
 				if (strpos($jsh, 'http://') !== false || strpos($jsh, 'https://') !== false || strpos($jsh, '//') !== false) {
@@ -98,6 +103,7 @@ class ctrl{
 	
 	function __construct($data){
 		$this->load = new view($data);
+		$this->load->appendfile(array());
 		$this->model = new model($data);
 		$this->data = $data;
 		if(isset($data['db']['db_prefix'])){

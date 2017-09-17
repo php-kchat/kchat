@@ -13,7 +13,7 @@
                   </div>
                   <hr>
                   <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
+                    <table id="usersglist" class="table table-hover table-striped">
                       <tbody>
                         <tr>
                           <!--td>Check</td-->

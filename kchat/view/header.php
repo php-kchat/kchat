@@ -35,6 +35,7 @@
  var purl = "<?php print_r($this->data['config']['purl']); ?>";
  var kurl = "<?php print_r($this->data['config']['url']); ?>";
  var token = "<?php print_r($_SESSION['KChat_Token']); ?>";
+ var hint = "<?php print_r(trim(implode('',$this->data['path']),'.')); ?>";
 </script>
 </head>
 <body>

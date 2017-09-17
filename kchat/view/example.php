@@ -3,7 +3,7 @@
 		<div class="panel-heading">
 			Example
 		</div>
-		<div class="panel-body" >
+		<div class="panel-body" id="example">
 			Note :-<br/>
 			<ul>
 			<li>Move Box Folder Whatever you want and delete "config/config.php" of "box" , "<?php echo $this->data['config']['path'].$this->data['config']['ds'].'config'.$this->data['config']['ds'].'kchat_conf.php'; ?>" And "<?php echo $this->data['config']['path'].$this->data['config']['ds'].'config'.$this->data['config']['ds'].'config.php'; ?></li>
