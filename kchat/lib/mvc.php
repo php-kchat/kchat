@@ -31,7 +31,7 @@ class view{
 	}
 	
 	function appendfile($files){
-		if(isset($_GET['hint'])){
+		if(isset($_GET['start'])){
 			$this->data["jsh"][] = "<script src=\"".$this->data['config']['url']."/kchat/assets/enjoyhint/enjoyhint.js\" ></script>";
 			$this->data["css"][] = "<link rel=\"stylesheet\" href=\"".$this->data['config']['url']."/kchat/assets/enjoyhint/enjoyhint.css\" />";
 			$this->data["js"][] = "<script src=\"".$this->data['config']['url']."/kchat/assets/js/enjoyhint.js\" ></script>";

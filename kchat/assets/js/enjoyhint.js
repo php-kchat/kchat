@@ -26,7 +26,7 @@ enjoyhint_script_steps.main = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/smtp?hint";
+		  window.location = purl + "/smtp?start";
 		}
     }
 ];
@@ -40,7 +40,7 @@ enjoyhint_script_steps.smtp = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/users/cuser?hint";
+		  window.location = purl + "/users/cuser?start";
 		}
     }
 ];
@@ -54,7 +54,7 @@ enjoyhint_script_steps.userscuser = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/users/groups?hint";
+		  window.location = purl + "/users/groups?start";
 		}
     }
 ];
@@ -71,7 +71,7 @@ enjoyhint_script_steps.usersgroups = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/users/ulist?hint";
+		  window.location = purl + "/users/ulist?start";
 		}
     }
 ];
@@ -87,7 +87,7 @@ enjoyhint_script_steps.usersulist = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/example?hint";
+		  window.location = purl + "/example?start";
 		}
     }
 ];
@@ -105,7 +105,7 @@ enjoyhint_script_steps.example = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/embed?hint";
+		  window.location = purl + "/embed?start";
 		}
     }
 ];
@@ -123,7 +123,7 @@ enjoyhint_script_steps.embed = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/msgs?hint";
+		  window.location = purl + "/msgs?start";
 		}
     }
 ];
@@ -147,7 +147,7 @@ enjoyhint_script_steps.msgs = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/settings?hint";
+		  window.location = purl + "/settings?start";
 		}
     }
 ];
@@ -165,7 +165,7 @@ enjoyhint_script_steps.settings = [
 		event:'click',
 		description:'',
 		onBeforeStart:function(){
-		  window.location = purl + "/users/glist?hint";
+		  window.location = purl + "/users/glist?start";
 		}
     }
 ];

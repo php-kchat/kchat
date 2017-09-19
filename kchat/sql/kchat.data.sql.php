@@ -43,7 +43,7 @@ INSERT INTO `%dbprefix%role` VALUES
 INSERT INTO `%dbprefix%setting` VALUES
 (1, 'headcolor1', '91EBE0', 'Head Color', 'Color Setting', 'color', 'background-color', '#KChat_heading,#kchat_copy'),
 (2, 'bordercolor1', 'FFFFFF', 'body Color', 'Color Setting', 'color', 'background-color', '#KChat_scroll_panel'),
-(3, 'mesgboxcolor1', 'FFFFFF', 'Massage Box Color', 'Color Setting', 'color', 'background-color', '#KChat_textarea'),
+(3, 'mesgboxcolor1', 'FFFFFF', 'Message Box Color', 'Color Setting', 'color', 'background-color', '#KChat_textarea'),
 (7, 'headclr', '000000', 'Heading Color', 'Color Setting', 'color', 'color', '#KChat_heading_title'),
 (8, 'headbdrc', 'BFFFC5', 'Right Box Color', 'Color Setting', 'color', 'background-color', '.message1'),
 (9, 'bodybdrp', '002904', 'Right Box text', 'Color Setting', 'color', 'color', '.message1'),
@@ -55,7 +55,7 @@ INSERT INTO `%dbprefix%setting` VALUES
 (15, 'bodybdrcx', '0A0000', 'Left Border Color', 'Color Setting', 'color', 'border-color', '.message0'),
 (16, 'inboxbdrpx', '1', 'Left Border size', 'Color Setting', 'pixel', 'border-width', '.message0'),
 (17, 'inboxbdrcx', 'FF0000', 'Left anchor Color', 'Color Setting', 'color', 'color', '.message0 a'),
-(18, 'inboxback', 'FFFFFF', 'Massage Box Backgrou', 'Color Setting', 'color', 'background-color', '#KChat_box');
+(18, 'inboxback', 'FFFFFF', 'Message Box Backgrou', 'Color Setting', 'color', 'background-color', '#KChat_box');
 
 --
 -- Dumping data for table `%dbprefix%users`

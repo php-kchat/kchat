@@ -370,7 +370,7 @@ $(".kchatemoji").emojioneArea({
 
 });
 
-//load privious massage on srcoll up
+//load privious message on srcoll up
 function _loadoldmsg() {
 	if (typeof scrl !== 'undefined'){
 		 if(scrl == 0){

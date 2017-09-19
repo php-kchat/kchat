@@ -278,7 +278,7 @@ class KChat{
 			);
 		}
 		
-		//Get old massage
+		//Get old message
 		if(isset($_POST['offset']) && isReq('premsg')){
 			$offset = $_POST['offset'];
 			if($offset != 'none'){
