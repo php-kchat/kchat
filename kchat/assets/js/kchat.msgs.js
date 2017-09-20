@@ -446,6 +446,6 @@ function html_notif(not){
 }
 
 function toanchor(text) {
-    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
-    return text.replace(exp,"<a href='$1'>$1</a>"); 
+    var exp = /(\s(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/igm;
+    return text.replace(exp,"<a target='_BLANK' href='$1'>$1</a>"); 
 }

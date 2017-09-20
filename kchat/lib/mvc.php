@@ -85,7 +85,8 @@ class model{
 				include $path;
 				$actn = new $action[0]($this->data);
 				if(method_exists($actn,$action[1])){
-					return $actn->$action[1]($this->data);
+					$func = (string)$action[1];
+					return $actn->$func($this->data);
 				}
 			}else{
 				echo "file Not Found";
