@@ -16,7 +16,7 @@ class TempCache{
 		foreach($temp as $key => $value){
 			$temp[$key] = rtrim(rtrim($value,'\\'),'/');
 		}
-		return array_filter($temp);
+		return array_values(array_values(array_filter($temp)));
 	}
 
 	function getTemp($temp){

@@ -17,6 +17,14 @@
 
 #### Downlaod Kchat Files
 
+#### Using with Composer
+
+```
+composer create-project php-kchat/kchat
+```
+
+#### Or
+
 #### Using git
 
 ```

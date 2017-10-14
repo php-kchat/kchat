@@ -171,7 +171,7 @@ enjoyhint_script_steps.settings = [
 ];
 
 
-//user list
+//guest list
 enjoyhint_script_steps.usersglist = [
     {
         "next #usersglist": 'List of all the guest.',
@@ -179,9 +179,9 @@ enjoyhint_script_steps.usersglist = [
     {
         selector: "selector",
 		event:'click',
-		description:'',
+		description:'Update username and password',
 		onBeforeStart:function(){
-		  window.location = purl + "/";
+		  window.location = purl + "/users/profile";
 		}
     }
 ];

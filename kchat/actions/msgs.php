@@ -177,7 +177,6 @@ class msgs extends action{
 				//seen
 				$status = '<!--spam style="color:#3EDB2D;">&#10004;</spam-->';
 			}
-			
 			$msg[] = array(
 				'id' => $row['grp_id'],
 				'message' => msgdecode($data,$row['msg']),
