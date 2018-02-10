@@ -30,6 +30,9 @@ class plotly extends action{
 		//generating start and end date of plot
 		$plot = json_decode($file_json,1);
 		$start = array_keys($plot);
+		if(!isset($start[0])){
+			$start[0] = date("Y-m-d H:0:0",time() - 604800);
+		}
 		$start = strtotime($start[0]);
 		$end = strtotime(date("Y-m-d H:00:00"));
 		$current = strtotime(date("Y-m-d H:00:00", $start));
