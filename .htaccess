@@ -1,8 +1,12 @@
 
-setENV KChat PATH_INFO
+<IfModule mod_env.c>
+	setENV KChat PATH_INFO
+</IfModule>
 
 <IfModule mod_rewrite.c>
-	setENV KChat MOD_REWRITE
+	<IfModule mod_env.c>
+		setENV KChat MOD_REWRITE
+	</IfModule>
 	RewriteEngine On
 	Options -Indexes
 	#RewriteBase /kchat/
