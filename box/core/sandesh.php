@@ -70,7 +70,7 @@ class KChat{
 			}
 			ksort($groupid);
 			$gmd5 = md5(serialize($groupid));
-			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
+			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}groups` (`id`,`groupid`) VALUES (:id,:groupid);");
 			$stmt->execute(
 				array(
 					'id' => $group,
@@ -96,7 +96,7 @@ class KChat{
 			// INSERT GROUP_USERS
 			
 			foreach($users as $user){
-				$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
+				$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}group_users` (`grupid`,`users`) VALUES (:grupid,:users);");
 				$stmt->execute(
 					array(
 						'grupid' => $group,
@@ -122,7 +122,7 @@ class KChat{
 			);
 			// INSERT GUEST END
 			// INSERT MSGS
-			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}msgs` (`msg`,`grp_id`,`sender_id`, `mid`) VALUES (:msg,:grp_id,:sender_id, 1)");
+			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}msgs` (`msg`,`grp_id`,`sender_id`, `mid`) VALUES (:msg,:grp_id,:sender_id, 1);");
 			$stmt->execute(
 				array(
 					'msg' => $_POST['kchat_msg'],
@@ -133,7 +133,7 @@ class KChat{
 			// INSERT MSGS END
 			// INSERT PLOTLY
 			$x = date('Y-m-d H:00:00');
-			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}plotly` (`y`,`x`) VALUES (1,:x) ON DUPLICATE KEY UPDATE y = y + 1");
+			$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}plotly` (`y`,`x`) VALUES (1,:x) ON DUPLICATE KEY UPDATE y = y + 1;");
 			$stmt->execute(array('x' => $x));
 			// INSERT PLOTLY END
 		}
@@ -154,7 +154,7 @@ class KChat{
 		
 		$grp_id = $this->global['group_id'];
 		
-		$stmt = $this->global['pdo']->prepare("SELECT IFNULL(MAX(`mid`) + 1, 0) as mid FROM `{$data['db_prefix']}msgs` WHERE `grp_id` = :grp_id");
+		$stmt = $this->global['pdo']->prepare("SELECT IFNULL(MAX(`mid`) + 1, 0) as mid FROM `{$data['db_prefix']}msgs` WHERE `grp_id` = :grp_id;");
 		$stmt->execute(
 			array(
 				'grp_id' => $grp_id
@@ -165,7 +165,7 @@ class KChat{
 			$mid = $row['mid'];
 		}
 		
-		$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}msgs` (`msg`,`grp_id`,`sender_id`,`mid`) VALUES (:msg, :grp_id,:sender_id,:mid)");
+		$stmt = $this->global['pdo']->prepare("INSERT INTO `{$data['db_prefix']}msgs` (`msg`,`grp_id`,`sender_id`,`mid`) VALUES (:msg, :grp_id,:sender_id,:mid);");
 		$stmt->execute(
 			array(
 				'msg' => msgencode($msg),
@@ -185,7 +185,7 @@ class KChat{
 			$sql = "UPDATE `{$data['db_prefix']}cache` 
 			SET `time` = UNIX_TIMESTAMP() 
 			WHERE uname = :uname AND
-			process = 1";
+			process = 1;";
 			$sql_array = array(
 				'uname' => $this->global['id']
 			);
@@ -214,7 +214,7 @@ class KChat{
 			
 			if($post['first_run'] == 'true'){
 				//runing at first time
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid >= 0 and `grp_id` = :grp_id2 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :user AND `grupid` = :grp_id) != 0 ORDER BY id DESC limit 25";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid >= 0 and `grp_id` = :grp_id2 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :user AND `grupid` = :grp_id) != 0 ORDER BY id DESC limit 25;";
 				
 				$sql_array = array(
 					'grp_id2' => $grp_id,
@@ -224,7 +224,7 @@ class KChat{
 				
 			}else{
 				//runing at all time
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid > (select `seens` from `{$data['db_prefix']}group_users` where grupid = :grp_id0 and users = :user0 limit 1) and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :user1 AND `grupid` = :grp_id2) != 0 ORDER BY id DESC";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid > (select `seens` from `{$data['db_prefix']}group_users` where grupid = :grp_id0 and users = :user0 limit 1) and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :user1 AND `grupid` = :grp_id2) != 0 ORDER BY id DESC;";
 				$sql_array = array(
 					'grp_id0' => $grp_id,
 					'user0' => $this->global['id'],
@@ -268,7 +268,7 @@ class KChat{
 		
 		//updating message status
 		if(isset($lastseen)){
-			$stmt = $this->global['pdo']->prepare("UPDATE `{$data['db_prefix']}Group_users` SET `seens` = :seens where users = :users and grupid = :grupid");
+			$stmt = $this->global['pdo']->prepare("UPDATE `{$data['db_prefix']}Group_users` SET `seens` = :seens where users = :users and grupid = :grupid;");
 			$stmt->execute(
 				array(
 					'seens' => $lastseen,
@@ -283,7 +283,7 @@ class KChat{
 			$offset = $_POST['offset'];
 			if($offset != 'none'){
 				//run to get old msgs
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid >= 0 and mid < :mid and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :users AND `grupid` = :grp_id2) != 0 ORDER BY id DESC limit 10";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$data['db_prefix']}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$data['db_prefix']}msgs WHERE mid >= 0 and mid < :mid and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$data['db_prefix']}group_users` WHERE `users` = :users AND `grupid` = :grp_id2) != 0 ORDER BY id DESC limit 10;";
 								
 				$sql_array = array(
 					'mid' => $offset,
@@ -349,14 +349,14 @@ class KChat{
 		_p("global.heading = \"KChat\";\n");
 		_p("global.dept = ");
 		$dept = array();
-		$stmt = $this->global['pdo']->prepare("SELECT `id`,`dept` FROM `{$data['db_prefix']}department`");
+		$stmt = $this->global['pdo']->prepare("SELECT `id`,`dept` FROM `{$data['db_prefix']}department`;");
 		$stmt->execute(array());
 		$row = $stmt->fetchAll();
 		_p(json_encode($row).";\n");	
 	}
 	
 	function css($data){
-		$stmt = $this->global['pdo']->prepare("SELECT `selecter`,`value`,`type`,`css` FROM `{$data['db_prefix']}setting`");
+		$stmt = $this->global['pdo']->prepare("SELECT `selecter`,`value`,`type`,`css` FROM `{$data['db_prefix']}setting`;");
 		$stmt->execute(array());
 		$css = array();
 		$row = $stmt->fetchAll();

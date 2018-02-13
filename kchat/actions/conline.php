@@ -22,8 +22,8 @@ class conline extends action{
 		$ip4db = $this->data['config']['path'].'/kchat/data/GeoLiteCity.dat';
 		$ip6db = $this->data['config']['path'].'/kchat/data/GeoLiteCityv6.dat';
 		
-		$stmt = $this->data['pdo']->prepare("SELECT `id`,(SELECT concat(`fname`,' ',`lname`) from {$this->dbprefix}users WHERE id = {$this->dbprefix}guest.id) as guest ,`ip`,`country_code`,`time_zone`,`latitude`,`longitude` from {$this->dbprefix}guest where `id` IN (SELECT `support_id` FROM `{$this->dbprefix}temp`);");
-		$stmt->execute();
+		$stmt = $this->data['pdo']->prepare("SELECT `id`,(SELECT concat(`fname`,' ',`lname`) from {$this->dbprefix}users WHERE id = {$this->dbprefix}guest.id) as guest ,`ip`,`country_code`,`time_zone`,`latitude`,`longitude` from {$this->dbprefix}guest where `id` IN (SELECT `support_id` FROM `{$this->dbprefix}cache` where (`time` > (unix_timestamp() - 5)));");
+		$stmt->execute(array());
 		while ($row = $stmt->fetch())
 		{
 			$conline[] = $row;
@@ -59,7 +59,7 @@ class conline extends action{
 		
 		if(isset($update)){
 			foreach($update as $value){
-				$stmt = $this->data['pdo']->prepare("UPDATE `{$this->dbprefix}guest` SET `country_code` = :country_code, `time_zone` = :time_zone, `latitude` = :latitude, `longitude` = :longitude where id = :id");
+				$stmt = $this->data['pdo']->prepare("UPDATE `{$this->dbprefix}guest` SET `country_code` = :country_code, `time_zone` = :time_zone, `latitude` = :latitude, `longitude` = :longitude where id = :id;");
 				$stmt->execute($value);
 			}
 		}

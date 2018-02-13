@@ -77,7 +77,7 @@ class msgs extends action{
 	function getstatus($data){
 		$return = array();
 		$output = array();
-		$stmt = $data['pdo']->prepare("SELECT * FROM `{$this->dbprefix}temp` where `group` = :group;");
+		$stmt = $data['pdo']->prepare("select * from `{$this->dbprefix}cache` where (`time` > (unix_timestamp() - 5)) and `group` = :group;");
 		$this->qfired++;
 		$stmt->execute(array(
 			'group' => getGroup($data)
@@ -190,7 +190,7 @@ class msgs extends action{
 		
 		//updating message status
 		if(isset($lastseen)){
-			$stmt = $data['pdo']->prepare("UPDATE `{$this->dbprefix}group_users` SET `notify` = :notify where users = :users and grupid = :grupid");
+			$stmt = $data['pdo']->prepare("UPDATE `{$this->dbprefix}group_users` SET `notify` = :notify where users = :users and grupid = :grupid;");
 			$this->qfired++;
 			$stmt->execute(
 				array(
@@ -213,7 +213,7 @@ class msgs extends action{
 		}
 		
 		// getting group id
-		$stmt = $data['pdo']->prepare("SELECT IFNULL(MAX(`mid`) + 1, 0) as mid FROM `{$this->dbprefix}msgs` WHERE `grp_id` = :grp_id");
+		$stmt = $data['pdo']->prepare("SELECT IFNULL(MAX(`mid`) + 1, 0) as mid FROM `{$this->dbprefix}msgs` WHERE `grp_id` = :grp_id;");
 		$this->qfired++;
 		$stmt->execute(
 			array(
@@ -225,7 +225,7 @@ class msgs extends action{
 			$mid = $row['mid'];
 		}
 		
-		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`msg`,`grp_id`,`sender_id`,`mid`) VALUES (:msg, :grp_id, :sender_id, :mid)");
+		$stmt = $data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`msg`,`grp_id`,`sender_id`,`mid`) VALUES (:msg, :grp_id, :sender_id, :mid);");
 		$this->qfired++;
 
 		$stmt->execute(
@@ -243,7 +243,7 @@ class msgs extends action{
 			$sql = "UPDATE `{$this->dbprefix}cache` 
 			SET `time` = UNIX_TIMESTAMP() 
 			WHERE uname = :uname AND
-			process = 2";
+			process = 2;";
 			$sql_array = array(
 				'uname' => $data['user']['uname']
 			);
@@ -276,7 +276,7 @@ class msgs extends action{
 			
 			if($_POST['first_run'] == 'true'){
 				//runing at first time
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid >= 0 and `grp_id` = :grp_id2 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :user AND `grupid` = :grp_id) != 0 ORDER BY id DESC limit 25";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid >= 0 and `grp_id` = :grp_id2 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :user AND `grupid` = :grp_id) != 0 ORDER BY id DESC limit 25;";
 				
 				$sql_array = array(
 					'grp_id2' => $grp_id,
@@ -286,7 +286,7 @@ class msgs extends action{
 				
 			}else{
 				//runing at all time
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid > (select `seens` from `{$this->dbprefix}group_users` where grupid = :grp_id0 and users = :user0 limit 1) and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :user1 AND `grupid` = :grp_id2) != 0 ORDER BY id DESC";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid > (select `seens` from `{$this->dbprefix}group_users` where grupid = :grp_id0 and users = :user0 limit 1) and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :user1 AND `grupid` = :grp_id2) != 0 ORDER BY id DESC;";
 				$sql_array = array(
 					'grp_id0' => $grp_id,
 					'user0' => $data['user']['id'],
@@ -333,7 +333,7 @@ class msgs extends action{
 		// lastseen is set first time for limit 25 and sets seens to last row witch is selected at first run hance second time msgs are fetch because seen in not equals to last msg id 
 		//updating message status
 		if(isset($lastseen)){
-			$sql = "UPDATE `{$this->dbprefix}group_users` SET `seens` = :seens where users = :users and grupid = :grupid";
+			$sql = "UPDATE `{$this->dbprefix}group_users` SET `seens` = :seens where users = :users and grupid = :grupid;";
 			$sql_array = array(
 				'seens' => $lastseen,
 				'users' => $data['user']['id'],
@@ -349,7 +349,7 @@ class msgs extends action{
 			$offset = $_POST['offset'];
 			if($offset != 'none'){
 				//run to get old msgs
-				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid >= 0 and mid < :mid and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :users AND `grupid` = :grp_id2) != 0 ORDER BY id DESC limit 10";
+				$sql = "SELECT `id`,(select concat(fname,' ',lname) as username from {$this->dbprefix}users where id = sender_id limit 1) as username,`msg`,`time`,`sender_id`,`mid` from {$this->dbprefix}msgs WHERE mid >= 0 and mid < :mid and `grp_id` = :grp_id1 and (select count(`id`) FROM `{$this->dbprefix}group_users` WHERE `users` = :users AND `grupid` = :grp_id2) != 0 ORDER BY id DESC limit 10;";
 								
 				$sql_array = array(
 					'mid' => $offset,
@@ -416,7 +416,7 @@ class msgs extends action{
 		SET `time` = UNIX_TIMESTAMP(),
 		`group` = :group
 		WHERE uname = :uname AND
-		process = 1";
+		process = 1;";
 		$sql_array = array(
 			'group' => getGroup($data),
 			'uname' => $data['user']['uname']

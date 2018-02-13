@@ -37,7 +37,7 @@ class createchat extends action{
 		$row = $stmt->fetchAll();
 		
 		if(!count($row)){
-			$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid)");
+			$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}groups` (`id`,`groupid`) VALUES (:id,:groupid);");
 			$stmt->execute(
 				array(
 					'id' => $group,
@@ -46,7 +46,7 @@ class createchat extends action{
 			);
 			
 			foreach($users as $user){
-				$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users)");
+				$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}group_users` (`grupid`,`users`) VALUES (:grupid,:users);");
 				$stmt->execute(
 					array(
 						'grupid' => $group,
@@ -55,7 +55,7 @@ class createchat extends action{
 				);
 			}
 			
-			$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id)");
+			$stmt = $this->data['pdo']->prepare("INSERT INTO `{$this->dbprefix}msgs` (`mid`,`msg`,`grp_id`,`sender_id`) VALUES (1,:msg,:grp_id,:sender_id);");
 			$stmt->execute(
 				array(
 					'msg' => 'You are now connected on KChat',

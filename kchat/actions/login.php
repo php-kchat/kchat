@@ -11,7 +11,7 @@ class login extends action{
 		if(isset($_POST['username'])){
 			$user = $_POST['username'];
 			$password = $_POST['password'];
-			$stmt = $this->data['pdo']->prepare("SELECT * FROM `{$this->dbprefix}users` where uname = :uname");
+			$stmt = $this->data['pdo']->prepare("SELECT * FROM `{$this->dbprefix}users` where uname = :uname;");
 			$stmt->execute(array('uname' => $user));
 			$success = 'fail';
 			while ($row = $stmt->fetch())

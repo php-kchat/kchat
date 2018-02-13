@@ -13,7 +13,7 @@ class typing extends action{
 			$sql = "UPDATE `{$this->dbprefix}cache` 
 			SET `time` = UNIX_TIMESTAMP() 
 			WHERE uname = :uname AND
-			process = 3";
+			process = 3;";
 			$sql_array = array(
 				'uname' => $this->data['user']['uname']
 			);

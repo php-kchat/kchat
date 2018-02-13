@@ -167,7 +167,7 @@ class ajax extends ctrl{
 		
 		foreach($setting[0] as $k => $v){
 			if(isset($setting[1][$k])){
-				$sql = "UPDATE {$this->dbprefix}setting SET `value` = :value WHERE `key` = :key";
+				$sql = "UPDATE {$this->dbprefix}setting SET `value` = :value WHERE `key` = :key;";
 				$stmt = $this->data['pdo']->prepare($sql);
 				$stmt->execute(array(
 					'value' => $setting[1][$k],

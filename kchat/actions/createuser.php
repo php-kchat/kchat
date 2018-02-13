@@ -21,7 +21,7 @@ class createuser extends action{
 			)
 		);
 		
-		$stmt = $this->data['pdo']->prepare("SELECT uname FROM {$this->dbprefix}users where uname =:uname");
+		$stmt = $this->data['pdo']->prepare("SELECT uname FROM {$this->dbprefix}users where uname =:uname;");
 		$stmt->execute(array('uname' => $_POST['user_name']));
 		$row = $stmt->fetch();
 		if(isset($row['uname'])){
@@ -29,7 +29,7 @@ class createuser extends action{
 			return false;
 		}
 		
-		$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}pusers (`fname`, `lname`, `uname`, `secret`, `depart`, `email`) values(:fname,:lname,:uname,:secret,:dept,:user_email)");
+		$stmt = $this->data['pdo']->prepare("insert into {$this->dbprefix}pusers (`fname`, `lname`, `uname`, `secret`, `depart`, `email`) values(:fname,:lname,:uname,:secret,:dept,:user_email);");
 		$stmt->execute($arr['verify']);
 		$link = $this->data['config']['purl'].'/login/verify/'.base64_encode($arr['verify']['secret'].serialize($arr));
 		//SENDING MAIL TO NEW USER EMAIL

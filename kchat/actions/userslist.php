@@ -19,8 +19,8 @@ class userslist extends action{
 			$limit = 10;
 		}
 		
-		$stmt = $this->data['pdo']->prepare("SELECT (select `dept` from {$this->dbprefix}department where id = role) as role,id,fname,lname,uname,ctime FROM {$this->dbprefix}users WHERE `role` != 3 limit :limit offset :offset");
-		$stmt->execute(array('limit' => $limit,'offset' => $offset));
+		$stmt = $this->data['pdo']->prepare("SELECT (select `dept` from {$this->dbprefix}department where id = role) as role,id,fname,lname,uname,ctime FROM {$this->dbprefix}users WHERE `role` != 3 limit :l_imit offset :o_ffset;");
+		$stmt->execute(array('l_imit' => $limit,'o_ffset' => $offset));
 		while ($row = $stmt->fetch())
 		{
 			$users[] = array(
