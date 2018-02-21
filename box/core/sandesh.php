@@ -268,7 +268,7 @@ class KChat{
 		
 		//updating message status
 		if(isset($lastseen)){
-			$stmt = $this->global['pdo']->prepare("UPDATE `{$data['db_prefix']}Group_users` SET `seens` = :seens where users = :users and grupid = :grupid;");
+			$stmt = $this->global['pdo']->prepare("UPDATE `{$data['db_prefix']}group_users` SET `seens` = :seens where users = :users and grupid = :grupid;");
 			$stmt->execute(
 				array(
 					'seens' => $lastseen,
