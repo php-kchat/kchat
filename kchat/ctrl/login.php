@@ -51,6 +51,12 @@ class login extends ctrl{
 					$array['error'][] = $module." is Not Installed";
 				}
 			}
+			
+			if(isset($_SESSION['ERROR'])){
+				$array['error'][] = $_SESSION['ERROR'];
+				unset($_SESSION['ERROR']);
+			}
+			
 			$this->load->set($array);
 			$this->load->view('install');
 		}

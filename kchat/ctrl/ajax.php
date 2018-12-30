@@ -201,7 +201,12 @@ class ajax extends ctrl{
 			PDO::MYSQL_ATTR_FOUND_ROWS => TRUE
 		);
 		
-		$this->data['pdo'] = new PDO("mysql:host=".$_POST['host'].";dbname=".$_POST['database'].";port=".$_POST['port'].";charset=utf8", $_POST['username'], $_POST['password'],$opt);
+		try{
+			$this->data['pdo'] = new PDO("mysql:host=".$_POST['host'].";dbname=".$_POST['database'].";port=".$_POST['port'].";charset=utf8", $_POST['username'], $_POST['password'],$opt);
+		}catch(Exception $e){
+			$_SESSION['ERROR'] = $e->getMessage();
+			exit;
+		}
 		
 		$db = array(
 			"db_host" => $_POST['host'],
