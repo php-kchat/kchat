@@ -45,12 +45,15 @@ class login extends ctrl{
 					$array['error'][] = $writable." is Not Writable";
 				}
 			}
+			
+			/*
 			$modules = apache_get_modules();
 			foreach($install['modules'] as $module){
 				if(!in_array($module,$modules)){
 					$array['error'][] = $module." is Not Installed";
 				}
 			}
+			*/
 			
 			if(isset($_SESSION['ERROR'])){
 				$array['error'][] = $_SESSION['ERROR'];
