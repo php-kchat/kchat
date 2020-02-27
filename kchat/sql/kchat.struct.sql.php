@@ -325,8 +325,8 @@ ALTER TABLE `%dbprefix%setting`
 ALTER TABLE `%dbprefix%cache`
 ADD CONSTRAINT `cache_ibfk_1` FOREIGN KEY (`group`) REFERENCES `%dbprefix%groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `cache_ibfk_2` FOREIGN KEY (`uname`) REFERENCES `%dbprefix%users` (`uname`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `%dbprefix%cache_ibfk_1` FOREIGN KEY (`support_id`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `%dbprefix%cache_ibfk_2` FOREIGN KEY (`dept`) REFERENCES `%dbprefix%department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `cache_ibfk_3` FOREIGN KEY (`support_id`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `cache_ibfk_4` FOREIGN KEY (`dept`) REFERENCES `%dbprefix%department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `%dbprefix%group_users`
@@ -353,7 +353,7 @@ ADD CONSTRAINT `msgs_ibfk_3` FOREIGN KEY (`grp_id`) REFERENCES `%dbprefix%groups
 -- Constraints for table `%dbprefix%notification`
 --
 ALTER TABLE `%dbprefix%notification`
-ADD CONSTRAINT `%dbprefix%notification_ibfk_1` FOREIGN KEY (`user`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`user`) REFERENCES `%dbprefix%users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `%dbprefix%pusers`
