@@ -54,6 +54,25 @@ The installation script will start automatically and guide you through the insta
 * Admin - admin
 * Password - pass
 
+#### note.
+
+- if you getting internal server error when you installed KChat in sub-directory please update .htaccess
+
+Uncomment and update RewriteBase
+
+ex.
+```
+RewriteBase /{{your-relative-url}}/
+```
+
+- if message box not working try adding jquery in your code
+
+ex.
+
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+```
+
 #### Maintainers
 
 - [Ganesh Kandu](https://github.com/GaneshKandu)
