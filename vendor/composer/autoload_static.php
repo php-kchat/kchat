@@ -10,7 +10,7 @@ class ComposerStaticInit0d647e022149540ae7f7f02c0b724e3f
         'a7cee959d5f14eb7484e7f8e7182e03d' => __DIR__ . '/..' . '/geoip/geoip/src/geoip.inc',
         '8cf74b4cf02ad0591c257dcfb7edbc8d' => __DIR__ . '/..' . '/geoip/geoip/src/geoipcity.inc',
         'd114bd5194e69687495c9150ff6be780' => __DIR__ . '/..' . '/geoip/geoip/src/timezone.php',
-        '08eadcb7512b347f64f9ade6fc6a18c8' => __DIR__ . '/../..' . '/kchat/lib/init.php',
+        'cb9cff50e776e29ac81c412def16b912' => __DIR__ . '/../..' . '/kchat/lib/init.php',
     );
 
     public static $classMap = array (

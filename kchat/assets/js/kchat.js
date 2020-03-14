@@ -383,7 +383,7 @@ function install(){
 		port:port,
 		dbprefix:dbprefix
 	};
-	console.log(install);
+	//console.log(install);
 	if(
 		database == '' ||
 		username == '' ||

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4649b30d3eca64e3221f8feea67326e2",
-    "content-hash": "c73e3cc9e2215cc99d799c6098434c55",
+    "hash": "394526b381e8c1716eb134e6cdf73d41",
+    "content-hash": "c60c7493ed74fa567b38fcf6f0e44aa0",
     "packages": [
         {
             "name": "geoip/geoip",
@@ -58,16 +58,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v5.2.24",
+            "version": "v5.2.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "22d04c6a58145a244696f3f254c1875aa653b26a"
+                "reference": "dde1db116511aa4956389d75546c5be4c2beb2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/22d04c6a58145a244696f3f254c1875aa653b26a",
-                "reference": "22d04c6a58145a244696f3f254c1875aa653b26a",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/dde1db116511aa4956389d75546c5be4c2beb2a6",
+                "reference": "dde1db116511aa4956389d75546c5be4c2beb2a6",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +131,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-07-26 21:00:20"
+            "time": "2018-11-15 22:32:31"
         }
     ],
     "packages-dev": [],
