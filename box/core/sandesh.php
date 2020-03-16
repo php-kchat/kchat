@@ -390,7 +390,7 @@ class KChat{
 			return $_SESSION['supportid'];
 		}
 		
-		$stmt = $this->global['pdo']->prepare("SELECT `sender_id`,count(`msg`) as `msg_count` FROM `{$this->data['db_prefix']}msgs` where `sender_id` IN (select `support_id` from `{$this->data['db_prefix']}temp` where `process` = 1 and `dept` = :depart) order by `sender_id`;");
+		$stmt = $this->global['pdo']->prepare("SELECT `sender_id`,count(`msg`) as `msg_count` FROM `{$this->data['db_prefix']}msgs` where `sender_id` IN (select `support_id` from `{$this->data['db_prefix']}temp` where `process` = 1 and `dept` = :depart) GROUP BY msg, sender_id order by `sender_id`;");
 		
 		$stmt->execute(array(
 			'depart' => $depart
