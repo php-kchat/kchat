@@ -1,0 +1,9 @@
+[16-Mar-2020 17:25:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY sender_id' at line 1 in E:\Ampps\www\kchat\box\core\sandesh.php:394
+Stack trace:
+#0 E:\Ampps\www\kchat\box\core\sandesh.php(394): PDO->prepare('SELECT `sender_...')
+#1 E:\Ampps\www\kchat\box\core\sandesh.php(66): KChat->getSupportid('1')
+#2 E:\Ampps\www\kchat\box\core\kchat.php(159): KChat->start(Array)
+#3 E:\Ampps\www\kchat\box\kchat.php(18): require_once('E:\\Ampps\\www\\kc...')
+#4 {main}
+  thrown in E:\Ampps\www\kchat\box\core\sandesh.php on line 394
+[16-Mar-2020 17:29:52 UTC] PHP Warning:  min(): Array must contain at least one element in E:\Ampps\www\kchat\box\core\sandesh.php on line 408
