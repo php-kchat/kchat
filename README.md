@@ -34,7 +34,7 @@ git clone https://github.com/php-kchat/kchat.git
 #### Or
 
 [Download Zip](https://github.com/php-kchat/kchat/archive/master.zip)
-and Extract to your Web Direcotory
+and Extract to your Web Directory
 
 #### And
 
