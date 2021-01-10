@@ -103,6 +103,7 @@ class ctrl{
 	var $model = null;
 	
 	function __construct($data){
+		$data = rstrip_tags($data);
 		$this->load = new view($data);
 		$this->load->appendfile(array());
 		$this->model = new model($data);

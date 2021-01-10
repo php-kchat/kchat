@@ -8,12 +8,14 @@
 
 class profile extends action{
 	function action(){
-		
+		if($this->data['user']['uname'] != $_POST['uname']){
+			return false;
+		}
 		$arr = array(
 			'profile' => array(
 				'fname' => $_POST['fname'],
 				'lname' => $_POST['lname'],
-				'uname' => $_POST['uname'],
+				'uname' => $this->data['user']['uname'],
 				'password' => $_POST['password']
 			)
 		);
@@ -23,7 +25,7 @@ class profile extends action{
 		}
 		
 		$stmt = $this->data['pdo']->prepare("SELECT * FROM {$this->dbprefix}users where uname =:uname;");
-		$stmt->execute(array('uname' => $_POST['uname']));
+		$stmt->execute(array('uname' => $this->data['user']['uname']));
 		$row = $stmt->fetch();
 		if(empty($arr['profile']['password'])){
 			$arr['profile']['password'] = $row['password'];

@@ -427,3 +427,18 @@ function is_ip4($ip){
 	}
 	return true;
 }
+
+function rstrip_tags($arr){
+	if(is_array($arr)){
+		foreach($arr as $k => $v){
+			$arr[$k] = rstrip_tags($v);
+		}
+		return $arr;
+	}else{
+		if(is_string($arr)){
+			return htmlspecialchars($arr);
+		}else{
+			return $arr;
+		}
+	}
+}

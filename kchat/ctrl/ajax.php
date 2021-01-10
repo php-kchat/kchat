@@ -7,7 +7,7 @@
 */
 
 class ajax extends ctrl{
-		
+	
 	function login(){
 		if(isAjax($this->data)){
 			if(isset($_POST['action'])){
