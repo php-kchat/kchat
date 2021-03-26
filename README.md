@@ -76,10 +76,4 @@ ex.
 #### Maintainers
 
 - [Ganesh Kandu](https://github.com/GaneshKandu)
-	- [Google+](https://plus.google.com/u/0/+ganeshkandu)
 	- [Linkedin](https://www.linkedin.com/in/ganesh-kandu-42b14373/)
-
-#### Support the development
-**Do you like this project? Support it by donating**
-
-- PayPal: [Donate](https://www.paypal.me/GaneshKandu)
