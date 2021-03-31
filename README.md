@@ -6,7 +6,7 @@
 
 ## Requirements
 
-* PHP version >= 5.3
+* PHP version >= 5.5
     * Required extensions :
         * PDO_Mysql
         * json
