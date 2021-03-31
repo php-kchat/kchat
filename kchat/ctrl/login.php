@@ -12,6 +12,7 @@ class login extends ctrl{
 		if(isset($this->data['db'])){
 			$this->load->view('login');
 		}else{
+			file_put_contents('./logs/kchat.log.php',"<?php die(); ?>\n");
 			$chrs = range('a','z');
 			$array['dbprefix'] = 'kc'.$chrs[rand(0,25)].$chrs[rand(0,25)].'_';
 			$array['host']     = $_SERVER['HTTP_HOST'];

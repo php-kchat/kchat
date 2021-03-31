@@ -6,6 +6,10 @@
 * Contact kanduganesh@gmail.com 
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class createuser extends action{
 	
 	function action(){
@@ -35,28 +39,30 @@ class createuser extends action{
 		//SENDING MAIL TO NEW USER EMAIL
 		if(file_exists('config/smtp.php')){
 			$smtp_conf = include 'config/smtp.php';
-			$mail = new PHPMailer;
-			//$mail->SMTPDebug = 2;
-			$mail->isSMTP();
-			$mail->Host = $smtp_conf['host'];
-			$mail->SMTPAuth = $smtp_conf['auth'];
-			$mail->Username = $smtp_conf['email']; 
-			$mail->Password = $smtp_conf['pass'];
-			$mail->SMTPSecure = (($smtp_conf['secure'])? 'tls' : 'ssl');;
-			$mail->Port = $smtp_conf['port'];  
+			try {
+				$mail = new PHPMailer(true);
+				//$mail->SMTPDebug = 2;
+				$mail->isSMTP();
+				$mail->Host = $smtp_conf['host'];
+				$mail->SMTPAuth = $smtp_conf['auth'];
+				$mail->Username = $smtp_conf['email']; 
+				$mail->Password = $smtp_conf['pass'];
+				$mail->SMTPSecure = (($smtp_conf['secure'])? 'tls' : 'ssl');;
+				$mail->Port = $smtp_conf['port'];  
 
-			$mail->setFrom($smtp_conf['email'], $this->data['user']['fname'].' '.$this->data['user']['lname']);
-			$mail->addAddress($arr['verify']['user_email'], $arr['verify']['fname'].' '.$arr['verify']['lname']);
-			$mail->addReplyTo($arr['verify']['user_email'], 'Information');
-			$mail->isHTML(true);
-			$mail->Subject = 'Verify KChat user Link';
-			$mail->Body    = 'Verify KChat user Link<br/><a href="'.$link.'" TARGET="_BLANK" >'.$link.'</a>';
-			$mail->AltBody = 'Verify KChat user Link';
-			
-			if($mail->send()){
+				$mail->setFrom($smtp_conf['email'], $this->data['user']['fname'].' '.$this->data['user']['lname']);
+				$mail->addAddress($arr['verify']['user_email'], $arr['verify']['fname'].' '.$arr['verify']['lname']);
+				$mail->addReplyTo($arr['verify']['user_email'], 'Information');
+				$mail->isHTML(true);
+				$mail->Subject = 'Verify KChat user Link';
+				$mail->Body    = 'Verify KChat user Link<br/><a href="'.$link.'" TARGET="_BLANK" >'.$link.'</a>';
+				$mail->AltBody = 'Verify KChat user Link';
+				
+				$mail->send();
 				$alert = 'Successfull Send';
 				set_notification($this->data,'Verification Mail Send to '.$this->data['user']['fname'].' '.$this->data['user']['lname']);
-			} else {
+				
+			}catch (Exception $e){
 				$alert = $mail->ErrorInfo;
 			}
 		}else{

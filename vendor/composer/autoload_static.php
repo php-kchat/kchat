@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7f96ad13a80c52f4218edb7ba4a02987
+class ComposerStaticInita472035c9d90c1b664766306e6b5f51c
 {
     public static $files = array (
         'a7cee959d5f14eb7484e7f8e7182e03d' => __DIR__ . '/..' . '/geoip/geoip/src/geoip.inc',
@@ -27,11 +27,16 @@ class ComposerStaticInit7f96ad13a80c52f4218edb7ba4a02987
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7f96ad13a80c52f4218edb7ba4a02987::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7f96ad13a80c52f4218edb7ba4a02987::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita472035c9d90c1b664766306e6b5f51c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita472035c9d90c1b664766306e6b5f51c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita472035c9d90c1b664766306e6b5f51c::$classMap;
 
         }, null, ClassLoader::class);
     }

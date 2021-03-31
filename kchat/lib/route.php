@@ -10,6 +10,10 @@ $utype = '';
 
 $path = '';
 
+if(is_array($_POST)){
+	$_POST = rstrip_tags($_POST);
+}
+
 if(isset($_SERVER['KChat'])){
 	switch($_SERVER['KChat']){
 		case 'PATH_INFO':

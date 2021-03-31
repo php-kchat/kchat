@@ -52,7 +52,7 @@ function config(){
 		"salt" => _rand(32),
 		"key" => _rand(12),
 		"Admin" => "KkEtq2SNzvl02OR", //_rand(8),
-		"version" => "1.0.7",
+		"version" => "1.0.8",
 		"timezone" => date_default_timezone_get(),
 	);
 }

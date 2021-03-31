@@ -7,3 +7,4 @@ Stack trace:
 #4 {main}
   thrown in E:\Ampps\www\kchat\box\core\sandesh.php on line 394
 [16-Mar-2020 17:29:52 UTC] PHP Warning:  min(): Array must contain at least one element in E:\Ampps\www\kchat\box\core\sandesh.php on line 408
+[31-Mar-2021 13:24:00 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; config has a deprecated constructor in /home/soft/public_html/manual/kchat/box/core/config.php on line 3
