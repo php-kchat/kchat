@@ -36,7 +36,7 @@ class verify extends action{
 					'fname' => $fname,
 					'lname' => $lname,
 					'uname' => $username,
-					'password' => $password,
+					'password' => password_hash($password, PASSWORD_DEFAULT),
 					'dept' => $dept,
 					'email' => $email,
 				));

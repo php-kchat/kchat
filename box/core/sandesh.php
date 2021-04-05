@@ -86,7 +86,7 @@ class KChat{
 					'uname' => $id,
 					'fname' => $_POST['kchat_fname'],
 					'lname' => $_POST['kchat_lname'],
-					'password' => kchat_rand(),//random password for guest
+					'password' => password_hash(kchat_rand(), PASSWORD_DEFAULT),//random password for guest
 					'role' => 3,
 					'dept' => null,
 					'email' => $_POST['kchat_email'],

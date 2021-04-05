@@ -10,6 +10,8 @@ $utype = '';
 
 $path = '';
 
+$tmp = false;
+
 if(is_array($_POST)){
 	$_POST = rstrip_tags($_POST);
 }

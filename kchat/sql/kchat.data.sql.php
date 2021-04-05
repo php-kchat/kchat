@@ -62,7 +62,7 @@ INSERT INTO `%dbprefix%setting` VALUES
 --
 
 INSERT INTO `%dbprefix%users` VALUES
-('KkEtq2SNzvl02OR', 'admin', '', 'admin@mydomain.com', 'admin', 'pass', 1, 1, now());
+('KkEtq2SNzvl02OR', 'admin', '', 'admin@mydomain.com', 'admin', '$2y$10$oKTYnztRXQ7o.ZSXnzRSBeHgdwVoEmlHW/qWGcOBO867O8wAHSDha', 1, 1, now());
 
 --
 -- Dumping data for table `%dbprefix%notification`

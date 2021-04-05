@@ -82,7 +82,7 @@ function css($data,$src,$trg){
 
 function CheckValid($pass,$hash){
 	
-	if($pass == $hash){
+	if(password_verify($pass,$hash)){
 		return true;
 	}
 	return false;
@@ -431,7 +431,11 @@ function is_ip4($ip){
 function rstrip_tags($arr){
 	if(is_array($arr)){
 		foreach($arr as $k => $v){
-			$arr[$k] = rstrip_tags($v);
+			if($k == 'msg'){
+				$arr[$k] = $v;
+			}else{
+				$arr[$k] = rstrip_tags($v);
+			}
 		}
 		return $arr;
 	}else{

@@ -29,6 +29,8 @@ class profile extends action{
 		$row = $stmt->fetch();
 		if(empty($arr['profile']['password'])){
 			$arr['profile']['password'] = $row['password'];
+		}else{
+			$arr['profile']['password'] = password_hash($arr['profile']['password'], PASSWORD_DEFAULT);
 		}
 		if(isset($row['uname'])){
 			$sql = "UPDATE {$this->dbprefix}users SET fname = :fname,lname = :lname,password = :password WHERE uname = :uname;";
