@@ -19,7 +19,7 @@
         "php": ">=5.5.0",
         "ext-pdo": "*",
         "ext-json": "*",
-        "phpmailer/phpmailer": "^6.3",
+        "phpmailer/phpmailer": "*",
         "geoip/geoip": "^1.17"
     },
     "require-dev" : {},
