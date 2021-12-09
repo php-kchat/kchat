@@ -1,4 +1,7 @@
 
+### I am not able to maintain it due to not getting much time.
+### Welcome your pull requests
+
 ![](https://github.com/php-kchat/kchat/blob/master/kchat/assets/images/logo.svg)
 
 # KChat

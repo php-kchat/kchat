@@ -196,6 +196,10 @@ kbox.start = (function(){
 	var kchat_email = $( "#kchat_email" ).val();
 	var kchat_dept = $( "#kchat_dept" ).val();
 	var kchat_msg = $( "#kchat_msg" ).val();
+	if(kchat_fname || kchat_lname || kchat_email || kchat_msg){
+		alert("Please Fill all fields");
+		return false;
+	}
 	$.post(kbox.url + "kchat.php?start",
 	{
 	  kchat_start: 'kchat_start',

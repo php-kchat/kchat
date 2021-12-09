@@ -10,3 +10,20 @@ Stack trace:
 [31-Mar-2021 13:24:00 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; config has a deprecated constructor in /home/soft/public_html/manual/kchat/box/core/config.php on line 3
 [05-Apr-2021 12:55:13 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; config has a deprecated constructor in /home/soft/public_html/manual/kchat/box/core/config.php on line 3
 [05-Apr-2021 12:55:30 UTC] PHP Notice:  Undefined offset: 0 in /home/soft/public_html/manual/kchat/box/core/sandesh.php on line 407
+[09-Dec-2021 13:55:13 UTC] PHP Warning:  min(): Array must contain at least one element in E:\Ampps\www\kchat\box\core\sandesh.php on line 407
+[09-Dec-2021 14:11:50 UTC] PHP Warning:  min(): Array must contain at least one element in E:\Ampps\www\kchat\box\core\sandesh.php on line 407
+[09-Dec-2021 14:11:50 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kchat`.`kcso_group_users`, CONSTRAINT `group_users_ibfk_2` FOREIGN KEY (`users`) REFERENCES `kcso_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in E:\Ampps\www\kchat\box\core\sandesh.php:103
+Stack trace:
+#0 E:\Ampps\www\kchat\box\core\sandesh.php(103): PDOStatement->execute(Array)
+#1 E:\Ampps\www\kchat\box\core\kchat.php(159): KChat->start(Array)
+#2 E:\Ampps\www\kchat\box\kchat.php(18): require_once('E:\\Ampps\\www\\kc...')
+#3 {main}
+  thrown in E:\Ampps\www\kchat\box\core\sandesh.php on line 103
+[09-Dec-2021 14:17:05 UTC] PHP Warning:  min(): Array must contain at least one element in E:\Ampps\www\kchat\box\core\sandesh.php on line 407
+[09-Dec-2021 14:17:05 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`kchat`.`kcso_group_users`, CONSTRAINT `group_users_ibfk_2` FOREIGN KEY (`users`) REFERENCES `kcso_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in E:\Ampps\www\kchat\box\core\sandesh.php:103
+Stack trace:
+#0 E:\Ampps\www\kchat\box\core\sandesh.php(103): PDOStatement->execute(Array)
+#1 E:\Ampps\www\kchat\box\core\kchat.php(159): KChat->start(Array)
+#2 E:\Ampps\www\kchat\box\kchat.php(18): require_once('E:\\Ampps\\www\\kc...')
+#3 {main}
+  thrown in E:\Ampps\www\kchat\box\core\sandesh.php on line 103
