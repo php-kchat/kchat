@@ -120,4 +120,21 @@
 #KChat_heading_title {
 	padding: 14px 0px 14px 10px;
 	font-size: 18px;
+	width: 85%;
+	float:left;
 }
+
+#KChat_close {
+	padding: 14px 0px 14px 10px;
+	width: 15%;
+	float: right;
+	font-size: 18px;
+	margin: auto;
+}
+
+#xclose {
+	color: red;
+	text-decoration: none;
+	margin: auto;
+}
+

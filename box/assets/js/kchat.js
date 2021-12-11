@@ -26,8 +26,14 @@ kbox.init = (function(data){
 				kbox.loadform();
 				$("#KChat_heading_title").html(global.heading);
 				var department = '';
-				for(var i = 0; i < global.dept.length; i++) {
-					department += '<option value="'+global.dept[i].id+'">'+global.dept[i].dept+'</option>';
+				if(global.dept.length < 2){
+					 department += '<option value="'+global.dept[0].id+'" selected>'+global.dept[0].dept+'</option>';
+					 $("#kchat_dept").hide();
+				}else{
+					for(var i = 0; i < global.dept.length; i++) {
+						department += '<option value="'+global.dept[i].id+'">'+global.dept[i].dept+'</option>';
+					}
+					$("#kchat_dept").show();
 				}
 				$("#kchat_dept").html(department);
 			}
@@ -35,9 +41,15 @@ kbox.init = (function(data){
 			kbox.loadform();
 			$("#KChat_heading_title").html(global.heading);
 			var department = '';
-			for(var i = 0; i < global.dept.length; i++) {
-				department += '<option value="'+global.dept[i].id+'">'+global.dept[i].dept+'</option>';
-			}
+				if(global.dept.length < 2){
+					 department += '<option value="'+global.dept[0].id+'" selected>'+global.dept[0].dept+'</option>';
+					 $("#kchat_dept").hide();
+				}else{
+					for(var i = 0; i < global.dept.length; i++) {
+						department += '<option value="'+global.dept[i].id+'">'+global.dept[i].dept+'</option>';
+						$("#kchat_dept").show();
+					}
+				}
 			$("#kchat_dept").html(department);
 		}
 		
@@ -122,12 +134,28 @@ kbox.initevent = (function(event){
 	});
 });
 
+// $("#xclose").click(function(){
+	// alert('band kar ');
+// });
+
+$(document).on('click', "#xclose" , function() {
+	if(kbox.box_Toggle){
+		$("#KChat_box").css("display", "none");
+		$("#KChat_btn").css("display", "block");
+		kbox.box_Toggle = false;
+	}else{
+		$("#KChat_btn").css("display", "none");
+		$("#KChat_box").css("display", "block");
+		kbox.box_Toggle = true;
+	}
+});
+
 kbox.loadBox = (function(){
-	html = "<div id=\"KChat_heading\" ><div id=\"KChat_heading_title\" ></div></div>";
+	html = "<div id=\"KChat_heading\" ><div id=\"KChat_heading_title\" ></div><div id=\"KChat_close\" ><a id=\"xclose\" href=\"javascript:void(0);\">X<a/></div></div>";
 	html += "<div id=\"KChat_scroll_panel\" >";
 	html += "<div id=\"KChat_scroll\" >";
 	html += "</div></div>";
-	html += "<div id=\"kchat_copy\" >&nbsp;<a href=\"https://github.com/php-kchat/kchat\" target=\"_blank\" >KChat &copy; 2017</a></div>";
+	html += "<div id=\"kchat_copy\" >&nbsp;<a href=\"https://github.com/php-kchat/kchat\" target=\"_blank\" >KChat &copy; 2017-2021</a></div>";
 	html += "<div id=\"KChat_textarea\" >"+
 	"<textarea  class=\"kchatemoji\" autofocus=\"autofocus\" style=\"width:100%;height:100%\" id=\"kchattextarea\" ></textarea>"+
 	"</div>";
@@ -155,9 +183,12 @@ kbox.loademoji = (function(){
 				// to send msg on enter
 			  if (keyCode == 13) {
 				   msg = $(".emojionearea-editor").html();
-				   msg = msg.replace(/(?:\r\n|\r|\n)/g, ' ');
-				  //==============================================================
-					if(msg == ""){
+				   $(".emojionearea-editor").html('');
+				   msg = msg.replace(/(?:\r\n|\r|\n)/g,'');
+				   msg = msg.replace(/<br\s*\/?>/gi,'');
+				   msg = msg.replace(/<div>/g, '');
+				   msg = msg.replace(/<\/div>/g, '');
+					if(msg.trim() == ""){
 						return false;
 					}
 					$.post(kbox.url + "kchat.php?msg",
@@ -178,7 +209,7 @@ kbox.loademoji = (function(){
 });
 
 kbox.loadform = (function(){
-	html = "<div id=\"KChat_heading\" ><div id=\"KChat_heading_title\" ></div></div>";
+	html = "<div id=\"KChat_heading\" ><div id=\"KChat_heading_title\" ></div><div id=\"KChat_close\" ><a id=\"xclose\" href=\"javascript:void()\">X<a/></div></div>";
 	html += "<div id=\"KChat_form\" >";
 	html +="<p type=\"text\"><input id=\"kchat_fname\" placeholder=\"Write your first name here..\"></input></p>";
 	html +="<p type=\"text\"><input id=\"kchat_lname\" placeholder=\"Write your lastname here..\"></input></p>";
@@ -195,7 +226,13 @@ kbox.start = (function(){
 	var kchat_lname = $( "#kchat_lname" ).val();
 	var kchat_email = $( "#kchat_email" ).val();
 	var kchat_dept = $( "#kchat_dept" ).val();
-	var kchat_msg = $( "#kchat_msg" ).val();
+	var kchat_msg = $( "#kchat_msg" ).val().trim();
+	
+	if(ifempty(kchat_fname) || ifempty(kchat_lname)|| ifempty(kchat_email)|| ifempty(kchat_msg)){
+		alert("Please fill in all the fields");
+		return false;
+	}
+	
 	$.post(kbox.url + "kchat.php?start",
 	{
 	  kchat_start: 'kchat_start',
@@ -252,6 +289,14 @@ function kchat_json(data){
 	}
 }
 
+function ifempty(str) {
+	if (str.trim().length == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function kchat_init(first){
 	if(global.guest == false){
 		return false;
@@ -290,7 +335,12 @@ function _loadoldmsg() {
 	 }
 }
 
-
+function stripHtml(html)
+{
+   let tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
 
 function toanchor(text) {
     var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;

@@ -331,15 +331,19 @@ $(".kchatemoji").emojioneArea({
 			}
 			// to send msg on enter
 		  if (keyCode == 13) {
-			  msg = $(".emojionearea-editor").html();
-			  //==============================================================
-				if(msg == ""){
+				msg = $(".emojionearea-editor").html();
+				$(".emojionearea-editor").html('');
+				msg = msg.replace(/(?:\r\n|\r|\n)/g,'');
+				msg = msg.replace(/<br\s*\/?>/gi,'');
+				msg = msg.replace(/<div>/g, '');
+				msg = msg.replace(/<\/div>/g, '');
+				if(msg.trim() == ""){
 					return false;
 				}
 				$.post(purl + "/ajax/chat/"+posturl,
 				{
 				  timestamp: chat.timestamp,
-				  msg: toanchor(msg),
+				  msg: toanchor(msg).trim(),
 				  first_run: 'false',
 				  token : token
 				},

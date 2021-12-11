@@ -9,9 +9,7 @@
 --
 
 INSERT INTO `%dbprefix%department` VALUES
-(1, 'Admin', 'Head of Department'),
-(2, 'support', 'support people'),
-(3, 'IT', 'IT');
+(1, 'Admin', 'Head of Department');
 
 --
 -- Dumping data for table `%dbprefix%groups`

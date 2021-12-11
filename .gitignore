@@ -61,8 +61,8 @@ box/config/*
 !box/config/.htaccess
 icon
 box/logs/*
-box/logs/.gitkeep
-box/logs/.htaccess
+!box/logs/.gitkeep
+!box/logs/.htaccess
 logs/*
-logs/.gitkeep
-logs/.htaccess
+!logs/.gitkeep
+!logs/.htaccess
