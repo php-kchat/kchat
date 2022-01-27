@@ -18,6 +18,9 @@ class login extends ctrl{
 			$array['host']     = $_SERVER['HTTP_HOST'];
 			$install = array();
 			$timezone = get_cfg_var('date.timezone');
+			if(!$timezone){
+				$timezone = date_default_timezone_get();
+			}
 			$install['extensions'] = array(
 				"json",
 				"pdo"
