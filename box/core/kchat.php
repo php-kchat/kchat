@@ -184,7 +184,7 @@ function msgencode($txt){
 }
 
 function msgdecode($txt){
-	return json_decode('"'.$txt.'"', 1);
+	return htmlspecialchars(json_decode('"'.$txt.'"', 1));
 }
 
 function isReq($id){
