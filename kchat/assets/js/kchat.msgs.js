@@ -331,7 +331,7 @@ $(".kchatemoji").emojioneArea({
 			}
 			// to send msg on enter
 		  if (keyCode == 13) {
-				msg = $(".emojionearea-editor").html();
+			    msg = $(".kchatemoji").emojioneArea()[0].emojioneArea.getText();
 				$(".emojionearea-editor").html('');
 				msg = msg.replace(/(?:\r\n|\r|\n)/g,'');
 				msg = msg.replace(/<br\s*\/?>/gi,'');
