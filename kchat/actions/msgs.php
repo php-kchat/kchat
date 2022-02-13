@@ -371,7 +371,7 @@ class msgs extends action{
 					}
 					$oldmsg[] = array(
 						'id' => $row['id'],
-						'message' => $row['msg'],
+						'message' => msgdecode($data,$row['msg']),
 						'sent_on' => ago($row['time']),
 						'align' => $align,
 						'username' => ucfirst($row['username']),
