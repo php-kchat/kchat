@@ -38,7 +38,7 @@ git clone https://github.com/php-kchat/kchat.git
 
 #### Or
 
-[Download Zip](https://github.com/php-kchat/kchat/archive/refs/tags/1.0.10.tar.gz)
+[Download Zip](https://github.com/php-kchat/kchat/archive/refs/heads/master.zip)
 and Extract to your Web Directory
 
 #### And
