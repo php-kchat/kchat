@@ -311,9 +311,9 @@ kchat.Ready = (function(){
 
 // to send a msg
 $(".kchatemoji").emojioneArea({
+	unicode: true,
+	image: false,
   events: {
-	//shortnames : true,
-	//useSprite : true,
     keypress: function (editor, event) {
 	  var keyCode = event ? (event.which ? event.which : event.keyCode) : event.keyCode;
 	  
@@ -331,7 +331,7 @@ $(".kchatemoji").emojioneArea({
 			}
 			// to send msg on enter
 		  if (keyCode == 13) {
-			    msg = $(".kchatemoji").emojioneArea()[0].emojioneArea.getText();
+			    msg = $(".kchatemoji")[0].emojioneArea.getText();
 				$(".emojionearea-editor").html('');
 				msg = msg.replace(/(?:\r\n|\r|\n)/g,'');
 				msg = msg.replace(/<br\s*\/?>/gi,'');
@@ -357,7 +357,7 @@ $(".kchatemoji").emojioneArea({
 						}
 					}
 				});
-			  $(".emojionearea-editor").html("");
+			 $(".emojionearea-editor").html("");
 			  //==============================================================
 		  }
 		  if (keyCode == 59) {
