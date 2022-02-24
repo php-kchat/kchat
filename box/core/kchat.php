@@ -180,7 +180,7 @@ function reverse($a){
 
 
 function msgencode($txt){
-	return trim(json_encode($txt),'"');
+	return substr(json_encode($txt), 1, -1);
 }
 
 function msgdecode($txt){
