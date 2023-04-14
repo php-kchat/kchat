@@ -1,0 +1,772 @@
+
+.loading {
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  -webkit-animation: 1.5s shine linear infinite;
+          animation: 1.5s shine linear infinite;
+}
+
+body {
+	background: #eee;
+}
+
+.height100 {
+	top: 0px;
+	bottom: 0px;
+	width: 100%;
+	position: absolute;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.height10 {
+	height: 100%;
+	overflow-y: auto;
+	position: relative;
+}
+
+/* Rounded sliders */
+/*-------------------------------------------------------------------*/
+/* === Email === */
+/* Mail Sidebar */
+@media (max-width: 769px) {
+.email-wrapper .mail-sidebar {
+  position: relative;
+  height:100%;
+}
+}
+
+@media (max-width: 767.98px) {
+.email-wrapper .mail-sidebar {
+  position: fixed;
+  z-index: 99;
+  background: #ffffff;
+  width: 45%;
+  min-width: 300px;
+  left: -100%;
+  display: block;
+  transition: 0.4s ease;
+  -webkit-transition: 0.4s ease;
+  -moz-transition: 0.4s ease;
+}
+}
+
+.email-wrapper .mail-sidebar .menu-bar {
+width: 100%;
+float: right;
+height: 100%;
+min-height: 100%;
+}
+
+@media (max-width: 767.98px) {
+.email-wrapper .mail-sidebar .menu-bar {
+  min-height: 100vh;
+  max-height: 100%;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items {
+padding: 0;
+margin-bottom: 0;
+height: auto;
+list-style-type: none;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li {
+padding: 10px 15px;
+transition: 0.4s;
+position: relative;
+display: -webkit-flex;
+display: flex;
+-webkit-align-items: center;
+align-items: center;
+-webkit-justify-content: space-between;
+justify-content: space-between;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li:hover {
+background: rgba(240, 244, 249, 0.8);
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li a {
+color: #303a40;
+font-size: 0.75rem;
+text-decoration: none;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li a i {
+margin-right: 8px;
+font-size: 0.75rem;
+line-height: 1.5;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li.active {
+background: #e6e9ed;
+border-radius: 4px;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li.active a {
+color: #464dee;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .menu-items li.compose:hover {
+background: transparent;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status {
+margin-top: 1rem;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .chat {
+font-size: 0.75rem;
+color: #464dee;
+margin-bottom: 0;
+font-weight: 600;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status {
+height: 10px;
+width: 10px;
+border-radius: 100%;
+display: inline-flex;
+justify-content: flex-start;
+transform: translateX(-43px) translateY(2px);
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status:after {
+font-size: 12px;
+color: #2e383e;
+margin: -5px 0 0 18px;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status.offline {
+background: #ef5958;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status.offline:after {
+content: "Offline";
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status.online {
+background: #0ddbb9;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .online-status .status.online:after {
+content: "Online";
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list {
+padding: 10px 0;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item {
+border-bottom: 2px solid #e9e9e9;
+padding: 6px 0;
+display: block;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item:last-child {
+border-bottom: 0;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a {
+text-decoration: none;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a .pro-pic {
+display: -webkit-flex;
+display: flex;
+-webkit-align-items: center;
+align-items: center;
+padding: 0;
+width: 20%;
+max-width: 40px;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a .pro-pic img {
+max-width: 100%;
+width: 100%;
+border-radius: 100%;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a .user {
+width: 100%;
+padding: 5px 10px 0 15px;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a .user .u-name {
+font-weight: 400;
+font-size: 0.75rem;
+line-height: 1;
+color: #000000;
+}
+
+.email-wrapper .mail-sidebar .menu-bar .profile-list-item a .user .u-designation {
+font-size: calc(0.75rem - 0.1rem);
+margin-bottom: 0;
+}
+
+.email-wrapper .sidebar.open {
+left: 0;
+}
+
+/* Mail List Container */
+.email-wrapper .mail-list-container {
+border-left: 2px solid #e9e9e9;
+padding-left: 0;
+padding-right: 0;
+}
+
+.email-wrapper .mail-list-container a {
+text-decoration: none;
+}
+
+.email-wrapper .mail-list-container .mail-list {
+border-bottom: 2px solid #e9e9e9;
+display: flex;
+flex-direction: row;
+padding: 10px 15px;
+width: 100%;
+}
+
+.email-wrapper .mail-list-container .mail-list:last-child {
+border-bottom: none;
+}
+
+.email-wrapper .mail-list-container .mail-list .form-check {
+margin-top: 12px;
+width: 11%;
+min-width: 20px;
+}
+
+.email-wrapper .mail-list-container .mail-list .content {
+width: 83%;
+padding-left: 0;
+padding-right: 0;
+}
+
+.email-wrapper .mail-list-container .mail-list .content .sender-name {
+font-size: 0.75rem;
+font-weight: 400;
+max-width: 95%;
+}
+
+.email-wrapper .mail-list-container .mail-list .content .message_text {
+margin: 0;
+max-width: 93%;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.email-wrapper .mail-list-container .mail-list .details {
+width: 5.5%;
+}
+
+.email-wrapper .mail-list-container .mail-list .details .date {
+text-align: right;
+margin: auto 15px auto 0;
+white-space: nowrap;
+}
+
+.email-wrapper .mail-list-container .mail-list .details i {
+margin: auto 0;
+color: #ddd;
+}
+
+.email-wrapper .mail-list-container .mail-list .details i.favorite {
+color: #fcd539;
+}
+
+.email-wrapper .mail-list-container .mail-list.new_mail {
+background: #e6e9ed;
+}
+
+.email-wrapper .mail-list-container .mail-list.new_mail .details .date {
+color: #000000;
+}
+
+/* Message Content */
+.email-wrapper .message-body .sender-details {
+padding: 20px 15px 0;
+border-bottom: 2px solid #e9e9e9;
+display: -webkit-flex;
+display: flex;
+}
+
+.email-wrapper .message-body .sender-details .details {
+padding-bottom: 0;
+}
+
+.email-wrapper .message-body .sender-details .details .msg-subject {
+font-weight: 600;
+}
+
+.email-wrapper .message-body .sender-details .details .sender-email {
+margin-bottom: 20px;
+font-weight: 400;
+}
+
+.email-wrapper .message-body .sender-details .details .sender-email i {
+font-size: 1rem;
+font-weight: 600;
+margin: 0 1px 0 7px;
+}
+
+.email-wrapper .message-body .message-content {
+padding: 50px 15px;
+}
+
+.friend-list {
+	list-style: none;
+	margin-left: -40px;
+}
+
+.friend-list li {
+	border-bottom: 1px solid #eee;
+}
+
+.friend-list li.active a {
+	background-color: #f1f5fc;
+}
+
+.friend-list li a {
+	position: relative;
+	display: block;
+	padding: 5px;
+	transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-ms-transition: all .2s ease;
+	-o-transition: all .2s ease;
+}
+
+a {
+	color: #337ab7;
+	text-decoration: none;
+}
+
+.friend-list li a img {
+	float: left;
+	width: 45px;
+	height: 45px;
+	margin-right: 10px;
+}
+
+.img-circle {
+	border-radius: 50%;
+}
+
+img {
+	max-width: 100%;
+}
+
+.friend-list li a .friend-name, .friend-list li a .friend-name:hover {
+	color: #777;
+}
+
+.friend-list li a .last-message {
+	width: 65%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.text-muted {
+	color: #777;
+}
+
+.friend-list li a .time {
+	position: absolute;
+	top: 10px;
+	right: 8px;
+}
+
+.friend-list li a .chat-alert {
+	position: absolute;
+	right: 8px;
+	top: 27px;
+	font-size: 10px;
+	padding: 3px 5px;
+}
+
+.label-danger {
+	background-color: #d9534f;
+}
+
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
+
+/*---------------------------------------------------*/
+
+.card {
+    background: #fff;
+    transition: .5s;
+    border: 0;
+    margin-bottom: 30px;
+    border-radius: .55rem;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+.chat-app .people-list {
+    width: 280px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    z-index: 7
+}
+
+.chat-app .chat {
+    margin-left: 280px;
+    border-left: 1px solid #eaeaea
+}
+
+.people-list {
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .5s
+}
+
+.people-list .chat-list li {
+    padding: 10px 15px;
+    list-style: none;
+    border-radius: 3px
+}
+
+.people-list .chat-list li:hover {
+    background: #efefef;
+    cursor: pointer
+}
+
+.people-list .chat-list li.active {
+    background: #efefef
+}
+
+.people-list .chat-list li .name {
+    font-size: 15px
+}
+
+.people-list .chat-list img {
+    width: 45px;
+    border-radius: 50%
+}
+
+.people-list img {
+    float: left;
+    border-radius: 50%
+}
+
+.people-list .about {
+    float: left;
+    padding-left: 8px
+}
+
+.people-list .status {
+    color: #999;
+    font-size: 13px
+}
+
+.chat .chat-header {
+    padding: 15px 20px;
+    border-bottom: 2px solid #f4f7f6
+}
+
+.chat .chat-header img {
+    float: left;
+    border-radius: 40px;
+    width: 40px
+}
+
+.chat .chat-header .chat-about {
+    float: left;
+    padding-left: 10px
+}
+
+.chat .chat-history {
+    padding: 20px;
+    border-bottom: 2px solid #fff
+}
+
+.chat .chat-history ul {
+    padding: 0
+}
+
+.chat .chat-history ul li {
+    list-style: none;
+    margin-bottom: 30px
+}
+
+.chat .chat-history ul li:last-child {
+    margin-bottom: 0px
+}
+
+.chat .chat-history .message-data {
+    margin-bottom: 15px
+}
+
+.chat .chat-history .message-data img {
+    border-radius: 40px;
+    width: 40px
+}
+
+.chat .chat-history .message-data-time {
+    color: #434651;
+    padding-left: 6px
+}
+
+.chat .chat-history .message {
+    color: #444;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    display: inline-block;
+    position: relative
+}
+
+.chat .chat-history .message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #fff;
+    border-width: 10px;
+    margin-left: -10px
+}
+
+.chat .chat-history .my-message {
+    background: #efefef
+}
+
+.chat .chat-history .my-message:after {
+    bottom: 100%;
+    left: 30px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #efefef;
+    border-width: 10px;
+    margin-left: -10px
+}
+
+.chat .chat-history .other-message {
+    background: #e8f1f3;
+    text-align: right
+}
+
+.chat .chat-history .other-message:after {
+    border-bottom-color: #e8f1f3;
+    left: 93%
+}
+
+.chat .chat-message {
+    padding: 20px;
+	border-top: 2px solid #e9e9e9;
+}
+
+.online,
+.offline,
+.me {
+    margin-right: 2px;
+    font-size: 8px;
+    vertical-align: middle
+}
+
+.online {
+    color: #86c541
+}
+
+.offline {
+    color: #e47297
+}
+
+.me {
+    color: #1d8ecd
+}
+
+.float-right {
+    float: right
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}
+
+@media only screen and (max-width: 767px) {
+    .chat-app .people-list {
+        height: 465px;
+        width: 100%;
+        overflow-x: auto;
+        background: #fff;
+        left: -400px;
+        display: none
+    }
+    .chat-app .people-list.open {
+        left: 0
+    }
+    .chat-app .chat {
+        margin: 0
+    }
+    .chat-app .chat .chat-header {
+        border-radius: 0.55rem 0.55rem 0 0
+    }
+    .chat-app .chat-history {
+        height: 300px;
+        overflow-x: auto
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .chat-app .chat-list {
+        height: 650px;
+        overflow-x: auto
+    }
+    .chat-app .chat-history {
+        height: 600px;
+        overflow-x: auto
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+    .chat-app .chat-list {
+        height: 480px;
+        overflow-x: auto
+    }
+    .chat-app .chat-history {
+        height: calc(100vh - 350px);
+        overflow-x: auto
+    }
+}
+
+.mail-view {
+	padding: 20px;
+	border-bottom: 2px solid #fff;
+	overflow-y: auto;
+	border-left: 2px solid #e9e9e9;
+}
+
+.chat-message {
+	bottom: 0px;
+	position: relative;
+}
+
+.chat-history {
+	overflow-y: auto;
+	position: relative;
+}
+
+.chat-header {
+	top: 0px;
+	position: relative;
+}
+
+.bg-Active {
+	background-color: #28a745 !important;
+}
+
+.bg-Blocked {
+	background-color: #dc3545  !important;
+}
+
+.bg-Inactive {
+	background-color: #ffc107  !important;
+}
+
+tbody tr:hover {
+	background-color: #e6e9ed;
+}
+
+.selected{
+	background-color: #e6e9ed;
+}
+
+.selected, .select{
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+#profileimage{
+	height: 140px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-image: url('http://kchat2.com/logo/KChat.svg');
+}
+
+#kchat-msg{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	border-left: 2px solid #e9e9e9;
+}
+
+.border-bottom{
+	border-bottom: 2px solid #e9e9e9;
+}
+
+.install-img {
+	max-width: 40%;
+	margin-left: 30%;
+}
+
+#gotobottom {
+	position: fixed;
+	right: 70px;
+	bottom: 120px;
+	width: 40px;
+	height: 40px;
+	background-color: rgb(255, 255, 255);
+    display:none;
+}
+
+#loading {
+	width: 75px;
+	height: 75px;
+	display: block;
+	margin: 0 auto;
+    display:none;
+}
+
+input {
+	display: block;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

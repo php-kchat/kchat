@@ -1,34 +1,35 @@
 
-```
-I am not able to maintain it due to not getting much time.
-Welcome your pull requests
-```
-
-![](https://github.com/php-kchat/kchat/blob/master/kchat/assets/images/logo.svg)
+![](https://github.com/php-kchat/kchat/blob/master/public/logo/KChat_Logo.svg)
 
 # KChat
 #### PHP Based Chat Application.
 
 ## Requirements
 
-* PHP version >= 5.5
-    * Required extensions :
-        * PDO_Mysql
-        * json
 * Web Server Apache or Nginx
-* MySQL 5
+* MySQL 5.7
+* PHP version >= 8.0
+    * Required extensions :
+        * ctype
+        * curl
+        * dom
+        * fileinfo
+        * filter
+        * hash
+        * json
+        * libxml
+        * mbstring
+        * openssl
+        * pcre
+        * phar
+        * session
+        * tokenizer
+        * xml
+        * xmlwriter
 
-## Installation
+## Manual installation
 
 #### Downlaod Kchat Files
-
-#### Using with Composer
-
-```
-composer create-project php-kchat/kchat
-```
-
-#### Or
 
 #### Using git
 
@@ -36,47 +37,53 @@ composer create-project php-kchat/kchat
 git clone https://github.com/php-kchat/kchat.git
 ```
 
-#### Or
+> OR
 
 [Download Zip](https://github.com/php-kchat/kchat/archive/refs/heads/master.zip)
 and Extract to your Web Directory
 
-#### And
+> OR
+
+#### Using with Composer
+
+```
+composer create-project php-kchat/kchat
+```
+
+### Run following command to complete installation
+
+Create ``.env`` if not exist.
+```
+cp .env.example .env
+```
+
+Configure database details in ``.env``
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Generate ``APP_KEY`` in the ``.env`` file:
+```
+php artisan key:generate
+```
+
+Create tables:
+```
+php artisan migrate
+```
 
 Give a Writable Permission on
-* config
-* logs
-* cache
-* logs/kchat.log.php
-* box/config
-* box/logs/error.log
 
+- storage/*
+- bootstrap/cache/*
+- public/images/*
 
-Visit the subfolder https://mydomain.com/index.php in your web-browser.
-The installation script will start automatically and guide you through the installation process.
-
-#### Login with
-* Admin - admin
-* Password - pass
-
-#### note.
-
-- if you getting internal server error when you installed KChat in sub-directory please update .htaccess
-
-Uncomment and update RewriteBase
-
-ex.
-```
-RewriteBase /{{your-relative-url}}/
-```
-
-- if message box not working try adding jquery in your code
-
-ex.
-
-```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-```
+Sign-in your first user and login
 
 #### Maintainers
 

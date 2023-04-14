@@ -1,0 +1,91 @@
+.profile-information .profile-pic img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 10px solid #f1f2f7;
+    margin-top: 20px;
+}
+
+.profile-information .profile-desk h1 {
+    color: #1fb5ad;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.profile-information .profile-desk {
+    border-right: 1px solid #ddd;
+    padding-right: 30px;
+}
+
+.act-content{
+    padding:40px;    
+}
+
+.recent-act h1 {
+    text-align: center;
+    color: #1fb5ad;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.activity-icon {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #FFFFFF;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+    margin: 20px auto 20px;
+    position: relative;
+}
+
+.activity-icon.terques {
+    background: #8fd6d6;
+}
+
+.activity-icon {
+    background: #C7CBD6;
+}
+
+.recent-act:before {
+    background-color: #eeeeee;
+    bottom: 0;
+    content: "";
+    left: 50%;
+    position: absolute;
+    top: 50px;
+    width: 2px;
+    z-index: 0;
+}
+
+.activity-desk {
+    padding: 15px 30px;
+    background: #f2f2f2;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    position: relative;
+    text-align: center;
+}
+
+.activity-desk h2 {
+    color: #1fb5ad;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+
