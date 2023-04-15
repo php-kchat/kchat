@@ -22,4 +22,4 @@ To help us resolve your issue more quickly, please use the following template:
 
 ## Error Log
 
-> Upload ```logs/kchat.log.php``` file
+> Upload ```storage/logs/laravel.log``` file
