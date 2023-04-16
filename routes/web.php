@@ -82,5 +82,7 @@ Route::group(['middleware' => ['CheckLogin']],function(){
 	Route::post('/messages', [KchatController::class, 'kchat'])->name('All Json Responses');
     
 	Route::post('/messages/update', [MessageController::class, 'UpdateConversation'])->name('Update Conversation');
+    
+	Route::post('/getConvo', [KchatController::class, 'getConvo'])->name('get Conversations list via search');
 
 });

@@ -3,6 +3,7 @@ message = '';
 typing = false;
 OnLoadMsgs = true;
 previous  = false;
+conversation_like = '';
    
 $(document).ready (function(){
 
@@ -141,6 +142,7 @@ $(document).ready (function(){
 		}
 	}
 
+    LoadMessage = true;
 	// Define the function to make the AJAX call
 	function KChatAjax(){
 		
@@ -167,26 +169,32 @@ $(document).ready (function(){
         
         //console.log(Data);
         
-        $.ajax({
-            type: "POST",
-            url: '/messages',
-            data: Data,
-            success: function(messages){
-                
-                messages = $.parseJSON(messages);
-                
-                UpdateConversations(messages);
-                
-                UpdateMessages(messages);
-                
-                previous = false;
-                
-                $('#loading').css('display','none');
-            },
-            error: function(result){
-                
-            }
-        });
+        if(LoadMessage){
+            LoadMessage = false;
+            $.ajax({
+                type: "POST",
+                url: '/messages',
+                data: Data,
+                success: function(messages){
+                    
+                    messages = $.parseJSON(messages);
+                    
+                    UpdateConversations(messages);
+                    
+                    UpdateMessages(messages);
+                    
+                    previous = false;
+                    
+                    $('#loading').css('display','none');
+                    
+                    LoadMessage = true;
+                },
+                error: function(result){
+                    
+                }
+            }); 
+        }
+
 
 	}
 
@@ -232,6 +240,41 @@ $(document).ready (function(){
         overflowDiv.scrollTop(overflowDiv[0].scrollHeight);
         $(this).css('display','none');
         
+	});
+    
+    search_convo = true;
+    
+    $("#convo_like").keyup(function() {
+
+        Search = {};
+        
+        Search['_token'] = $('meta[name="csrf_token"]').attr('content');
+        Search['convo_like'] = $(this).val();
+        
+        if(search_convo){
+            search_convo = false;
+            $.ajax({
+                type: "POST",
+                url: '/getConvo',
+                data: Search,
+                success: function(results){
+                    search_convo = true;
+                    results = $.parseJSON(results);
+                    html = '';
+                    results.forEach(function(element){
+                        html += `<tr>
+                            <td><a href="/messages/?chat=${element.id}" ><img src="${element.photo}" class="rounded-circle my-n1" alt="[Photo]" width="32" height="32"></a></td>
+                            <td><a href="/messages/?chat=${element.id}" >${element.conversation_name}</a></td>
+                        </tr>`
+                    });
+                    $('#ConvoList').html(html);
+                },
+                error: function(result){
+                    
+                }
+            });
+        }
+
 	});
 	
 });

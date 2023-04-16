@@ -100,7 +100,7 @@ class KchatController extends Controller
 			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
 			->orderBy('messages.id')
             ->orderBy('conversations.id');
-		
+        
 		if (session()->has('chat_id')){
 			$tmp->where('messages.id','>', session()->get('chat_id'));
 		}
@@ -115,4 +115,18 @@ class KchatController extends Controller
 		
 		return json_encode($data);
 	}
+    
+    function getConvo(Request $request){
+        
+        $tmp = DB::table('conversations')
+        ->select('conversations.id','conversations.conversation_name', 'conversations.photo', 'conversations.created_at')
+        ->rightJoin('participants', 'participants.conversation_id', '=', 'conversations.id')
+        ->where('participants.user_id', Auth()->user()->id)
+        ->where('conversations.conversation_name', 'like', '%'.$request->convo_like.'%')
+        ->get()
+        ->toArray();
+        
+        return json_encode($tmp);
+        
+    }
 }

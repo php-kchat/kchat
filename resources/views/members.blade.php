@@ -40,7 +40,7 @@
                </div>
             </div>
          </div>
-         <h5 class="card-title mb-0">Clients</h5>
+         <h5 class="card-title mb-0">Member's</h5>
       </div>
       <div class="card-body">
 		<script>

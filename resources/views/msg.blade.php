@@ -17,7 +17,7 @@
 <div class="mail-list-container col-md-3 pt-4 pb-4 border-right bg-white height10">
  <div class="border-bottom pb-3 px-3">
 	<div class="form-group">
-	   <input class="form-control w-100" type="search" placeholder="Search mail" id="Mail-rearch">
+	   <input class="form-control w-100" type="search" placeholder="Search Conversation" data-toggle="modal" data-target="#search_conversation" id="Mail-rearch">
 	</div>
  </div>
  <ul class="friend-list" id="MessageBox">
@@ -135,6 +135,27 @@
 	 </div>
 	 </div>
 @endif
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="search_conversation" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <input type="text" class="form-control" id="convo_like" />
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="search_conversation_results" >
+          <table id="ConvoList" class="table">
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 				  
