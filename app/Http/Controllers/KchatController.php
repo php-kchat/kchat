@@ -96,7 +96,7 @@ class KchatController extends Controller
 		$tmp = DB::table('messages')
 			->rightJoin('users', 'messages.user_id', '=', 'users.id')
 			->rightJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')
-			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.') lm'), 'messages.id', '=', 'lm.message_id')
+			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.' limit 45) lm'), 'messages.id', '=', 'lm.message_id')
 			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
 			->orderBy('messages.id')
             ->orderBy('conversations.id');
@@ -123,6 +123,7 @@ class KchatController extends Controller
         ->rightJoin('participants', 'participants.conversation_id', '=', 'conversations.id')
         ->where('participants.user_id', Auth()->user()->id)
         ->where('conversations.conversation_name', 'like', '%'.$request->convo_like.'%')
+		->limit(25)
         ->get()
         ->toArray();
         
