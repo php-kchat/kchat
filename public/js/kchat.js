@@ -139,6 +139,11 @@ $('.pages option[value='+page+']').attr('selected','selected');
 $(".pages").change(function(){
 	$para = getUrlVars();
 	$para['page'] = this.value;
+    
+    if($('#Member-rearch').length){
+        $para['ms'] = $('#Member-rearch').val();
+    }
+    
 	$url = window.location.href.split('?');
 	//console.log($url[0] + "?" + $.param($para));
 	window.location.href = $url[0] + "?" + $.param($para);

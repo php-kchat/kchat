@@ -56,7 +56,7 @@
                         <option value="{{ $page }}" >{{ $page }}</option>
                         @endforeach
                     </select>
-                    <input class="w-20 mr-3 float-right" type="search" placeholder="Search Member" id="Member-rearch">
+                    <input class="w-20 mr-3 float-right" type="search" placeholder="Search using mail" id="Member-rearch" value="{{ $ms }}" >
                </tr>
             </thead>
             <thead>

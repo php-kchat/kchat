@@ -14,8 +14,15 @@ class UserController extends Controller
 	
     function members(Request $request){
 		
-		$users = DB::table('users')->paginate(10);
+		$users = DB::table('users');
 		
+        if(!empty($request->ms)){
+            $ms = $request->ms;
+            $users->where('email', 'like', '%'.$request->ms.'%');
+        }
+        
+        $users = $users->paginate(10);
+        
 		$keys = array_column($users->items(),'id');
 		
 		$values = array_map([$this,"SecrurePass"],$users->items());
@@ -24,7 +31,13 @@ class UserController extends Controller
 		
 		$pages = range(1, $users->lastPage());
 		
-        return view('members',compact('users','pages','jsonusers'));
+        $ms = '';
+        
+        if(!empty($request->ms)){
+            $ms = $request->ms;
+        }
+        
+        return view('members',compact('users','pages','jsonusers','ms'));
 	}
 	
     function delete_users(Request $request){
