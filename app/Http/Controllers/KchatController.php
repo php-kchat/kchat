@@ -142,6 +142,10 @@ class KchatController extends Controller
         ->get()
         ->toArray();
         
+        foreach($tmp as $i => $v){
+            $tmp[$i]->conversation_name = htmlentities($tmp[$i]->conversation_name);
+        }
+        
         return json_encode($tmp);
         
     }
