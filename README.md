@@ -88,4 +88,4 @@ Sign-in your first user and login
 #### Maintainers
 
 - [Ganesh Kandu](https://github.com/GaneshKandu)
-	- [Linkedin](https://www.linkedin.com/in/ganesh-kandu-42b14373/)
+	- [Linkedin](https://www.linkedin.com/in/ganeshkandu/)

@@ -190,7 +190,7 @@ $(document).ready (function(){
                     LoadMessage = true;
                 },
                 error: function(result){
-                    
+                    LoadMessage = true;
                 }
             }); 
         }
@@ -242,8 +242,6 @@ $(document).ready (function(){
         
 	});
     
-    search_convo = true;
-    
     $("#convo_like").keyup(function() {
 
         Search = {};
@@ -251,29 +249,26 @@ $(document).ready (function(){
         Search['_token'] = $('meta[name="csrf_token"]').attr('content');
         Search['convo_like'] = $(this).val();
         
-        if(search_convo){
-            search_convo = false;
-            $.ajax({
-                type: "POST",
-                url: '/getConvo',
-                data: Search,
-                success: function(results){
-                    search_convo = true;
-                    results = $.parseJSON(results);
-                    html = '';
-                    results.forEach(function(element){
-                        html += `<tr>
-                            <td><a href="/messages/?chat=${element.id}" ><img src="${element.photo}" class="rounded-circle my-n1" alt="[Photo]" width="32" height="32"></a></td>
-                            <td><a href="/messages/?chat=${element.id}" >${element.conversation_name}</a></td>
-                        </tr>`
-                    });
-                    $('#ConvoList').html(html);
-                },
-                error: function(result){
-                    
-                }
-            });
-        }
+        $.ajax({
+            type: "POST",
+            url: '/getConvo',
+            data: Search,
+            success: function(results){
+                search_convo = true;
+                results = $.parseJSON(results);
+                html = '';
+                results.forEach(function(element){
+                    html += `<tr>
+                        <td><a href="/messages/?chat=${element.id}" ><img src="${element.photo}" class="rounded-circle my-n1" alt="[Photo]" width="32" height="32"></a></td>
+                        <td><a href="/messages/?chat=${element.id}" >${element.conversation_name}</a></td>
+                    </tr>`
+                });
+                $('#ConvoList').html(html);
+            },
+            error: function(result){
+                
+            }
+        });
 
 	});
 	

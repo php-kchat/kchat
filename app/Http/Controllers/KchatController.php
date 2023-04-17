@@ -74,6 +74,12 @@ class KchatController extends Controller
                     $data['messages'] = array_reverse($data['messages']);
                 }
 			
+                foreach($data['messages'] as $i => $v){
+                    $data['messages'][$i]->first_name = htmlentities($data['messages'][$i]->first_name);
+                    $data['messages'][$i]->last_name = htmlentities($data['messages'][$i]->last_name);
+                    $data['messages'][$i]->message = htmlentities($data['messages'][$i]->message);
+                }
+            
 				if(count($data['messages'])){
                     
 					if(end($data['messages'])->id > session()->get('message_id')){
@@ -106,13 +112,22 @@ class KchatController extends Controller
 		}
 		
 		$data['chats'] = $tmp->get()->toArray();
+        
+        foreach($data['chats'] as $i => $v){
+            $data['chats'][$i]->conversation_name = htmlentities($data['chats'][$i]->conversation_name);
+            $data['chats'][$i]->first_name = htmlentities($data['chats'][$i]->first_name);
+            $data['chats'][$i]->last_name = htmlentities($data['chats'][$i]->last_name);
+            $data['chats'][$i]->message = htmlentities($data['chats'][$i]->message);
+        }
 		
 		if(count($data['chats'])){
             if(end($data['chats'])->mid > session()->get('chat_id')){
                 session()->put('chat_id', end($data['chats'])->mid);
             }
 		}
-		
+        
+		//print_r($data);
+        
 		return json_encode($data);
 	}
     
