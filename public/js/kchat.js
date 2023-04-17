@@ -1,4 +1,8 @@
 
+if(localStorage.getItem('selected') == null){
+    localStorage.setItem('selected', "");
+}
+
 //Unset
 
 function unset(arr,value){
@@ -136,7 +140,7 @@ $(".pages").change(function(){
 	$para = getUrlVars();
 	$para['page'] = this.value;
 	$url = window.location.href.split('?');
-	console.log($url[0] + "?" + $.param($para));
+	//console.log($url[0] + "?" + $.param($para));
 	window.location.href = $url[0] + "?" + $.param($para);
 });
 
@@ -153,7 +157,7 @@ $(document).on('keyup keydown', function(e) {
 
 $('.select').on('click', function() {
 
-  id = $.cookie('selected').split(",");
+  id = localStorage.getItem('selected').split(",");
 
   id.sort();
 
@@ -176,14 +180,14 @@ $('.select').on('click', function() {
   }
   id.sort();
   id = $.unique(id);
-  $.cookie('selected', id.join(","));
+  localStorage.setItem('selected', id.join(","));
   setSelectedCount();
   
 });
 
 //Select all ids selected by user using cookie
 $('.select[id]').each(function() {
-    selected = $.cookie('selected').split(",");
+    selected = localStorage.getItem('selected').split(",");
     selected = $.grep(selected, function(value) {
         return $.trim(value).length > 0;
     });
@@ -203,7 +207,7 @@ function SelectAll(){
 	
 	$('.select').addClass("selected");
 
-	id = $.cookie('selected').split(",");
+	id = localStorage.getItem('selected').split(",");
 
 	id.sort();
   
@@ -221,7 +225,7 @@ function SelectAll(){
 
 	id = $.unique(id);
 
-	$.cookie('selected', id.join(","));
+	localStorage.setItem('selected', id.join(","));
     
     setSelectedCount();
 }
@@ -243,8 +247,8 @@ function getSelectedID(){
 	});
 	*/
 	
-	arr = $.cookie('selected').split(",");
-    $.cookie('selected', '');
+	arr = localStorage.getItem('selected').split(",");
+    localStorage.removeItem('selected')
     return arr;
 }
 
@@ -328,15 +332,15 @@ elements.each(function() {
 });
 
 // Remove Blank values from cookie
-$.cookie('selected',$.grep($.cookie('selected').split(","), function(value) {
+localStorage.setItem('selected',localStorage.getItem('selected').split(","), function(value) {
     return $.trim(value).length > 0;
-}));
+});
 
 //Set count of selected
 function setSelectedCount(){
-    if($.isArray($.cookie('selected').split(","))){
-        $('#Selected').html($.cookie('selected').split(",").length);
-        if($.cookie('selected').split(",")[0] == ''){
+    if($.isArray(localStorage.getItem('selected').split(","))){
+        $('#Selected').html(localStorage.getItem('selected').split(",").length);
+        if(localStorage.getItem('selected').split(",")[0] == ''){
             $('#Selected').html(0);
         }
     } 
