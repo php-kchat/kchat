@@ -161,6 +161,7 @@ $(document).on('keyup keydown', function(e) {
 });
 
 $('.select').on('click', function() {
+//$(document).on('click', '.select', function() {
 
   id = localStorage.getItem('selected').split(",");
 

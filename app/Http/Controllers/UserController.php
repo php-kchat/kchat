@@ -12,6 +12,34 @@ use KChat\NotificationsLog;
 class UserController extends Controller
 {
 	
+    function members_ajax(Request $request){
+		
+		$users = DB::table('users');
+		
+        if(!empty($request->ms)){
+            $ms = $request->ms;
+            $users->where('email', 'like', '%'.$request->ms.'%');
+        }
+        
+        $users = $users->paginate(10);
+        
+		$keys = array_column($users->items(),'id');
+		
+		$values = array_map([$this,"SecrurePass"],$users->items());
+		
+		$jsonusers = array_combine($keys, $values);
+		
+		$pages = range(1, $users->lastPage());
+		
+        $ms = '';
+        
+        if(!empty($request->ms)){
+            $ms = $request->ms;
+        }
+        
+        return view('members_ajax',compact('users','pages','jsonusers','ms'));
+	}
+	
     function members(Request $request){
 		
 		$users = DB::table('users');

@@ -46,7 +46,7 @@
 		<script>
 			json = @json($jsonusers);
 		</script>
-         <table class="table" style="width:100%">
+         <table class="table"style="width:100%">
             <thead>
                <tr>
                     <i class="fa fa-users"></i>
@@ -68,7 +68,7 @@
                   <th>Status</th>
                </tr>
             </thead>
-            <tbody>
+            <tbody id="member_table" >
 			@foreach($users as $user)
                <tr class="select member" id="{{ $user->id }}" >
                   <td><img src="{{ $user->photo }}" width="32" height="32" class="rounded-circle my-n1" alt="[Photo]" onerror="this.onerror=null; this.src='/logo/KChat.svg';"></td>

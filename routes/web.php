@@ -84,5 +84,7 @@ Route::group(['middleware' => ['CheckLogin']],function(){
 	Route::post('/messages/update', [MessageController::class, 'UpdateConversation'])->name('Update Conversation');
     
 	Route::post('/getConvo', [KchatController::class, 'getConvo'])->name('get Conversations list via search');
+        
+	Route::post('/ajax_members', [UserController::class, 'members_ajax'])->name('Members List on Ajax call');
 
 });

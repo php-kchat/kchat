@@ -45,17 +45,41 @@ function unblock_user(){
 	__post('/members/unblock_users',[$('#m_user').val()]);
 }
 
-$('.member').on('dblclick', function() {
-	$('.m_photo').attr('src',json[$(this).attr('id')].photo);
-	$('.m_about').text(json[$(this).attr('id')].about);
-	$('.m_name').text(json[$(this).attr('id')].first_name + " " + json[$(this).attr('id')].last_name);
-	$('.m_email').text(json[$(this).attr('id')].email);
-	$('.m_department').text(json[$(this).attr('id')].department);
-	$('.m_phone').text(json[$(this).attr('id')].phone);
-	$('.m_status').text(json[$(this).attr('id')].status);
-	$('.m_status').removeClass("bg-Active bg-Blocked bg-Inactive");
-	$('.m_status').addClass("bg-"+json[$(this).attr('id')].status);
-	$('#m_user').val($(this).attr('id'));
-	$('.m_created_at').text(getRelativeTime(json[$(this).attr('id')].created_at));
-	$('.m_updated_at').text(getRelativeTime(json[$(this).attr('id')].updated_at));
+$(document).ready(function(){
+    
+    $(document).on('dblclick', '.member', function() {
+        $('.m_photo').attr('src',json[$(this).attr('id')].photo);
+        $('.m_about').text(json[$(this).attr('id')].about);
+        $('.m_name').text(json[$(this).attr('id')].first_name + " " + json[$(this).attr('id')].last_name);
+        $('.m_email').text(json[$(this).attr('id')].email);
+        $('.m_department').text(json[$(this).attr('id')].department);
+        $('.m_phone').text(json[$(this).attr('id')].phone);
+        $('.m_status').text(json[$(this).attr('id')].status);
+        $('.m_status').removeClass("bg-Active bg-Blocked bg-Inactive");
+        $('.m_status').addClass("bg-"+json[$(this).attr('id')].status);
+        $('#m_user').val($(this).attr('id'));
+        $('.m_created_at').text(getRelativeTime(json[$(this).attr('id')].created_at));
+        $('.m_updated_at').text(getRelativeTime(json[$(this).attr('id')].updated_at));
+    });
+
+    $(document).on('keyup', '#Member-rearch', function() {
+
+        Data = {};
+        
+        Data['_token'] = $('meta[name="csrf_token"]').attr('content');
+        
+        Data['ms'] = $(this).val();
+        
+        $.ajax({
+            type: "POST",
+            url: '/ajax_members',
+            data: Data,
+            success: function(result){
+                $("#member_table").html(result);
+            },
+            error: function(result){
+                
+            }
+        });
+    });
 });
