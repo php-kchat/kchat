@@ -37,10 +37,22 @@
 git clone https://github.com/php-kchat/kchat.git
 ```
 
+#### Install Composer
+
+```
+composer install
+```
+
 > OR
 
 [Download Zip](https://github.com/php-kchat/kchat/archive/refs/heads/master.zip)
 and Extract to your Web Directory
+
+#### Install Composer
+
+```
+composer install
+```
 
 > OR
 
