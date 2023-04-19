@@ -102,10 +102,11 @@ class KchatController extends Controller
 		$tmp = DB::table('messages')
 			->rightJoin('users', 'messages.user_id', '=', 'users.id')
 			->rightJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')
-			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.' limit 45) lm'), 'messages.id', '=', 'lm.message_id')
+			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.') lm'), 'messages.id', '=', 'lm.message_id')
 			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
-			->orderBy('messages.id')
-            ->orderBy('conversations.id');
+			->orderBy('messages.id','DESC')
+            ->orderBy('conversations.id')
+            ->limit(50);
         
 		if (session()->has('chat_id')){
 			$tmp->where('messages.id','>', session()->get('chat_id'));
@@ -120,6 +121,8 @@ class KchatController extends Controller
             $data['chats'][$i]->message = htmlentities($data['chats'][$i]->message);
         }
 		
+        $data['chats'] = array_reverse($data['chats']);
+        
 		if(count($data['chats'])){
             if(end($data['chats'])->mid > session()->get('chat_id')){
                 session()->put('chat_id', end($data['chats'])->mid);
