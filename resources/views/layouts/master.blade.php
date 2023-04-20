@@ -63,7 +63,7 @@
          </div>
       </div>
       @yield('script')
-	  <script src="js/kchat.js"></script>
+	  <script src="/js/kchat.js"></script>
       @yield('javascript')
    </body>
 </html>

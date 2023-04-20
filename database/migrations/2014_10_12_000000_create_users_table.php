@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('department')->nullable();
             $table->string('about')->nullable();
             $table->string('photo')->nullable()->default('/logo/KChat.svg');
+            $table->integer('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

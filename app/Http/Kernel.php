@@ -55,6 +55,10 @@ class Kernel extends HttpKernel
         'GetCounts' => [
             Middleware\GetCounts::class,
         ],
+
+        'CheckRole' => [
+            Middleware\CheckRole::class,
+        ],
     ];
 
     /**
