@@ -10,18 +10,33 @@ class SettingController extends Controller
 {
 	
     function Setting(Request $request){
-		
+        
+		if($request->role != 'admin'){
+			return false;
+        }
+        
 		$TimeZone = \DateTimeZone::listIdentifiers();
+        
 		$departments = DB::table('departments')->get();
-        return view('settings',compact('departments','TimeZone'));
+        
+        return view('admin.settings',compact('departments','TimeZone'));
 	}
 	
     function TimeZone(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
+        
 		\Settings::set('Timezone',$request->timezone);
 		ActivityLog::log()->save('Timezone','You have successfully updated Timezone to  '.$request->timezone);
 	}
 	
     function AddDepartment(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
 		
 		DB::table('departments')->insert(
 			['department' => $request->adddepartment]
@@ -32,6 +47,10 @@ class SettingController extends Controller
 	}
 	
     function DeleteDepartment(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
 		
 		DB::table('departments')->where('department', $request->deletedepartment)->delete();
 		

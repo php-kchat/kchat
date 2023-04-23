@@ -28,8 +28,12 @@ class NotificationController extends Controller
 				
 			}
 		}
-		
-        return view('notifications',compact('infos','pages'));
+        
+        if($request->role == 'admin'){
+            return view('admin.notifications',compact('infos','pages'));
+        }
+        
+        return view('user.notifications',compact('infos','pages'));
 	}
 	
     function delete(Request $request){

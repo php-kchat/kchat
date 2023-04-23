@@ -25,6 +25,14 @@ function NewConversation(){
     });
 }
 
+function revoke_admins(){
+	__post('/members/revokeadmin',getSelectedID());
+}
+
+function make_admins(){
+	__post('/members/makeadmin',getSelectedID());
+}
+
 function delete_user(){
 	__post('/members/delete_users',[$('#m_user').val()]);
 }
@@ -43,6 +51,14 @@ function block_user(){
 
 function unblock_user(){
 	__post('/members/unblock_users',[$('#m_user').val()]);
+}
+
+function make_admin(){
+	__post('/members/makeadmin',[$('#m_user').val()]);
+}
+
+function revoke_admin(){
+	__post('/members/revokeadmin',[$('#m_user').val()]);
 }
 
 $(document).ready(function(){

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
-use App\Models\User;
 use Hash;
 use Illuminate\Support\Facades\Auth;
 use KChat\ActivityLog;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         $data = $request->all();
 
-        User::create([
+        $id = DB::table('users')->insertGetId([
             'first_name'  =>  $data['first_name'],
             'last_name'  =>  $data['last_name'],
             'email' =>  $data['email'],
@@ -32,6 +32,13 @@ class AuthController extends Controller
             'created_at' => now(),
         ]);
 		
+        if($id == 0){
+            DB::table('users')
+            ->where('id',$id)
+            ->limit(1)
+            ->update(['role' => '0']);
+        }
+        
         return redirect('login')->with('success', 'Registration Completed');
     }
 	
@@ -41,9 +48,9 @@ class AuthController extends Controller
             'email' =>  'required',
             'password'  =>  'required'
         ]);
-
+        
         $credentials = $request->only('email', 'password');
-
+        
         if(Auth::attempt($credentials)){
 			ActivityLog::log()->save('Login','You have successfully logged in.');
 		}

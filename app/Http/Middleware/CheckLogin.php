@@ -21,7 +21,17 @@ class CheckLogin
         {
             return redirect('login');
         }
+        
+        $roles = ['admin','user','admin'];
+        
+        $role = $roles[Auth()->user()->role];
+        
+		//Sharing variable with view
+		view()->share('role', $role);
 		
+		//Setting Attribute to use in Controller
+		$request->role = $role;
+        
         return $next($request);
     }
 }

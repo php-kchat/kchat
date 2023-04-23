@@ -37,7 +37,11 @@ class UserController extends Controller
             $ms = $request->ms;
         }
         
-        return view('members_ajax',compact('users','pages','jsonusers','ms'));
+        if($request->role == 'admin'){
+            return view('admin.members_ajax',compact('users','pages','jsonusers','ms'));
+        }
+        
+        return view('user.members_ajax',compact('users','pages','jsonusers','ms'));
 	}
 	
     function members(Request $request){
@@ -65,16 +69,24 @@ class UserController extends Controller
             $ms = $request->ms;
         }
         
-        return view('members',compact('users','pages','jsonusers','ms'));
+		if($request->role == 'admin'){
+            return view('admin.members',compact('users','pages','jsonusers','ms'));
+		}
+        
+        return view('user.members',compact('users','pages','jsonusers','ms'));
 	}
 	
     function delete_users(Request $request){
 		
+        if($request->role != 'admin'){
+			return false;
+        }
+        
 		if($request->ids == null){
 			return false;
 		}
 		
-		if(DB::table('users')->whereIn('id', $request->ids)->delete()){
+		if(DB::table('users')->whereIn('id', $request->ids)->whereIn('role', [1,2])->delete()){
 			
 			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
 			
@@ -84,6 +96,10 @@ class UserController extends Controller
 	
     function set_inactive_users(Request $request){
 		
+        if($request->role != 'admin'){
+			return false;
+        }
+        
 		if($request->ids == null){
 			return false;
 		}
@@ -100,6 +116,10 @@ class UserController extends Controller
 	
     function set_active_users(Request $request){
 		
+        if($request->role != 'admin'){
+			return false;
+        }
+        
 		if($request->ids == null){
 			return false;
 		}
@@ -115,11 +135,11 @@ class UserController extends Controller
 	}
 	
     function block_users(Request $request){
-		
+        
 		if($request->ids == null){
 			return false;
 		}
-		
+        
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Blocked'])){
 			
 			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
@@ -146,6 +166,48 @@ class UserController extends Controller
 		}
 	}
 	
+    function MakeAdmin(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
+        
+		if($request->ids == null){
+			return false;
+		}
+		
+		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 1])->update(['role' => 2])){
+			
+            $emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+            
+			ActivityLog::log()->save('Admin access granted','you have granted admin access to '.$emails.'.');
+			
+			NotificationsLog::log()->save($request->ids, 'Admin access granted',Auth()->user()->email.' granted admin access to you');
+		}
+        
+	}
+	
+    function RevokeAdmin(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
+        
+		if($request->ids == null){
+			return false;
+		}
+		
+		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 2])->update(['role' => 1])){
+			
+            $emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+            
+			ActivityLog::log()->save('Admin access revoked','you revoked admin access '.$emails.'.');
+			
+			NotificationsLog::log()->save($request->ids, 'Admin access revoked',Auth()->user()->email.' revoked admin access to you');
+		}
+        
+	}
+	
     function Profile(Request $request){
 		
         $profile = DB::table('users')->where('id',Auth()->user()->id)->get();
@@ -153,8 +215,12 @@ class UserController extends Controller
         $departments = DB::table('departments')->get();
 		
 		$profile = $profile[0];
-		
-        return view('profile',compact('profile','departments'));
+        
+		if($request->role != 'admin'){
+            return view('user.profile',compact('profile','departments'));
+        }
+        
+        return view('admin.profile',compact('profile','departments'));
 		
 	}
 	
@@ -230,6 +296,10 @@ class UserController extends Controller
 		
 		$data['updated_at'] = now();
 		
+        if(isset($data['role'])){
+            unset($data['role']);
+        }
+        
 		DB::table('users')
         ->where('id',Auth()->user()->id)
         ->limit(1)
