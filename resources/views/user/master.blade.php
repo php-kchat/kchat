@@ -35,7 +35,7 @@
                            </li>
                            <li class="{{ request()->is('notification') ? 'active' : '' }}">
                               <a href="/notification">
-                              <i class="fa fa-exclamation-circle"></i> notification </a>
+                              <i class="fa fa-exclamation-circle"></i> Notification </a>
                               <span class="badge badge-pill badge-success">{{ $status['notification'] }}</span>
                            </li>
                            <li class="{{ request()->is('activity') ? 'active' : '' }}">
@@ -44,7 +44,7 @@
                            </li>
                            <li class="{{ request()->is('profile') ? 'active' : '' }}">
                               <a href="/profile">
-                              <i class="fa fa-user-circle"></i> profile </a>
+                              <i class="fa fa-user-circle"></i> Profile </a>
                            </li>
                            <li>
                               <a action="/logout" form="logout" ajax_post>

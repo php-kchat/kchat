@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>Login - KChat</title>
+    <title>Login :: KChat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf_token" content="{{ csrf_token() }}" />
     <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
