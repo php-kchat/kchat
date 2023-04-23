@@ -1,5 +1,6 @@
 /node_modules
-/vendor/*
+/vendor
+composer.lock
 /public/build
 /public/hot
 /public/storage
@@ -16,4 +17,4 @@ npm-debug.log
 yarn-error.log
 /.fleet
 /.idea
-/.vscode
+.vscode
