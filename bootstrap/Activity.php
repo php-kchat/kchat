@@ -17,6 +17,7 @@ class ActivityLog{
             'title'  =>  $title,
             'notification'  =>  $notification,
             'created_at' =>  now(),
+            'updated_at' =>  now(),
         ]);
 	}
 }

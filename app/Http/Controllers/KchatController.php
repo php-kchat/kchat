@@ -17,11 +17,18 @@ class KchatController extends Controller
 			// Insert Message and Update id in conversations
 			if(!empty($request->message)){
 				
+                $type = 0;
+                
+                if(!empty($request->whiteboard)){
+                    $type = 1;
+                }
+                
 				$id = DB::table('messages')->insertGetId([
 					'user_id' => Auth()->user()->id,
 					'message' => $request->message,
 					'conversation_id' => $request->chat,
 					'created_at' => now(),
+                    'type' => $type,
 				]);
 				
 				DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);

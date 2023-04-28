@@ -24,6 +24,8 @@ class NotificationsLog{
 			$user['title'] = $title;
 			$user['notification'] = $notification;
 			$user['photo'] = Auth()->user()->photo;
+			$user['created_at'] = now();
+			$user['updated_at'] = now();
 		}
 		
 		Notifications::insert($users);

@@ -587,7 +587,7 @@ img {
 }
 
 .chat .chat-message {
-    padding: 20px;
+    padding: 5px;
 	border-top: 2px solid #e9e9e9;
 }
 
@@ -760,7 +760,6 @@ tbody tr:hover {
 }
 
 input {
-	display: block;
 	font-size: 1rem;
 	line-height: 1.5;
 	color: #495057;
@@ -769,4 +768,21 @@ input {
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
 	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.row:after, .row:before {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.span6 {
+  float: left;
+  width: 48%;
+  padding: 1%;
+}
+
+#whiteboard-model{
+  width: 800px;
+  margin: auto;
 }

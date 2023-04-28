@@ -4,17 +4,47 @@ typing = false;
 OnLoadMsgs = true;
 previous  = false;
 conversation_like = '';
+emojioneAreaElm = null;
+WhiteBoard = false;
    
 $(document).ready (function(){
-
+	
+    $("#post_msg").emojioneArea({
+		pickerPosition: "top",
+    	tonesStyle: "bullet",
+		events: {
+         	keypress: function (editor, event) {
+                emojioneAreaElm = this;
+                var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    post_msg();
+                }
+        	}
+    	}
+	});
+    
 	function post_msg(){
-		message = $("#post_msg").val();
+        if(emojioneAreaElm != null){
+            message = emojioneAreaElm.getText();
+            emojioneAreaElm.setText('');
+        }
+        if(WhiteBoard){
+            message = JSON.stringify(points);
+            points = [];
+            Clear();
+        }
 		$("#post_msg").val('');
 		if (!(message && message.trim() !== '')) {
 			return false;
 		}
 		KChatAjax();
 	}
+    
+    $("#WhiteBoardSend").on( "click", function () {
+        WhiteBoard = true;
+		post_msg();
+        WhiteBoard = false;
+    });
 
 	$("#post_msg_btn").on( "click", function () {
 		post_msg();
@@ -23,14 +53,14 @@ $(document).ready (function(){
 	$("#post_msg").keyup(function() {
 		typing = true;
 	});
-
-	$("#post_msg").keypress(function(event){
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-		if(keycode == '13'){
-			post_msg();
-		}
-	});
-	
+    
+    $("#Messages").on("click", ".show_whiteboard", function(){
+            Clear();
+            points = jQuery.parseJSON($("<div/>").html(atob($(this).attr("data-msg"))).text());
+            points.forEach(draw);
+            $('#whiteboard').modal('show');
+    });
+    
 	function UpdateConversations(json){
 		
 		if(json['chats'] != undefined){
@@ -66,6 +96,23 @@ $(document).ready (function(){
 						</a>
 					</li>
 				`);
+                if(element.type == 1){
+                    Conversation = $(`
+                        <li class="bounceInDown" id="conversation${ element.id }" >
+                            <a href="/messages/?chat=${ element.conversation_id }" class="clearfix">
+                                <img src="${ element.photo }" alt="" class="img-circle">
+                                <div class="friend-name">
+                                    <strong>${ element.conversation_name }<!--i class="mdi mdi-star favorite"></i--></strong>
+                                </div>
+                                <div class="last-message text-muted"><strong>${ element.first_name } ${ element.last_name } : </strong><i class="fa fa-pencil-square-o fa" aria-hidden="true"></i></div>
+                                <small class="time text-muted timestamp"> ${ element.date } </small>
+                                <small class="chat-alert text-muted">
+                                <!-- i class="fa fa-check"></i-->
+                                </small>
+                            </a>
+                        </li>
+                    `); 
+                }
 				
 				$('#MessageBox').prepend(Conversation);
 				
@@ -95,6 +142,18 @@ $(document).ready (function(){
 						  <div class="message other-message float-right"> ${ element.message } </div>
 					   </li>
 					`);
+                    if(element.type == 1){
+                        element.message = btoa(element.message);
+                        messages = $(`
+                           <li class="clearfix" id="msg${ element.id }" >
+                              <div class="message-data text-right">
+                                 <span class="message-data-time"><strong>${ element.first_name } ${ element.last_name }</strong>${ element.created_at }</span>
+                                 <img src="${ element.photo }" alt="avatar">
+                              </div>
+                              <div class="float-right show_whiteboard" data-msg="${ element.message }" ><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
+                           </li>
+                        `);
+                    }
 				}else{			
 					messages = $(`
 					   <li class="clearfix" id="msg${ element.id }" >
@@ -105,6 +164,18 @@ $(document).ready (function(){
 						  <div class="message other-message float-left"> ${ element.message } </div>
 					   </li>
 					`);
+                    if(element.type == 1){
+                        element.message = btoa(element.message);
+                        messages = $(`
+                           <li class="clearfix" id="msg${ element.id }" >
+                              <div class="message-data text-left">
+                                 <span class="message-data-time"><strong>${ element.first_name } ${ element.last_name }</strong>${ element.created_at }</span>
+                                 <img src="${ element.photo }" alt="avatar">
+                              </div>
+                              <div class="float-left show_whiteboard" data-msg="${ element.message }" ><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
+                           </li>
+                        `);
+                    }
 				}
              
                 if(json.previous){
@@ -158,6 +229,10 @@ $(document).ready (function(){
             typing = false;
         }
 
+        if(WhiteBoard){
+            Data['whiteboard'] = true;
+        }
+
         if(previous){
             Data['previous'] = true;
             previous = false;
@@ -194,8 +269,6 @@ $(document).ready (function(){
                 }
             }); 
         }
-
-
 	}
 
 	// Define the initial interval time (in milliseconds)
