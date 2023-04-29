@@ -21,7 +21,9 @@ class SettingController extends Controller
         
         $settings = DB::table('settings')->get()->toArray();
         
-        $tmp = [];
+        $tmp = [
+            'uploadpath' => '',
+        ];
         
         foreach($settings as $setting){
             $tmp[$setting->key] = $setting->value;
