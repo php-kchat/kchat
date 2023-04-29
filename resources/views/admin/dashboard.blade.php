@@ -196,7 +196,7 @@
       datasets: [{
         responsive: true,
         label: 'All your message\'s per day',
-        data: @json($current_user_new_conversations_perday),
+        data: @json($current_user_new_messages_perday),
         borderWidth: 1
       }]
     },
@@ -221,7 +221,7 @@
       datasets: [{
         responsive: true,
         label: 'All your conversation\'s per day',
-        data: @json($current_user_new_messages_perday),
+        data: @json($current_user_new_conversations_perday),
         borderWidth: 1
       }]
     },
