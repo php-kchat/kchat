@@ -32,7 +32,7 @@ class AuthController extends Controller
             'created_at' => now(),
         ]);
 		
-        if($id == 0){
+        if($id == 1){
             DB::table('users')
             ->where('id',$id)
             ->limit(1)
