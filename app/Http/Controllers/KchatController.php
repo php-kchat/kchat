@@ -172,6 +172,10 @@ class KchatController extends Controller
         
         $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
         
+        if(!count($tmp)){
+            return false;
+        }
+        
         $uploadpath = $tmp[0]->value;
         
         $tmp = $request->all();
@@ -221,9 +225,17 @@ class KchatController extends Controller
         
         $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
         
+        if(!count($tmp)){
+            return false;
+        }
+        
         $uploadpath = $tmp[0]->value;
         
         $pathToFile = $uploadpath.'/'.$file->uuid;
+        
+        if(!file_exists($pathToFile)){
+            abort(404);
+        }
         
         $headers = [
             'Content-Type' => $file->MimeType,
