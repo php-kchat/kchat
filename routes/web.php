@@ -50,6 +50,8 @@ Route::group(['middleware' => ['CheckLogin']],function(){
         Route::get('/profile', [UserController::class, 'profile'])->name('Profile');
         
         Route::get('/messages', [MessageController::class, 'messages'])->name('Messages Controller');
+    
+        Route::get('/messages/downattch/{uuid}', [KchatController::class, 'downattch'])->name('Attachments Download')->where('uuid', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')->withoutMiddleware('GetCounts');
         
     });
     

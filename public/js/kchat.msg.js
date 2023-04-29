@@ -178,7 +178,7 @@ $(document).ready (function(){
                         element.message = '<ul class="file-ul">';
 
                         for(i = 0 ; i < files.length ; i++){
-                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
+                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\" target=\"_blank\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
                         }
                         
                         element.message += '<ul>';
@@ -222,7 +222,7 @@ $(document).ready (function(){
                         element.message = '<ul class="file-ul">';
 
                         for(i = 0 ; i < files.length ; i++){
-                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
+                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\" target=\"_blank\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
                         }
                         
                         element.message += '<ul>';

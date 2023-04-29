@@ -180,11 +180,17 @@ class KchatController extends Controller
         
         foreach($tmp['files'] as $file){
             $tmp = [];
+            
             $tmp['Name'] = $file->getClientOriginalName();
             $tmp['uuid'] = Str::uuid()->toString();
             $file->move($uploadpath, $tmp['uuid']);
             $tmp['MimeType'] = explode('/',$file->getClientMimeType());
             $json[] = $tmp;
+            
+            $tmp['MimeType'] = $file->getClientMimeType();
+            $tmp['conversation_id'] = $request->chat;
+            
+            DB::table('files')->insert($tmp);
         }
 
         $id = DB::table('messages')->insertGetId([
@@ -198,5 +204,31 @@ class KchatController extends Controller
         DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
         
         return true;
+    }
+    
+    function downattch(Request $request){
+        
+        $file = DB::table('files')->where('uuid', $request->uuid)->get();
+                
+        $file = $file[0];
+        
+        // Checking if user is part of conversation
+        $tmp = DB::table('participants')->where(['conversation_id' => $file->conversation_id, 'user_id' => Auth()->user()->id])->get()->toArray();
+
+        if(!count($tmp)){
+            return false;
+        }
+        
+        $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
+        
+        $uploadpath = $tmp[0]->value;
+        
+        $pathToFile = $uploadpath.'/'.$file->uuid;
+        
+        $headers = [
+            'Content-Type' => $file->MimeType,
+        ];
+
+        return response()->file($pathToFile, $headers);
     }
 }
