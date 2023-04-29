@@ -84,7 +84,8 @@
 		  <span class="input-group-text"><i class="fa fa-pencil"></i></span>
 	   </div>
 	   <div class="input-group-append mb-1 mr-1" >
-		  <span class="input-group-text"><i class="fa fa-paperclip"></i></span>
+          <input id="selectedFile" type="file" name="name" multiple="multiple" style="display: none;">
+		  <span class="input-group-text" onclick="document.getElementById('selectedFile').click();" ><i class="fa fa-paperclip"></i></span>
 	   </div>
 	   <textarea id="post_msg" class="form-control" ></textarea>
 	</div>

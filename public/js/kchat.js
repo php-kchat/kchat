@@ -66,7 +66,7 @@ $( "[ajax_post]" ).on( "click", function () {
 			}
 		}
 		
-		console.log(Data);
+		//console.log(Data);
 		
 		$.ajax({
 			type: "POST",

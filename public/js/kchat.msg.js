@@ -113,6 +113,23 @@ $(document).ready (function(){
                         </li>
                     `); 
                 }
+                if(element.type == 2){
+                    Conversation = $(`
+                        <li class="bounceInDown" id="conversation${ element.id }" >
+                            <a href="/messages/?chat=${ element.conversation_id }" class="clearfix">
+                                <img src="${ element.photo }" alt="" class="img-circle">
+                                <div class="friend-name">
+                                    <strong>${ element.conversation_name }<!--i class="mdi mdi-star favorite"></i--></strong>
+                                </div>
+                                <div class="last-message text-muted"><strong>${ element.first_name } ${ element.last_name } : </strong><i class="fa fa fa-paperclip fa" aria-hidden="true"></i></div>
+                                <small class="time text-muted timestamp"> ${ element.date } </small>
+                                <small class="chat-alert text-muted">
+                                <!-- i class="fa fa-check"></i-->
+                                </small>
+                            </a>
+                        </li>
+                    `); 
+                }
 				
 				$('#MessageBox').prepend(Conversation);
 				
@@ -154,6 +171,28 @@ $(document).ready (function(){
                            </li>
                         `);
                     }
+                    if(element.type == 2){
+                        
+                        files = jQuery.parseJSON($("<div/>").html(element.message).text());
+                        
+                        element.message = '<ul class="file-ul">';
+
+                        for(i = 0 ; i < files.length ; i++){
+                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
+                        }
+                        
+                        element.message += '<ul>';
+                        
+                        messages = $(`
+                           <li class="clearfix" id="msg${ element.id }" >
+                              <div class="message-data text-right">
+                                 <span class="message-data-time"><strong>${ element.first_name } ${ element.last_name }</strong>${ element.created_at }</span>
+                                 <img src="${ element.photo }" alt="avatar">
+                              </div>
+                              <div class="float-right">${element.message}</div>
+                           </li>
+                        `);
+                    }
 				}else{			
 					messages = $(`
 					   <li class="clearfix" id="msg${ element.id }" >
@@ -173,6 +212,28 @@ $(document).ready (function(){
                                  <img src="${ element.photo }" alt="avatar">
                               </div>
                               <div class="float-left show_whiteboard" data-msg="${ element.message }" ><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
+                           </li>
+                        `);
+                    }
+                    if(element.type == 2){
+                        
+                        files = jQuery.parseJSON($("<div/>").html(element.message).text());
+                        
+                        element.message = '<ul class="file-ul">';
+
+                        for(i = 0 ; i < files.length ; i++){
+                            element.message += "<li class=\"file\"><a href=\"/messages/downattch/"+files[i].uuid+"\"><!--img class=\"file-icon\" src=\"file.png\" alt=\"icon\"--><i class=\"fa fa-file fa-2\" aria-hidden=\"true\"></i>&nbsp;&nbsp;"+files[i].Name+"</a></li>";
+                        }
+                        
+                        element.message += '<ul>';
+                        
+                        messages = $(`
+                           <li class="clearfix" id="msg${ element.id }" >
+                              <div class="message-data text-left">
+                                 <span class="message-data-time"><strong>${ element.first_name } ${ element.last_name }</strong>${ element.created_at }</span>
+                                 <img src="${ element.photo }" alt="avatar">
+                              </div>
+                              <div class="float-left">${element.message}</div>
                            </li>
                         `);
                     }
@@ -344,5 +405,37 @@ $(document).ready (function(){
         });
 
 	});
+    
+    $("#selectedFile").change(function(){
+
+        let Data = new FormData();
+        
+		Data.append('_token',$('meta[name="csrf_token"]').attr('content'));
+        
+		Data.append('chat',$('meta[name="conversation"]').attr('content'));
+        
+        files = $('#selectedFile')[0].files;
+        
+        for (let i = 0; i < files.length; i++) {
+            Data.append('files[]', files[i]);
+		}
+        
+		//console.log(Data);
+        
+		$.ajax({
+			type: "POST",
+			url: '/messages/attachments',
+			data: Data,
+			processData: false,
+			contentType: false,
+			success: function(result){
+				console.log(result);
+			},
+			error: function(result){
+
+			}
+		});
+        
+    }); 
 	
 });

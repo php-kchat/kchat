@@ -507,13 +507,12 @@ img {
     border-bottom: 2px solid #fff
 }
 
-.chat .chat-history ul {
+.chat .chat-history {
     padding: 0
 }
 
 .chat .chat-history ul li {
     list-style: none;
-    margin-bottom: 30px
 }
 
 .chat .chat-history ul li:last-child {
@@ -785,4 +784,24 @@ input {
 #whiteboard-model{
   width: 800px;
   margin: auto;
+}
+
+.file {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.file-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.file-ul {
+	background-color: #e8f1f3;
+	padding: 10px;
 }

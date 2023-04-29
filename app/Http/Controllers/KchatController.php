@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class KchatController extends Controller
 {
@@ -158,5 +159,44 @@ class KchatController extends Controller
         
         return json_encode($tmp);
         
+    }
+    
+    function attachments(Request $request){
+        
+        // Checking if user is part of conversation
+        $tmp = DB::table('participants')->where(['conversation_id' => $request->chat, 'user_id' => Auth()->user()->id])->get()->toArray();
+
+        if(!count($tmp)){
+            return false;
+        }
+        
+        $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
+        
+        $uploadpath = $tmp[0]->value;
+        
+        $tmp = $request->all();
+        
+        $json = [];
+        
+        foreach($tmp['files'] as $file){
+            $tmp = [];
+            $tmp['Name'] = $file->getClientOriginalName();
+            $tmp['uuid'] = Str::uuid()->toString();
+            $file->move($uploadpath, $tmp['uuid']);
+            $tmp['MimeType'] = explode('/',$file->getClientMimeType());
+            $json[] = $tmp;
+        }
+
+        $id = DB::table('messages')->insertGetId([
+            'user_id' => Auth()->user()->id,
+            'message' => json_encode($json),
+            'conversation_id' => $request->chat,
+            'created_at' => now(),
+            'type' => 2,
+        ]);
+        
+        DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
+        
+        return true;
     }
 }
