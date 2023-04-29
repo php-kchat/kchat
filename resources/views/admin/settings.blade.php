@@ -37,12 +37,20 @@
 	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Timezone</label>
 		<select class="form-control timezone" type="text" id="timezone" >
 			@foreach($TimeZone as $tz)
-				<option value="{{ $tz }}">{{ $tz }}</option>
+				<option value="{{ $tz }}" @if($tz == $settings['Timezone']) selected @endif>{{ $tz }}</option>
 			@endforeach
 		</select>
 		<button class="btn btn-primary mt-3" type="button" ajax_post action="/setting/timezone" form="timezone" >Update Timezone</button>
 	</div>
   </div>
+</div>
+<div class="card mb-4">
+   <div class="card-header">File Upload Path</div>
+   <div class="card-body">
+      <p class="small text-muted">Place it outside the webroot means that the files will not be publicly exposed.</p>
+	  <input class="form-control uploadpath" id="uploadpath" placeholder="/home/user/files" value="{{ $settings['uploadpath'] }}" >
+      <button class="btn btn-primary mt-3" type="button" ajax_post action="/setting/uploadpath" form="uploadpath" >Update Timezone</button>
+   </div>
 </div>
 <!--div class="card mb-4">
    <div class="card-header">Security Preferences</div>

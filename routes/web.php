@@ -78,12 +78,16 @@ Route::group(['middleware' => ['CheckLogin']],function(){
     Route::post('/setting/timezone', [SettingController::class, 'TimeZone'])->name('TimeZone');
     
     Route::post('/setting/deletedpt', [SettingController::class, 'DeleteDepartment'])->name('Delete Department');
+    
+    Route::post('/setting/uploadpath ', [SettingController::class, 'UploadPath'])->name('Uplaod Path');
 
     Route::post('/activity/delete', [ActivityController::class, 'delete'])->name('Delete Activities');
     
     Route::post('/notification/delete', [NotificationController::class, 'delete'])->name('Delete Notification\'s');
     
     Route::post('/messages', [KchatController::class, 'kchat'])->name('All Json Responses');
+    
+    Route::post('/messages/attachments', [KchatController::class, 'attachments'])->name('Chat\'s attachments');
     
     Route::post('/messages/update', [MessageController::class, 'UpdateConversation'])->name('Update Conversation');
     

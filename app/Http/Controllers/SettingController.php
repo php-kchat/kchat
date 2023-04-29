@@ -19,7 +19,17 @@ class SettingController extends Controller
         
 		$departments = DB::table('departments')->get();
         
-        return view('admin.settings',compact('departments','TimeZone'));
+        $settings = DB::table('settings')->get()->toArray();
+        
+        $tmp = [];
+        
+        foreach($settings as $setting){
+            $tmp[$setting->key] = $setting->value;
+        }
+        
+        $settings = $tmp;
+        
+        return view('admin.settings',compact('departments','TimeZone','settings'));
 	}
 	
     function TimeZone(Request $request){
@@ -55,6 +65,17 @@ class SettingController extends Controller
 		DB::table('departments')->where('department', $request->deletedepartment)->delete();
 		
 		ActivityLog::log()->save('Setting','You have successfully Deleted '.$request->deletedepartment.' Department.');
+	}
+	
+    function uploadpath(Request $request){
+        
+		if($request->role != 'admin'){
+			return false;
+        }
+		
+		\Settings::set('uploadpath',$request->uploadpath);
+		
+		ActivityLog::log()->save('Setting','You have set upload path to '.$request->uploadpath.'.');
 	}
 	
 }
