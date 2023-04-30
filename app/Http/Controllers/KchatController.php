@@ -108,12 +108,21 @@ class KchatController extends Controller
 		*/ 
 		
 		$tmp = DB::table('messages')
+			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
 			->rightJoin('users', 'messages.user_id', '=', 'users.id')
 			->rightJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')
 			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.') lm'), 'messages.id', '=', 'lm.message_id')
-			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
 			->orderBy('messages.id','DESC')
             ->orderBy('conversations.id')
+            ->limit(50);
+        
+        //SELECT max(messages.id), COUNT(messages.id), messages.conversation_id FROM messages join participants on messages.conversation_id = participants.conversation_id where participants.user_id = 1 and messages.id > participants.seen GROUP by messages.conversation_id;
+        $tmp1 = DB::table('messages')
+            ->select(DB::raw('COUNT(messages.id) as unread'),'messages.conversation_id')
+			->Join('participants', 'messages.conversation_id', '=', 'participants.conversation_id')
+            ->where('participants.user_id',Auth()->user()->id)
+            ->where('messages.id', '>', DB::raw('participants.seen'))
+            ->groupBy('messages.conversation_id')
             ->limit(50);
         
 		if (session()->has('chat_id')){
@@ -122,7 +131,17 @@ class KchatController extends Controller
 		
 		$data['chats'] = $tmp->get()->toArray();
         
+        $unread = [];
+        
+        foreach($tmp1->get()->toArray() as $v){
+            $unread[$v->conversation_id] = $v;
+        }
+        
         foreach($data['chats'] as $i => $v){
+            
+            if(isset($unread[$v->conversation_id])){
+                $data['chats'][$i]->unread = $unread[$v->conversation_id]->unread;
+            }
             $data['chats'][$i]->conversation_name = htmlentities($data['chats'][$i]->conversation_name);
             $data['chats'][$i]->first_name = htmlentities($data['chats'][$i]->first_name);
             $data['chats'][$i]->last_name = htmlentities($data['chats'][$i]->last_name);

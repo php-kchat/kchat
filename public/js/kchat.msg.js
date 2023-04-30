@@ -81,12 +81,18 @@ $(document).ready (function(){
                     element.last_name = '';
                 }
                 
+                if(element.unread != undefined){
+                    element.unread = "<span class=\"badge badge-pill badge-success ml-1\">"+element.unread+"</span>";
+                }else{
+                    element.unread = "";
+                }
+                
 				Conversation = $(`
 					<li class="bounceInDown" id="conversation${ element.id }" >
 						<a href="/messages/?chat=${ element.conversation_id }" class="clearfix">
 							<img src="${ element.photo }" alt="" class="img-circle">
 							<div class="friend-name">
-								<strong>${ element.conversation_name }<!--i class="mdi mdi-star favorite"></i--></strong>
+								<strong>${ element.conversation_name }${ element.unread }<!--i class="mdi mdi-star favorite"></i--></strong>
 							</div>
 							<div class="last-message text-muted"><strong>${ element.first_name } ${ element.last_name } : </strong>${ element.message }</div>
 							<small class="time text-muted timestamp"> ${ element.date } </small>
@@ -102,7 +108,7 @@ $(document).ready (function(){
                             <a href="/messages/?chat=${ element.conversation_id }" class="clearfix">
                                 <img src="${ element.photo }" alt="" class="img-circle">
                                 <div class="friend-name">
-                                    <strong>${ element.conversation_name }<!--i class="mdi mdi-star favorite"></i--></strong>
+                                    <strong>${ element.conversation_name }${ element.unread }<!--i class="mdi mdi-star favorite"></i--></strong>
                                 </div>
                                 <div class="last-message text-muted"><strong>${ element.first_name } ${ element.last_name } : </strong><i class="fa fa-pencil-square-o fa" aria-hidden="true"></i></div>
                                 <small class="time text-muted timestamp"> ${ element.date } </small>
