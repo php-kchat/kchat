@@ -23,6 +23,7 @@ class SettingController extends Controller
         
         $tmp = [
             'uploadpath' => '',
+            'Timezone' => 'Asia/Kolkata',
         ];
         
         foreach($settings as $setting){
