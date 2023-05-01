@@ -13,7 +13,7 @@
 @endsection
 
 @section('body')
-<div class="col-xl-10 pt-3">
+<div class="col-md-10 pt-3">
             <div class="card shadow-sm rounded bg-white mb-3">
                 <div class="card-header border-bottom p-3">
                     <h6 class="m-0 float-left">Activitie's</h6>

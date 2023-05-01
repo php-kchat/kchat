@@ -17,7 +17,7 @@
 @endsection
 
 @section('body')
-<div class="col-xl-7 pt-3">
+<div class="col-md-7 pt-3">
    <div class="card">
       <div class="card-header pb-0">
          <div class="card-actions float-right">
@@ -85,7 +85,7 @@
       </div>
    </div>
 </div>
-<div class="col-xl-3 pt-3">
+<div class="col-md-3 pt-3">
    <div class="card">
       <div class="card-header">
          <div class="card-actions float-right">
