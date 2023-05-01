@@ -14,7 +14,7 @@
 @endsection
 
 @section('body')
-<div class="col-xl-10 pt-3">
+<div class="col-md-10 pt-3">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="row">
