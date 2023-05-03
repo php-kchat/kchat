@@ -22,32 +22,7 @@
 	   <input class="form-control w-100" type="search" placeholder="Search Conversation" data-toggle="modal" data-target="#search_conversation" id="Mail-rearch">
 	</div>
  </div>
- <ul class="friend-list" id="MessageBox">
-	<!--li class="active bounceInDown">
-	   <a href="#" class="clearfix">
-		  <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-		  <div class="friend-name">
-			 <strong>John Doe<i class="mdi mdi-star-outline"></i></strong>
-		  </div>
-		  <div class="last-message text-muted">Hello, Are you there?</div>
-		  <small class="time text-muted">Just now</small>
-		  <small class="chat-alert label label-danger">1</small>
-	   </a>
-	</li>
-	<li class="bounceInDown">
-	   <a href="#" class="clearfix">
-		  <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
-		  <div class="friend-name">
-			 <strong>Jane Doe<i class="mdi mdi-star favorite"></i></strong>
-		  </div>
-		  <div class="last-message text-muted">Lorem ipsum dolor sit amet.</div>
-		  <small class="time text-muted">5 mins ago</small>
-		  <small class="chat-alert text-muted">
-		  <i class="fa fa-check"></i>
-		  </small>
-	   </a>
-	</li-->
- </ul>
+ <ul class="friend-list" id="MessageBox"></ul>
 </div>
 <div id="kchat-msg" class="col-md-9 col-lg-7 bg-white chat height10 px-0 py-0">
 @if($conversation)
@@ -72,7 +47,7 @@
  </div>
  <div class="chat-history" id="Msgs" style="min-height: 50%;" >
     <image id="loading" src="/assets/loading.gif"></image>
-	<ul class="m-b-0" id="Messages"></ul>
+	<ul class="pl-3 pr-3" id="Messages"></ul>
     <button type="button" id="gotobottom" class="btn btn-outline-secondary"><i class="fa fa-chevron-down"></i></button>
  </div>
  <div class="chat-message clearfix">

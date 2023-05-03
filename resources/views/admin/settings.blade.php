@@ -12,7 +12,7 @@
 @endsection
 
 @section('body')
-<div class="col-xl-10 pt-3">
+<div class="col-md-10 pt-3">
 <div class="card mb-4">
   <div class="card-header">Department's</div>
   <div class="card-body">

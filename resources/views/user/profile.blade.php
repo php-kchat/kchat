@@ -12,7 +12,7 @@
 @endsection
 
 @section('body')
-<div class="col mb-10 pt-3">
+<div class="col-md-10 mb-10 pt-3">
    <div class="card">
       <div class="card-body">
          <div class="e-profile">
