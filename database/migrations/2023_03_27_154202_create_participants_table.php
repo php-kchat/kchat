@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->timestamps();
             $table->integer('seen')->unsigned()->default(0);
-			$table->unique(['user_id','conversation_id']);
+			//$table->unique(['user_id','conversation_id'], 'user_id_conversation_id_unique_key');
         });
     }
 
