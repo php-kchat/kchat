@@ -82,7 +82,7 @@ $(document).ready (function(){
                 }
                 
                 if(element.unread != undefined){
-                    element.unread = "<span class=\"badge badge-pill badge-success ml-1\">"+element.unread+"</span>";
+                    element.unread = "<small class=\"chat-alert label label-danger mt-2\">"+element.unread+"</small>";
                 }else{
                     element.unread = "";
                 }
@@ -92,10 +92,11 @@ $(document).ready (function(){
 						<a href="/messages/?chat=${ element.conversation_id }" class="clearfix">
 							<img src="${ element.photo }" alt="" class="img-circle">
 							<div class="friend-name">
-								<strong>${ element.conversation_name }${ element.unread }<!--i class="mdi mdi-star favorite"></i--></strong>
+								<strong>${ element.conversation_name }<!--i class="mdi mdi-star favorite"></i--></strong>
 							</div>
 							<div class="last-message text-muted"><strong>${ element.first_name } ${ element.last_name } : </strong>${ element.message }</div>
 							<small class="time text-muted timestamp"> ${ element.date } </small>
+                            ${ element.unread }
 							<small class="chat-alert text-muted">
 							<!-- i class="fa fa-check"></i-->
 							</small>

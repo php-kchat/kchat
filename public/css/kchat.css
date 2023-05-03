@@ -29,47 +29,11 @@ body {
 	position: relative;
 }
 
-/* Rounded sliders */
-/*-------------------------------------------------------------------*/
-/* === Email === */
-/* Mail Sidebar */
-@media (max-width: 769px) {
-.email-wrapper .mail-sidebar {
-  position: relative;
-  height:100%;
-}
-}
-
-@media (max-width: 767.98px) {
-.email-wrapper .mail-sidebar {
-  position: fixed;
-  z-index: 99;
-  background: #ffffff;
-  width: 45%;
-  min-width: 300px;
-  left: -100%;
-  display: block;
-  transition: 0.4s ease;
-  -webkit-transition: 0.4s ease;
-  -moz-transition: 0.4s ease;
-}
-}
-
 .email-wrapper .mail-sidebar .menu-bar {
 width: 100%;
 float: right;
 height: 100%;
 min-height: 100%;
-}
-
-@media (max-width: 767.98px) {
-.email-wrapper .mail-sidebar .menu-bar {
-  min-height: 100vh;
-  max-height: 100%;
-  height: auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 }
 
 .email-wrapper .mail-sidebar .menu-bar .menu-items {
@@ -83,8 +47,6 @@ list-style-type: none;
 padding: 10px 15px;
 transition: 0.4s;
 position: relative;
-display: -webkit-flex;
-display: flex;
 -webkit-align-items: center;
 align-items: center;
 -webkit-justify-content: space-between;
@@ -623,52 +585,6 @@ img {
     height: 0
 }
 
-@media only screen and (max-width: 767px) {
-    .chat-app .people-list {
-        height: 465px;
-        width: 100%;
-        overflow-x: auto;
-        background: #fff;
-        left: -400px;
-        display: none
-    }
-    .chat-app .people-list.open {
-        left: 0
-    }
-    .chat-app .chat {
-        margin: 0
-    }
-    .chat-app .chat .chat-header {
-        border-radius: 0.55rem 0.55rem 0 0
-    }
-    .chat-app .chat-history {
-        height: 300px;
-        overflow-x: auto
-    }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 992px) {
-    .chat-app .chat-list {
-        height: 650px;
-        overflow-x: auto
-    }
-    .chat-app .chat-history {
-        height: 600px;
-        overflow-x: auto
-    }
-}
-
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
-    .chat-app .chat-list {
-        height: 480px;
-        overflow-x: auto
-    }
-    .chat-app .chat-history {
-        height: calc(100vh - 350px);
-        overflow-x: auto
-    }
-}
-
 .mail-view {
 	padding: 20px;
 	border-bottom: 2px solid #fff;
@@ -804,4 +720,22 @@ input {
 .file-ul {
 	background-color: #e8f1f3;
 	padding: 10px;
+}
+
+/*
+element {
+	display: inline;
+}
+*/
+
+@media (max-width: 992px) {
+    .mail-sidebar{
+        display: none;
+    }
+}
+
+@media (min-width: 993px) {
+    .mail-sidebar{
+        display: block;
+    }
 }
