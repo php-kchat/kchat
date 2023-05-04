@@ -278,21 +278,6 @@ function __post(url,posts){
 	});
 }
 
-function __post(url,posts,ids){
-	Data = {};
-	Data['ids'] = posts;
-	Data['_token'] = $('meta[name="csrf_token"]').attr('content');
-    Data = $.extend({}, Data, ids);
-	$.ajax({
-		type: "POST",
-		url: url,
-		data: Data,
-		success: function(result){
-			location.reload();
-		}
-	});
-}
-
 /*
 ---------------------------------------------------------------------
 to get relative time
