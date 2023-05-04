@@ -30,6 +30,7 @@ class AuthController extends Controller
             'phone' =>  $data['phone'],
             'password' => Hash::make($data['password']),
             'created_at' => now(),
+            'updated_at' => now(),
         ]);
 		
         if($id == 1){
