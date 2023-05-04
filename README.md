@@ -1,5 +1,5 @@
 
-![](https://github.com/php-kchat/kchat/blob/master/public/logo/KChat_Logo.svg)
+![](https://github.com/php-kchat/kchat/blob/master/public/logo/3.svg)
 
 # KChat
 #### PHP Based Chat Application.
