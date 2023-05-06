@@ -62,6 +62,25 @@
             </div>
          </div>
       </div>
+      <!-- Alert Modal -->
+      <input type="hidden" id="alertmodel" data-toggle="modal" data-target="#alert-model" />
+      <div class="modal fade" id="alert-model" tabindex="-1" role="dialog" aria-labelledby="alertModel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" >Alert</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <p class="p-3" id="alertbody"></p>
+          <div class="modal-footer">
+            <button type="button" id="alert-ok" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
       @yield('script')
 	  <script src="/js/kchat.js"></script>
       @yield('javascript')

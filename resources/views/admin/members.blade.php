@@ -212,5 +212,5 @@
 @endsection
 				  
 @section('script')
-
+<!-- No Script -->
 @endsection

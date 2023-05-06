@@ -338,3 +338,15 @@ function setSelectedCount(){
 }
 
 setSelectedCount();
+
+gfunc = null;
+
+$('#alert-ok').on('click', function() {
+    gfunc();
+});
+
+function kchat_alert(body,func){
+    $("#alertbody").html(body);
+    $("#alertmodel").click();
+    gfunc = func;
+}
