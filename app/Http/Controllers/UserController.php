@@ -82,8 +82,8 @@ class UserController extends Controller
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->whereIn('role', [1,2])->delete()){
@@ -100,8 +100,8 @@ class UserController extends Controller
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Inactive'])){
@@ -120,8 +120,8 @@ class UserController extends Controller
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
@@ -136,8 +136,8 @@ class UserController extends Controller
 	
     function block_users(Request $request){
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
         
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Blocked'])){
@@ -152,8 +152,8 @@ class UserController extends Controller
 	
     function unblock_users(Request $request){
 		
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
@@ -172,8 +172,8 @@ class UserController extends Controller
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 1])->update(['role' => 2])){
@@ -193,8 +193,8 @@ class UserController extends Controller
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 2])->update(['role' => 1])){
@@ -225,7 +225,11 @@ class UserController extends Controller
 	}
 	
     function NewConversation(Request $request){
-		
+
+		if(count($request->ids)){
+			return json_encode(['error' => 'Please select user first']);
+		}
+
         $data = [
 			'message_id' => '0',
 			'created_at' => now(),
