@@ -37,21 +37,20 @@ class NotificationController extends Controller
 	}
 	
     function delete(Request $request){
-		
-		if(isset($request->ids)){
+
+        if(isset($request->id)){
+            $request->ids = [$request->id];
+        }
+        
+		if(count($request->ids) == 0){
+            return json_encode(['error' => 'No notification is selected']);
+        }
 			
-			DB::table('notifications')
-			->whereIn('id',$request->ids)
-			->where('uid',Auth()->user()->id)
-			->delete();
-			
-		}else{
-			
-			DB::table('notifications')
-			->where('id',$request->id)
-			->where('uid',Auth()->user()->id)
-			->delete();
-			
-		}
+        DB::table('notifications')
+        ->whereIn('id',$request->ids)
+        ->where('uid',Auth()->user()->id)
+        ->delete();
+        
+        return json_encode([]);
 	}
 }

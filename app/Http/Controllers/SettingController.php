@@ -61,6 +61,7 @@ class SettingController extends Controller
 		
 		ActivityLog::log()->save('Setting','You have successfully Added '.$request->adddepartment.' Department.');
 		
+        return json_encode([]);
 	}
 	
     function DeleteDepartment(Request $request){
@@ -87,6 +88,8 @@ class SettingController extends Controller
 		\Settings::set('uploadpath',$request->uploadpath);
 		
 		ActivityLog::log()->save('Setting','You have set upload path to '.$request->uploadpath.'.');
+        
+        return json_encode([]);
 	}
 	
 }

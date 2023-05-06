@@ -75,5 +75,6 @@ class MessageController extends Controller
             
         }
         
+        return json_encode([]);
     }
 }

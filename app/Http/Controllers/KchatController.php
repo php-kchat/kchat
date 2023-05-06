@@ -229,7 +229,7 @@ class KchatController extends Controller
         
         DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
         
-        return true;
+        return json_encode([]);
     }
     
     function downattch(Request $request){

@@ -92,6 +92,8 @@ class UserController extends Controller
 			
 			ActivityLog::log()->save('Deleted','You have Deleted '.$emails.'.');
 		}
+        
+        return json_encode([]);
 	}
 	
     function set_inactive_users(Request $request){
@@ -112,6 +114,8 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Set InActive',Auth()->user()->email.' Changed your status to InActive');
 		}
+        
+        return json_encode([]);
 	}
 	
     function set_active_users(Request $request){
@@ -132,6 +136,8 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Set Active',Auth()->user()->email.' Changed your status to Active');
 		}
+        
+        return json_encode([]);
 	}
 	
     function block_users(Request $request){
@@ -148,6 +154,8 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Blocked',Auth()->user()->email.' Blocked you');
 		}
+        
+        return json_encode([]);
 	}
 	
     function unblock_users(Request $request){
@@ -164,6 +172,8 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'UnBlocked',Auth()->user()->email.' UnBlocked you');
 		}
+        
+        return json_encode([]);
 	}
 	
     function MakeAdmin(Request $request){
@@ -185,6 +195,7 @@ class UserController extends Controller
 			NotificationsLog::log()->save($request->ids, 'Admin access granted',Auth()->user()->email.' granted admin access to you');
 		}
         
+        return json_encode([]);
 	}
 	
     function RevokeAdmin(Request $request){
@@ -206,6 +217,7 @@ class UserController extends Controller
 			NotificationsLog::log()->save($request->ids, 'Admin access revoked',Auth()->user()->email.' revoked admin access to you');
 		}
         
+        return json_encode([]);
 	}
 	
     function Profile(Request $request){
@@ -264,6 +276,8 @@ class UserController extends Controller
 		}
 		
 		DB::table('participants')->insert($data);
+        
+        return json_encode([]);
 		
 	}
 	
