@@ -75,7 +75,7 @@
           </div>
             <p class="p-3" id="alertbody"></p>
           <div class="modal-footer">
-            <button type="button" id="alert-ok" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            <button type="button" id="alert-ok" class="btn btn-primary" data-dismiss="modal">Ok</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>

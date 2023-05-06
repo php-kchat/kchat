@@ -42,6 +42,10 @@ class MessageController extends Controller
     
     function UpdateConversation(Request $request){
         
+        if($request->grpname == null){
+            return json_encode(['error' => 'Group name is empty']);
+        }
+        
         // checking if user is participant of conversation also fetching conversation_id
         $tmp = DB::table('participants')->where(['conversation_id' => $request->group_id,'user_id' => Auth()->user()->id])->get()->toArray();
         
