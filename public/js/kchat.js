@@ -1,4 +1,20 @@
 
+gfunc = null;
+
+$('#alert-ok').on('click', function() {
+    gfunc();
+});
+
+function kchat_alert(body,func){
+    if(body == undefined){
+        func();
+        return true;
+    }
+    $("#alertbody").html(body);
+    $("#alertmodel").click();
+    gfunc = func;
+}
+
 if(localStorage.getItem('selected') == null){
     localStorage.setItem('selected', "");
 }
@@ -48,9 +64,23 @@ Ajax call
 ---------------------------------------------------------------------
 */
 
+tmp = {};
+
+tmp.set = function(param){
+    tmp.value = param;
+}
+
+tmp.get = function(){
+    return tmp.value;
+}
+
 $( "[ajax_post]" ).on( "click", function () {
 	
-		form = $(this).attr('form');
+    tmp.set($(this));
+    
+    kchat_alert(tmp.get().attr('data-msg'),(function(){
+        
+		form = tmp.get().attr('form');
 		
 		row = $('.' + form).get();
 		
@@ -70,12 +100,17 @@ $( "[ajax_post]" ).on( "click", function () {
 		
 		$.ajax({
 			type: "POST",
-			url: $(this).attr('action'),
+			url: tmp.get().attr('action'),
 			data: Data,
 			processData: false,
 			contentType: false,
 			success: function(result){
-				location.reload();
+                result = $.parseJSON(result);
+                if(result['error'] == undefined){
+                    location.reload();
+                }else{
+                    kchat_alert(result['error'],(function(){}));
+                }
 			},
 			error: function(result){
 				alert_msg = [];
@@ -86,7 +121,7 @@ $( "[ajax_post]" ).on( "click", function () {
 				$('#' + form + '-error').html(alert_msg.join("<br>")).css("display", "block");
 			}
 		});
-		
+	}));
 });
 
 /*
@@ -273,7 +308,12 @@ function __post(url,posts){
 		url: url,
 		data: Data,
 		success: function(result){
-			location.reload();
+            result = $.parseJSON(result);
+            if(result['error'] == undefined){
+                location.reload();
+            }else{
+                kchat_alert(result['error'],(function(){}));
+            }
 		}
 	});
 }
@@ -338,15 +378,3 @@ function setSelectedCount(){
 }
 
 setSelectedCount();
-
-gfunc = null;
-
-$('#alert-ok').on('click', function() {
-    gfunc();
-});
-
-function kchat_alert(body,func){
-    $("#alertbody").html(body);
-    $("#alertmodel").click();
-    gfunc = func;
-}

@@ -51,7 +51,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
 									<input type="hidden" class="not{{ $info->id }}" id="id" value="{{ $info->id }}" />
-                                    <button class="dropdown-item" type="button" ajax_post action="/notification/delete" form="not{{ $info->id }}"><i class="mdi mdi-delete"></i> Delete</button>
+                                    <button class="dropdown-item" type="button" ajax_post data-msg="Are you sure you want to delete notifications?" action="/notification/delete" form="not{{ $info->id }}"><i class="mdi mdi-delete"></i> Delete</button>
                                 </div>
                             </div>
                             <br />
@@ -67,7 +67,7 @@
 @section('script')
 <script>
 	function delete_notificatios(){
-		__post('/notification/delete',getSelectedID());
+		kchat_alert("Are you sure you want to delete <strong>Notifications</strong>?",(function(){__post('/notification/delete',getSelectedID());}));
 	}
 </script>
 @endsection

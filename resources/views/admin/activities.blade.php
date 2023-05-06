@@ -51,7 +51,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
 									<input type="hidden" class="act{{ $info->id }}" id="id" value="{{ $info->id }}" />
-                                    <button class="dropdown-item" type="button" ajax_post action="/activity/delete" form="act{{ $info->id }}" ><i class="mdi mdi-delete"></i> Delete</button>
+                                    <button class="dropdown-item" type="button" ajax_post data-msg="Are you sure you want to delete activities?" action="/activity/delete" form="act{{ $info->id }}" ><i class="mdi mdi-delete"></i> Delete</button>
                                 </div>
                             </div>
                             <br />
@@ -67,7 +67,7 @@
 @section('script')
 <script>
 	function delete_activity(){
-		__post('/activity/delete',getSelectedID());
+		kchat_alert("Are you sure you want to delete <strong>Activities</strong>?",(function(){__post('/activity/delete',getSelectedID());}));
 	}
 </script>
 @endsection

@@ -88,7 +88,7 @@
                         </div>
                      </div>
                      <div class="row">
-                        <div class="col d-flex justify-content-end"> <button class="btn btn-primary" type="submit" ajax_post action="/profile" form="profile" >Save Changes</button></div>
+                        <div class="col d-flex justify-content-end"> <button class="btn btn-primary" type="submit" ajax_post data-msg="Are you sure you want to update profile?" action="/profile" form="profile" >Save Changes</button></div>
                      </div>
                </div>
             </div>

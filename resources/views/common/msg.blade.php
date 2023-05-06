@@ -86,7 +86,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ajax_post action="/messages/update" form="updategroup" >Update Group</button>
+        <button type="button" class="btn btn-primary" ajax_post  data-msg="Are you sure you want to update group profile?" action="/messages/update" form="updategroup" >Update Group</button>
       </div>
     </div>
   </div>

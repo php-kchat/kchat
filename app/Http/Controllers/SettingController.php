@@ -51,6 +51,10 @@ class SettingController extends Controller
 			return false;
         }
 		
+        if($request->adddepartment == null){
+            return json_encode(array('error' => 'Department field is empty'));
+        }
+        
 		DB::table('departments')->insert(
 			['department' => $request->adddepartment]
 		);
@@ -76,6 +80,10 @@ class SettingController extends Controller
 			return false;
         }
 		
+        if($request->uploadpath == null){
+            return json_encode(array('error' => 'Upload path field is empty'));
+        }
+        
 		\Settings::set('uploadpath',$request->uploadpath);
 		
 		ActivityLog::log()->save('Setting','You have set upload path to '.$request->uploadpath.'.');
