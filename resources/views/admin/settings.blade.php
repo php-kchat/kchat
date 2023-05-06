@@ -19,7 +19,7 @@
 	<p>Add and Delete Department</p>
 	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Add Department</label>
 		<input class="form-control savedpt" id="adddepartment" placeholder="Department" >
-		<button class="btn btn-primary mt-3" type="button" ajax_post action="/setting/savedpt" form="savedpt" >Add Department</button>
+		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to add department?" action="/setting/savedpt" form="savedpt" >Add Department</button>
 	</div>
 	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Delete Department</label>
 		<select class="form-control deletedpt" type="text" id="deletedepartment" >
@@ -27,7 +27,7 @@
 				<option value="{{ $department->department }}">{{ $department->department }}</option>
 			@endforeach
 		</select>
-		<button class="btn btn-danger mt-3" type="button" ajax_post action="/setting/deletedpt" form="deletedpt" >Delete Department</button>
+		<button class="btn btn-danger mt-3" type="button" ajax_post  data-msg="Are you sure you want to delete department?" action="/setting/deletedpt" form="deletedpt" >Delete Department</button>
 	</div>
   </div>
 </div>
@@ -40,7 +40,7 @@
 				<option value="{{ $tz }}" @if($tz == $settings['Timezone']) selected @endif>{{ $tz }}</option>
 			@endforeach
 		</select>
-		<button class="btn btn-primary mt-3" type="button" ajax_post action="/setting/timezone" form="timezone" >Update Timezone</button>
+		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update timezone?" action="/setting/timezone" form="timezone" >Update Timezone</button>
 	</div>
   </div>
 </div>
@@ -49,7 +49,7 @@
    <div class="card-body">
       <p class="small text-muted">Place it outside the webroot means that the files will not be publicly exposed.</p>
 	  <input class="form-control uploadpath" id="uploadpath" placeholder="/home/user/files" value="{{ $settings['uploadpath'] }}" >
-      <button class="btn btn-primary mt-3" type="button" ajax_post action="/setting/uploadpath" form="uploadpath" >Update Timezone</button>
+      <button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update upload path?" action="/setting/uploadpath" form="uploadpath" >Update Timezone</button>
    </div>
 </div>
 <!--div class="card mb-4">

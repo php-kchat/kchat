@@ -192,7 +192,10 @@ class KchatController extends Controller
         $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
         
         if(!count($tmp)){
-            return false;
+            if($request->role == 'admin'){
+                return json_encode(['error' => 'File upload path is not set']);
+            }
+            return json_encode(['error' => 'File upload Failed']);
         }
         
         $uploadpath = $tmp[0]->value;

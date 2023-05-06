@@ -46,7 +46,7 @@
 	</div>
  </div>
  <div class="chat-history" id="Msgs" style="min-height: 50%;" >
-    <image id="loading" src="/assets/loading.gif"></image>
+    <image id="loading" src="/assets/loading.gif"/>
 	<ul class="pl-3 pr-3" id="Messages"></ul>
     <button type="button" id="gotobottom" class="btn btn-outline-secondary"><i class="fa fa-chevron-down"></i></button>
  </div>
@@ -86,7 +86,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ajax_post action="/messages/update" form="updategroup" >Update Group</button>
+        <button type="button" class="btn btn-primary" ajax_post  data-msg="Are you sure you want to update group profile?" action="/messages/update" form="updategroup" >Update Group</button>
       </div>
     </div>
   </div>

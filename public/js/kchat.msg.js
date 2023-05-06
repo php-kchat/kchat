@@ -427,8 +427,6 @@ $(document).ready (function(){
             Data.append('files[]', files[i]);
 		}
         
-		//console.log(Data);
-        
 		$.ajax({
 			type: "POST",
 			url: '/messages/attachments',
@@ -436,7 +434,10 @@ $(document).ready (function(){
 			processData: false,
 			contentType: false,
 			success: function(result){
-				console.log(result);
+				result = $.parseJSON(result);
+                if(result.error != undefined){
+                    kchat_alert(result.error,(function(){}));
+                }
 			},
 			error: function(result){
 
