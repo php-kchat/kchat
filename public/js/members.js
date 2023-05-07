@@ -1,36 +1,39 @@
 
 function delete_users(){
-	kchat_alert("Are you sure you want to <strong>delete</strong> users?",(function(){__post('/members/delete_users',getSelectedID());}));
+	kchat_alert("Are you sure you want to <strong>delete</strong> users?",(function(){__post('/members/delete_users',{'ids':{'ids':getSelectedID()}});}));
 }
 
 function set_inactive_users(){
-	kchat_alert("Are you sure you want to set <strong>inactive</strong>?",(function(){__post('/members/set_inactive_users',getSelectedID());}));
+	kchat_alert("Are you sure you want to set <strong>inactive</strong>?",(function(){__post('/members/set_inactive_users',{'ids':getSelectedID()});}));
 }
 
 function set_active_users(){
-	kchat_alert("Are you sure you want to set <strong>active</strong>?",(function(){__post('/members/set_active_users',getSelectedID());}));
+	kchat_alert("Are you sure you want to set <strong>active</strong>?",(function(){__post('/members/set_active_users',{'ids':getSelectedID()});}));
 }
 
 function block_users(){
-	kchat_alert("Are you sure you want to <strong>block</strong> users?",(function(){__post('/members/block_users',getSelectedID());}));
+	kchat_alert("Are you sure you want to <strong>block</strong> users?",(function(){__post('/members/block_users',{'ids':getSelectedID()});}));
 }
 
 function unblock_users(){
-	kchat_alert("Are you sure you want to <strong>unblock</strong> users?",(function(){__post('/members/unblock_users',getSelectedID());}));
+	kchat_alert("Are you sure you want to <strong>unblock</strong> users?",(function(){__post('/members/unblock_users',{'ids':getSelectedID()});}));
 }
 
 function NewConversation(){
-	kchat_alert("Are you sure you want to start new <strong>Conversation</strong>?",(function(){__post('/members/newconversation',getSelectedID(),{
-        'grpname' : $('#grpname').val()
-    });}));
+	kchat_alert("Are you sure you want to start new <strong>Conversation</strong>?",(function(){
+            Data = {};
+            Data['ids'] = getSelectedID();
+            Data['grpname'] = $('#grpname').val();
+            __post('/members/newconversation',Data);
+        }));
 }
 
 function revoke_admins(){
-	kchat_alert("Are you sure you want to revoke <strong>admin privileges</strong>?",(function(){__post('/members/revokeadmin',getSelectedID());}));
+	kchat_alert("Are you sure you want to revoke <strong>admin privileges</strong>?",(function(){__post('/members/revokeadmin',{'ids':getSelectedID()});}));
 }
 
 function make_admins(){
-	kchat_alert("Are you sure you want to grant <strong>admin privileges</strong>?",(function(){__post('/members/makeadmin',getSelectedID());}));
+	kchat_alert("Are you sure you want to grant <strong>admin privileges</strong>?",(function(){__post('/members/makeadmin',{'ids':getSelectedID()});}));
 }
 
 function delete_user(){

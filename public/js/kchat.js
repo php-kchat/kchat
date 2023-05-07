@@ -301,7 +301,7 @@ Get id of selected options
 
 function __post(url,posts){
 	Data = {};
-	Data['ids'] = posts;
+	Data = posts;
 	Data['_token'] = $('meta[name="csrf_token"]').attr('content');
 	$.ajax({
 		type: "POST",

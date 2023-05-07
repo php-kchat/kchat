@@ -77,12 +77,14 @@ class UserController extends Controller
 	}
 	
     function delete_users(Request $request){
-		
+        
+		$request->ids = array_filter($request->ids);
+        
         if($request->role != 'admin'){
 			return false;
         }
         
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -98,11 +100,13 @@ class UserController extends Controller
 	
     function set_inactive_users(Request $request){
 		
+        $request->ids = array_filter($request->ids);
+        
         if($request->role != 'admin'){
 			return false;
         }
         
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -119,12 +123,14 @@ class UserController extends Controller
 	}
 	
     function set_active_users(Request $request){
+        
+		$request->ids = array_filter($request->ids);
 		
         if($request->role != 'admin'){
 			return false;
         }
         
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -142,7 +148,9 @@ class UserController extends Controller
 	
     function block_users(Request $request){
         
-		if(count($request->ids)){
+		$request->ids = array_filter($request->ids);
+        
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
         
@@ -160,7 +168,7 @@ class UserController extends Controller
 	
     function unblock_users(Request $request){
 		
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -178,11 +186,13 @@ class UserController extends Controller
 	
     function MakeAdmin(Request $request){
         
+		$request->ids = array_filter($request->ids);
+        
 		if($request->role != 'admin'){
 			return false;
         }
         
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -200,11 +210,13 @@ class UserController extends Controller
 	
     function RevokeAdmin(Request $request){
         
+		$request->ids = array_filter($request->ids);
+        
 		if($request->role != 'admin'){
 			return false;
         }
         
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
@@ -237,8 +249,10 @@ class UserController extends Controller
 	}
 	
     function NewConversation(Request $request){
+        
+		$request->ids = array_filter($request->ids);
 
-		if(count($request->ids)){
+		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
 		}
 
@@ -261,7 +275,7 @@ class UserController extends Controller
 		$ids = array_unique($ids);
 		
 		if(count($ids) == 1){
-			return false;
+			return json_encode(['error' => 'You are only member of conversations, <strong>Please add two or more member</strong>']);
 		}
 		
 		$data = [];
@@ -324,6 +338,8 @@ class UserController extends Controller
         ->update($data);
 		
 		ActivityLog::log()->save('Profile','You have successfully updated your profile.');
+        
+        return json_encode([]);
 		
 	}
 	
