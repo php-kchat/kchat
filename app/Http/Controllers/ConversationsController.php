@@ -23,10 +23,10 @@ class ConversationsController extends Controller
 		$pages = range(1, $conversations->lastPage());
         
         if($request->role == 'admin'){
-            return view('common.conversations',compact('conversations','pages'));
+            return view('admin.conversations',compact('conversations','pages'));
         }
         
-        return view('common.conversations',compact('conversations','pages'));
+        return view('user.conversations',compact('conversations','pages'));
     }
     
     function delete(Request $request){
