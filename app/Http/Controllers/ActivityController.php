@@ -22,18 +22,19 @@ class ActivityController extends Controller
 	
     function delete(Request $request){
         
-		if(isset($request->ids)){
-            
-			DB::table('activities')
-			->whereIn('id',$request->ids)
-			->where('uid',Auth()->user()->id)
-			->delete();
-		}else{
-            
-			DB::table('activities')
-			->where('id',$request->id)
-			->where('uid',Auth()->user()->id)
-			->delete();
-		}
+        if(isset($request->id)){
+            $request->ids = [$request->id];
+        }
+        
+		if(count($request->ids) == 0){
+            return json_encode(['error' => 'No activity is selected']);
+        }
+        
+        DB::table('activities')
+        ->whereIn('id',$request->ids)
+        ->where('uid',Auth()->user()->id)
+        ->delete();
+        
+        return json_encode([]);
 	}
 }

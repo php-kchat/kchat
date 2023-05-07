@@ -77,13 +77,15 @@ class UserController extends Controller
 	}
 	
     function delete_users(Request $request){
-		
+        
+		$request->ids = array_filter($request->ids);
+        
         if($request->role != 'admin'){
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->whereIn('role', [1,2])->delete()){
@@ -92,16 +94,20 @@ class UserController extends Controller
 			
 			ActivityLog::log()->save('Deleted','You have Deleted '.$emails.'.');
 		}
+        
+        return json_encode([]);
 	}
 	
     function set_inactive_users(Request $request){
 		
+        $request->ids = array_filter($request->ids);
+        
         if($request->role != 'admin'){
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Inactive'])){
@@ -112,16 +118,20 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Set InActive',Auth()->user()->email.' Changed your status to InActive');
 		}
+        
+        return json_encode([]);
 	}
 	
     function set_active_users(Request $request){
+        
+		$request->ids = array_filter($request->ids);
 		
         if($request->role != 'admin'){
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
@@ -132,12 +142,16 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Set Active',Auth()->user()->email.' Changed your status to Active');
 		}
+        
+        return json_encode([]);
 	}
 	
     function block_users(Request $request){
         
-		if($request->ids == null){
-			return false;
+		$request->ids = array_filter($request->ids);
+        
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
         
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Blocked'])){
@@ -148,12 +162,14 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'Blocked',Auth()->user()->email.' Blocked you');
 		}
+        
+        return json_encode([]);
 	}
 	
     function unblock_users(Request $request){
 		
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
@@ -164,16 +180,20 @@ class UserController extends Controller
 			
 			NotificationsLog::log()->save($request->ids, 'UnBlocked',Auth()->user()->email.' UnBlocked you');
 		}
+        
+        return json_encode([]);
 	}
 	
     function MakeAdmin(Request $request){
+        
+		$request->ids = array_filter($request->ids);
         
 		if($request->role != 'admin'){
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 1])->update(['role' => 2])){
@@ -185,16 +205,19 @@ class UserController extends Controller
 			NotificationsLog::log()->save($request->ids, 'Admin access granted',Auth()->user()->email.' granted admin access to you');
 		}
         
+        return json_encode([]);
 	}
 	
     function RevokeAdmin(Request $request){
+        
+		$request->ids = array_filter($request->ids);
         
 		if($request->role != 'admin'){
 			return false;
         }
         
-		if($request->ids == null){
-			return false;
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
 		}
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 2])->update(['role' => 1])){
@@ -206,6 +229,7 @@ class UserController extends Controller
 			NotificationsLog::log()->save($request->ids, 'Admin access revoked',Auth()->user()->email.' revoked admin access to you');
 		}
         
+        return json_encode([]);
 	}
 	
     function Profile(Request $request){
@@ -225,7 +249,13 @@ class UserController extends Controller
 	}
 	
     function NewConversation(Request $request){
-		
+        
+		$request->ids = array_filter($request->ids);
+
+		if(count($request->ids) == 0){
+			return json_encode(['error' => 'Please select user first']);
+		}
+
         $data = [
 			'message_id' => '0',
 			'created_at' => now(),
@@ -245,7 +275,7 @@ class UserController extends Controller
 		$ids = array_unique($ids);
 		
 		if(count($ids) == 1){
-			return false;
+			return json_encode(['error' => 'You are only member of conversations, <strong>Please add two or more member</strong>']);
 		}
 		
 		$data = [];
@@ -260,6 +290,8 @@ class UserController extends Controller
 		}
 		
 		DB::table('participants')->insert($data);
+        
+        return json_encode([]);
 		
 	}
 	
@@ -306,6 +338,8 @@ class UserController extends Controller
         ->update($data);
 		
 		ActivityLog::log()->save('Profile','You have successfully updated your profile.');
+        
+        return json_encode([]);
 		
 	}
 	

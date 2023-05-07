@@ -33,6 +33,10 @@
                               <a href="/members">
                               <i class="fa fa-users"></i> Members </a>
                            </li>
+                           <li class="{{ request()->is('conversations') ? 'active' : '' }}">
+                              <a href="/conversations">
+                              <i class="fa fa-comments"></i> Conversations </a>
+                           </li>
                            <li class="{{ request()->is('settings') ? 'active' : '' }}">
                               <a href="/settings">
                               <i class="fa fa-cog"></i> Settings </a>
@@ -75,7 +79,7 @@
           </div>
             <p class="p-3" id="alertbody"></p>
           <div class="modal-footer">
-            <button type="button" id="alert-ok" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            <button type="button" id="alert-ok" class="btn btn-primary" data-dismiss="modal">Ok</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>

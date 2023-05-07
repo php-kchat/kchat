@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\KchatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ConversationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::group(['middleware' => ['CheckLogin']],function(){
         Route::get('/profile', [UserController::class, 'profile'])->name('Profile');
         
         Route::get('/messages', [MessageController::class, 'messages'])->name('Messages Controller');
+        
+        Route::get('/conversations', [ConversationsController::class, 'Conversations'])->name('Conversations Controller');
     
         Route::get('/messages/downattch/{uuid}', [KchatController::class, 'downattch'])->name('Attachments Download')->where('uuid', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')->withoutMiddleware('GetCounts');
         
@@ -96,5 +99,7 @@ Route::group(['middleware' => ['CheckLogin']],function(){
     Route::post('/getConvo', [KchatController::class, 'getConvo'])->name('get Conversations list via search');
         
     Route::post('/ajax_members', [UserController::class, 'members_ajax'])->name('Members List on Ajax call');
+        
+    Route::post('/conversations/delete', [ConversationsController::class, 'delete'])->name('Conversations Controller');
 
 });

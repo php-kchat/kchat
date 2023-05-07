@@ -40,7 +40,7 @@ class AuthController extends Controller
             ->update(['role' => '0']);
         }
         
-        return redirect('login')->with('success', 'Registration Completed');
+        return redirect('login');
     }
 	
     function login(Request $request)
@@ -55,6 +55,8 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)){
 			ActivityLog::log()->save('Login','You have successfully logged in.');
 		}
+        
+        return json_encode([]);
     }
 
     function logout(Request $request)
@@ -64,6 +66,7 @@ class AuthController extends Controller
         Session::flush();
 
         Auth::logout();
-		
+        
+        return json_encode([]);
     }
 }
