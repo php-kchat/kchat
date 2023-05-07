@@ -351,16 +351,21 @@ function getRelativeTime(dateTime) {
 	  }
 }
 
-const elements = $(".timestamp");
+function timestamp(){
+    
+    const elements = $(".timestamp");
 
-// Loop through each element and update its content
-elements.each(function() {
-  const currentContent = $(this).html();
-  const updatedContent = getRelativeTime(currentContent); // Example update
+    // Loop through each element and update its content
+    elements.each(function() {
+      const currentContent = $(this).html();
+      const updatedContent = getRelativeTime(currentContent); // Example update
 
-  // Set the updated content to the same class
-  $(this).html(updatedContent);
-});
+      // Set the updated content to the same class
+      $(this).html(updatedContent);
+    });
+}
+
+timestamp();
 
 // Remove Blank values from cookie
 localStorage.setItem('selected',localStorage.getItem('selected').split(","), function(value) {
@@ -378,3 +383,13 @@ function setSelectedCount(){
 }
 
 setSelectedCount();
+
+// Conversation page
+
+function delete_convos(){
+    kchat_alert("Are you sure you want to <strong>delete</strong> conversations?",(function(){__post('/conversations/delete',{'ids':getSelectedID()});}));
+}
+
+function delete_convo(id){
+    kchat_alert("Are you sure you want to <strong>delete</strong> conversations?",(function(){__post('/conversations/delete',{'ids':[id]});}));
+}

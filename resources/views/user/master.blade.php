@@ -33,6 +33,10 @@
                               <a href="/members">
                               <i class="fa fa-users"></i> Members </a>
                            </li>
+                           <li class="{{ request()->is('conversations') ? 'active' : '' }}">
+                              <a href="/conversations">
+                              <i class="fa fa-comments"></i> Conversations </a>
+                           </li>
                            <li class="{{ request()->is('notification') ? 'active' : '' }}">
                               <a href="/notification">
                               <i class="fa fa-exclamation-circle"></i> Notification </a>
