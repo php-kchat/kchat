@@ -92,7 +92,7 @@ $( "[ajax_post]" ).on( "click", function () {
 			if(row[i].type == 'file'){
 				Data.append(row[i].id, $('#'+row[i].id)[0].files[0]);
 			}else{
-				Data.append(row[i].id, row[i].value);
+				Data.append(row[i].id, $("#"+row[i].id).val());
 			}
 		}
 		

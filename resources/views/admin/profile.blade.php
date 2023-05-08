@@ -62,12 +62,13 @@
                            </div>
                            <div class="row">
                               <div class="col">
-                                 <div class="form-group"> <label>Department <span class="badge badge-secondary">{{ $profile->department }}</span></label>
-									<select class="form-control profile" type="text" placeholder="admin@admin.com" id="department" >
+                                 <div class="form-group"> <label>Department</label>
+									<select class="form-control profile" type="text" placeholder="admin@admin.com" id="department" multiple>
 									@foreach($departments as $department)
 										<option value="{{ $department->department }}">{{ $department->department }}</option>
 									@endforeach
 									</select>
+                                    <script> $("#department").val( @json($profile->department) ); </script>
 								</div>
 							    </div>
                            </div>

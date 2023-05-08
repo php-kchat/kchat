@@ -26,7 +26,7 @@ class UserController extends Controller
 		$keys = array_column($users->items(),'id');
 		
 		$values = array_map([$this,"SecrurePass"],$users->items());
-		
+        
 		$jsonusers = array_combine($keys, $values);
 		
 		$pages = range(1, $users->lastPage());
@@ -58,7 +58,7 @@ class UserController extends Controller
 		$keys = array_column($users->items(),'id');
 		
 		$values = array_map([$this,"SecrurePass"],$users->items());
-		
+        
 		$jsonusers = array_combine($keys, $values);
 		
 		$pages = range(1, $users->lastPage());
@@ -240,6 +240,12 @@ class UserController extends Controller
 		
 		$profile = $profile[0];
         
+        $profile->department = json_decode($profile->department);
+        
+        if (json_last_error() != 0) {
+            $profile->department = [];
+        }
+        
 		if($request->role != 'admin'){
             return view('user.profile',compact('profile','departments'));
         }
@@ -299,6 +305,10 @@ class UserController extends Controller
 		
 		$data = $request->all();
 		
+        if(isset($request->department)){
+            $data['department'] = json_encode(explode(',',$data['department']));
+        }
+        
         $request->validate([
             'first_name'         =>   'required',
             'last_name'         =>   'required',
@@ -344,6 +354,15 @@ class UserController extends Controller
 	}
 	
 	function SecrurePass($UserDetail){
+        
+        $tmp = json_decode($UserDetail->department);
+        
+        if (json_last_error() != 0) {
+            $tmp = ['NA'];
+        }
+        
+        $UserDetail->department = implode(', ',$tmp);
+        
 		unset(
 			$UserDetail->password, 
 			$UserDetail->email_verified_at, 
