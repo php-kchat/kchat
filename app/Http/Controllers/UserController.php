@@ -240,6 +240,12 @@ class UserController extends Controller
 		
 		$profile = $profile[0];
         
+        $profile->department = json_decode($profile->department);
+        
+        if (json_last_error() != 0) {
+            $profile->department = [];
+        }
+        
 		if($request->role != 'admin'){
             return view('user.profile',compact('profile','departments'));
         }
@@ -299,6 +305,10 @@ class UserController extends Controller
 		
 		$data = $request->all();
 		
+        if(isset($request->department)){
+            $data['department'] = json_encode(explode(',',$data['department']));
+        }
+        
         $request->validate([
             'first_name'         =>   'required',
             'last_name'         =>   'required',
