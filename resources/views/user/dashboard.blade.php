@@ -1,6 +1,6 @@
 @extends('user.master')
 
-@section('title', 'Dashboard')
+@section('title', __("lang.dashboard"))
 
 @section('header')
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -21,18 +21,18 @@
         <div class="col-md-6 col-xl-6">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">All your total Message</h6>
+                    <h6 class="m-b-20">{{ __("lang.all-your-total-message") }}</h6>
                     <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $current_user_messages_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $current_user_messages_count_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $current_user_messages_count_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-xl-6">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">All your total Conversations</h6>
+                    <h6 class="m-b-20">{{ __("lang.all-your-total-conversations") }}</h6>
                     <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $current_user_conversations_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $current_user_new_conversations_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $current_user_new_conversations_this_month }}</span></p>
                 </div>
             </div>
         </div>

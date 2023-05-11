@@ -16,14 +16,14 @@
 <div class="col-md-10 pt-3">
             <div class="card shadow-sm rounded bg-white mb-3">
                 <div class="card-header border-bottom p-3">
-                    <h6 class="m-0 float-left">Activitie's</h6>
+                    <h6 class="m-0 float-left">{{ __("lang.activities") }}</h6>
 					<div class="btn-group float-right">
 						<button type="button" class="btn btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="mdi mdi-dots-vertical"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
-							<button class="dropdown-item" type="button" onclick="delete_activity()"></i> Delete</button>
-							<button class="dropdown-item" type="button" onclick="SelectAll()"></i> Select All</button>
+							<button class="dropdown-item" type="button" onclick="delete_activity()"></i> {{ __("lang.delete") }}</button>
+							<button class="dropdown-item" type="button" onclick="SelectAll()"></i> {{ __("lang.select-all") }}</button>
 						</div>
 					</div>
 					<select class="pages float-right mr-3">
@@ -51,7 +51,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
 									<input type="hidden" class="act{{ $info->id }}" id="id" value="{{ $info->id }}" />
-                                    <button class="dropdown-item" type="button" ajax_post  data-msg="Are you sure you want to delete activities?" action="/activity/delete" form="act{{ $info->id }}" ><i class="mdi mdi-delete"></i> Delete</button>
+                                    <button class="dropdown-item" type="button" ajax_post  data-msg="Are you sure you want to delete activities?" action="/activity/delete" form="act{{ $info->id }}" ><i class="mdi mdi-delete"></i> {{ __("lang.delete") }}</button>
                                 </div>
                             </div>
                             <br />

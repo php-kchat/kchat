@@ -30,14 +30,14 @@
                   </svg>
                </a>
                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" onclick="SelectAll()" >Select All</a>
-                  <a class="dropdown-item" onclick="block_users()" >Block</a>
-                  <a class="dropdown-item" onclick="unblock_users()" >UnBlock</a>
-                  <a class="dropdown-item" data-toggle="modal" data-target="#createnewconversatoin" >Create New Conversation</a>
+                  <a class="dropdown-item" onclick="SelectAll()" >{{ __("lang.select-all") }}</a>
+                  <a class="dropdown-item" onclick="block_users()" >{{ __("lang.block") }}</a>
+                  <a class="dropdown-item" onclick="unblock_users()" >{{ __("lang.unblock") }}</a>
+                  <a class="dropdown-item" data-toggle="modal" data-target="#createnewconversatoin" >{{ __("lang.create-new-conversation") }}</a>
                </div>
             </div>
          </div>
-         <h5 class="card-title mb-0">Member's</h5>
+         <h5 class="card-title mb-0">{{ __("lang.members") }}</h5>
       </div>
       <div class="card-body">
 		<script>
@@ -53,16 +53,16 @@
                         <option value="{{ $page }}" >{{ $page }}</option>
                         @endforeach
                     </select>
-                    <input class="w-20 mr-3 float-right" type="search" placeholder="Search using mail" id="Member-rearch" value="{{ $ms }}" >
+                    <input class="w-20 mr-3 float-right" type="search" placeholder="{{ __("lang.search-using-mail") }}" id="Member-rearch" value="{{ $ms }}" >
                </tr>
             </thead>
             <thead>
                <tr>
                   <th>#</th>
-                  <th>Name</th>
-                  <th>Departement</th>
-                  <th>Email</th>
-                  <th>Status</th>
+                  <th>{{ __("lang.name") }}</th>
+                  <th>{{ __("lang.departement") }}</th>
+                  <th>{{ __("lang.email") }}</th>
+                  <th>{{ __("lang.status") }}</th>
                </tr>
             </thead>
             <tbody id="member_table" >
@@ -99,8 +99,8 @@
                </a>
                <div class="dropdown-menu dropdown-menu-right">
 				  <input type="hidden" value="" id="m_user" />
-                  <a class="dropdown-item" onclick="block_user()" >Block</a>
-                  <a class="dropdown-item" onclick="unblock_user()" >UnBlock</a>
+                  <a class="dropdown-item" onclick="block_user()" >{{ __("lang.block") }}</a>
+                  <a class="dropdown-item" onclick="unblock_user()" >{{ __("lang.unblock") }}</a>
                </div>
             </div>
          </div>
@@ -112,22 +112,22 @@
                <img class="m_photo" src="/logo/KChat.svg" onerror="this.src='/logo/KChat.svg'" class="rounded-circle mt-2" alt="">
             </div>
             <div class="col-sm-9 col-xl-12 col-xxl-9">
-               <strong>About me</strong>
+               <strong>{{ __("lang.about-me") }}</strong>
                <p class="m_about"></p>
             </div>
          </div>
          <table class="table table-sm mt-2 mb-4">
             <tbody>
                <tr>
-                  <th>Name</th>
+                  <th>{{ __("lang.name") }}</th>
                   <td class="m_name"></td>
                </tr>
                <tr>
-                  <th>Department</th>
+                  <th>{{ __("lang.department") }}</th>
                   <td class="m_department"></td>
                </tr>
                <tr>
-                  <th>Email</th>
+                  <th>{{ __("lang.email") }}</th>
                   <td class="m_email"></td>
                </tr>
                <tr>
@@ -135,18 +135,18 @@
                   <td class="m_phone"></td>
                </tr>
                <tr>
-                  <th>Status</th>
+                  <th>{{ __("lang.status") }}</th>
                   <td><span class="badge m_status"></span></td>
                </tr>
-                  <th>Created At</th>
+                  <th>{{ __("lang.created-at") }}</th>
                   <td><span class="timestamp badge m_created_at"></span></td>
                </tr>
-                  <th>Updated At</th>
+                  <th>{{ __("lang.updated-at") }}</th>
                   <td><span class="timestamp badge m_updated_at"></span></td>
                </tr>
             </tbody>
          </table>
-         <!--strong>Activity</strong-->
+         <!--strong>{{ __("lang.activity") }}</strong-->
          <!--ul class="timeline mt-2 mb-0">
             <li class="timeline-item">
                <strong>Signed out</strong>
@@ -183,7 +183,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" >Create Group</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ __("lang.close") }}">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -193,7 +193,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __("lang.close") }}</button>
         <button type="button" onclick="NewConversation()" class="btn btn-primary">Create Group</button>
       </div>
     </div>

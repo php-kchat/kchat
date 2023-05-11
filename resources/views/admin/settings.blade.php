@@ -14,42 +14,42 @@
 @section('body')
 <div class="col-md-10 pt-3">
 <div class="card mb-4">
-  <div class="card-header">Department's</div>
+  <div class="card-header">{{ __("lang.departments") }}</div>
   <div class="card-body">
-	<p>Add and Delete Department</p>
-	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Add Department</label>
-		<input class="form-control savedpt" id="adddepartment" placeholder="Department" >
-		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to add department?" action="/setting/savedpt" form="savedpt" >Add Department</button>
+	<p>{{ __("lang.add-and-delete-department") }}</p>
+	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">{{ __("lang.add-department") }}</label>
+		<input class="form-control savedpt" id="adddepartment" placeholder="{{ __("lang.department") }}" >
+		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to add department?" action="/setting/savedpt" form="savedpt" >{{ __("lang.add-department") }}</button>
 	</div>
-	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Delete Department</label>
+	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">{{ __("lang.delete-department") }}</label>
 		<select class="form-control deletedpt" type="text" id="deletedepartment" >
 			@foreach($departments as $department)
 				<option value="{{ $department->department }}">{{ $department->department }}</option>
 			@endforeach
 		</select>
-		<button class="btn btn-danger mt-3" type="button" ajax_post  data-msg="Are you sure you want to delete department?" action="/setting/deletedpt" form="deletedpt" >Delete Department</button>
+		<button class="btn btn-danger mt-3" type="button" ajax_post  data-msg="Are you sure you want to delete department?" action="/setting/deletedpt" form="deletedpt" >{{ __("lang.delete-department") }}</button>
 	</div>
   </div>
 </div>
 <div class="card mb-4">
-  <div class="card-header">Timezone</div>
+  <div class="card-header">{{ __("lang.timezone") }}</div>
   <div class="card-body">
-	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">Timezone</label>
+	<div class="mt-3"> <label class="small mb-1" for="twoFactorSMS">{{ __("lang.timezone") }}</label>
 		<select class="form-control timezone" type="text" id="timezone" >
 			@foreach($TimeZone as $tz)
 				<option value="{{ $tz }}" @if($tz == $settings['Timezone']) selected @endif>{{ $tz }}</option>
 			@endforeach
 		</select>
-		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update timezone?" action="/setting/timezone" form="timezone" >Update Timezone</button>
+		<button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update timezone?" action="/setting/timezone" form="timezone" >{{ __("lang.update-timezone") }}</button>
 	</div>
   </div>
 </div>
 <div class="card mb-4">
-   <div class="card-header">File Upload Path</div>
+   <div class="card-header">{{ __("lang.file-upload-path") }}</div>
    <div class="card-body">
-      <p class="small text-muted">Place it outside the webroot means that the files will not be publicly exposed.</p>
+      <p class="small text-muted">{{ __("lang.place-it-outside-the-webroot-means-that-the-files-will-not-be-publicly-exposed") }}</p>
 	  <input class="form-control uploadpath" id="uploadpath" placeholder="/home/user/files" value="{{ $settings['uploadpath'] }}" >
-      <button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update upload path?" action="/setting/uploadpath" form="uploadpath" >Update Timezone</button>
+      <button class="btn btn-primary mt-3" type="button" ajax_post  data-msg="Are you sure you want to update upload path?" action="/setting/uploadpath" form="uploadpath" >{{ __("lang.update-timezone") }}</button>
    </div>
 </div>
 <!--div class="card mb-4">
@@ -82,7 +82,7 @@
   </div>
 </div>
 <div class="card mb-4">
-  <div class="card-header">Delete Account</div>
+  <div class="card-header">{{ __("lang.delete") }} Account</div>
   <div class="card-body">
 	 <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
 	 <button class="btn btn-danger-soft text-danger" type="button">I understand, delete my account</button>

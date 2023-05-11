@@ -22,37 +22,37 @@
                            </li>
                            <li class="{{ request()->is('/') ? 'active' : '' }}">
                               <a href="/">
-                              <i class="fa fa-area-chart"></i> Dashboard </a>
+                              <i class="fa fa-area-chart"></i> {{ __("lang.dashboard") }} </a>
                            </li>
                            <li class="{{ request()->is('messages') ? 'active' : '' }}">
                               <a href="/messages">
-                              <i class="fa fa-envelope"></i> Messages </a>
+                              <i class="fa fa-envelope"></i> {{ __("lang.messages") }} </a>
                               <!--span class="badge badge-pill badge-success">{{ $status['message'] }}</span-->
                            </li>
                            <li class="{{ request()->is('members') ? 'active' : '' }}">
                               <a href="/members">
-                              <i class="fa fa-users"></i> Members </a>
+                              <i class="fa fa-users"></i> {{ __("lang.members") }} </a>
                            </li>
                            <li class="{{ request()->is('conversations') ? 'active' : '' }}">
                               <a href="/conversations">
-                              <i class="fa fa-comments"></i> Conversations </a>
+                              <i class="fa fa-comments"></i> {{ __("lang.conversations") }} </a>
                            </li>
                            <li class="{{ request()->is('notification') ? 'active' : '' }}">
                               <a href="/notification">
-                              <i class="fa fa-exclamation-circle"></i> Notification </a>
+                              <i class="fa fa-exclamation-circle"></i> {{ __("lang.notification") }} </a>
                               <span class="badge badge-pill badge-success">{{ $status['notification'] }}</span>
                            </li>
                            <li class="{{ request()->is('activity') ? 'active' : '' }}">
                               <a href="/activity">
-                              <i class="fa fa-list"></i> Activity </a>
+                              <i class="fa fa-list"></i> {{ __("lang.activity") }} </a>
                            </li>
                            <li class="{{ request()->is('profile') ? 'active' : '' }}">
                               <a href="/profile">
-                              <i class="fa fa-user-circle"></i> Profile </a>
+                              <i class="fa fa-user-circle"></i> {{ __("lang.profile") }} </a>
                            </li>
                            <li>
                               <a action="/logout" form="logout" ajax_post>
-                              <i class="fa fa-power-off"></i> Logout </a>
+                              <i class="fa fa-power-off"></i> {{ __("lang.logout") }} </a>
                            </li>
                         </ul>
                      </div>
@@ -69,14 +69,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" >Alert</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ __("lang.close") }}">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
             <p class="p-3" id="alertbody"></p>
           <div class="modal-footer">
             <button type="button" id="alert-ok" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __("lang.close") }}</button>
           </div>
         </div>
       </div>

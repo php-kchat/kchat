@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Conversations\'s')
+@section('title', __("lang.conversations"))
 
 @section('header')
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -38,8 +38,8 @@
                                       </svg>
                                    </a>
                                    <div class="dropdown-menu dropdown-menu-right">
-                                      <a class="dropdown-item" onclick="SelectAll()" >Select All</a>
-                                      <a class="dropdown-item" onclick="delete_convos()" >Delete</a>
+                                      <a class="dropdown-item" onclick="SelectAll()" >{{ __("lang.select-all") }}</a>
+                                      <a class="dropdown-item" onclick="delete_convos()" >{{ __("lang.delete") }}</a>
                                    </div>
                                 </div>
                             </th>
@@ -48,10 +48,10 @@
                     <thead>
                        <tr>
                           <th>#</th>
-                          <th>Name</th>
-                          <th>Members</th>
+                          <th>{{ __("lang.name") }}</th>
+                          <th>{{ __("lang.members") }}</th>
                           <th>Created at</th>
-                          <th>Action</th>
+                          <th>{{ __("lang.action") }}</th>
                        </tr>
                     </thead>
                     <tbody id="member_table" >
@@ -71,7 +71,7 @@
                                   </svg>
                                </a>
                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" data-convoid="{{ $conversation->id }}" onclick="delete_convo({{ $conversation->id }});" >Delete</a>
+                                  <a class="dropdown-item" data-convoid="{{ $conversation->id }}" onclick="delete_convo({{ $conversation->id }});" >{{ __("lang.delete") }}</a>
                                </div>
                             </div>
                           </td>
