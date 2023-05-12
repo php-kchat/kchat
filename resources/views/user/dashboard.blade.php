@@ -63,8 +63,8 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your message\'s per day',
-        data: @json($current_user_new_conversations_perday),
+        label: '{{ __('lang.all-your-messages-per-day') }}',
+        data: @json($current_user_new_messages_perday),
         borderWidth: 1
       }]
     },
@@ -88,8 +88,8 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your conversation\'s per day',
-        data: @json($current_user_new_messages_perday),
+        label: '{{ __('lang.all-your-conversations-per-day') }}',
+        data: @json($current_user_new_conversations_perday),
         borderWidth: 1
       }]
     },

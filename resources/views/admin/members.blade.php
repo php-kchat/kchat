@@ -33,7 +33,7 @@
                   <a class="dropdown-item" onclick="SelectAll()" >{{ __("lang.select-all") }}</a>
                   <a class="dropdown-item" onclick="delete_users()" >{{ __("lang.delete") }}</a>
                   <a class="dropdown-item" onclick="set_inactive_users()" >{{ __("lang.set-inactive") }}</a>
-                  <a class="dropdown-item" onclick="set_active_users()" >Set Active</a>
+                  <a class="dropdown-item" onclick="set_active_users()" >{{ __("lang.set-active") }}</a>
                   <a class="dropdown-item" onclick="block_users()" >{{ __("lang.block") }}</a>
                   <a class="dropdown-item" onclick="unblock_users()" >{{ __("lang.unblock") }}</a>
                   <a class="dropdown-item" onclick="make_admins()" >{{ __("lang.make-admin") }}</a>
@@ -106,7 +106,7 @@
 				  <input type="hidden" value="" id="m_user" />
                   <a class="dropdown-item" onclick="delete_user()" >{{ __("lang.delete") }}</a>
                   <a class="dropdown-item" onclick="set_inactive_user()" >{{ __("lang.set-inactive") }}</a>
-                  <a class="dropdown-item" onclick="set_active_user()" >Set Active</a>
+                  <a class="dropdown-item" onclick="set_active_user()" >{{ __("lang.set-active") }}</a>
                   <a class="dropdown-item" onclick="block_user()" >{{ __("lang.block") }}</a>
                   <a class="dropdown-item" onclick="unblock_user()" >{{ __("lang.unblock") }}</a>
                   <a class="dropdown-item" onclick="make_admin()" >{{ __("lang.make-admin") }}</a>

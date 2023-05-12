@@ -67,7 +67,7 @@
 @section('script')
 <script>
 	function delete_activity(){
-		kchat_alert("Are you sure you want to delete <strong>Activities</strong>?",(function(){__post('/activity/delete',{'ids':getSelectedID()});}));
+		kchat_alert("{{ __("lang.are-you-sure-you-want-to-delete-activities") }}",(function(){__post('/activity/delete',{'ids':getSelectedID()});}));
 	}
 </script>
 @endsection

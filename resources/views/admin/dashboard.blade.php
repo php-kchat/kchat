@@ -120,7 +120,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All message\'s per day',
+        label: '{{ __('lang.all-messages-per-day') }}',
         data: @json($new_messages_perday),
         borderWidth: 1
       }]
@@ -145,7 +145,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All user\'s per day',
+        label: '{{ __('lang.all-users-per-day') }}',
         data: @json($new_users_perday),
         borderWidth: 1
       }]
@@ -170,7 +170,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All conversation\'s per day',
+        label: '{{ __('lang.all-conversations-per-day') }}',
         data: @json($new_conversations_perday),
         borderWidth: 1
       }]
@@ -195,7 +195,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your message\'s per day',
+        label: '{{ __('lang.all-your-messages-per-day') }}',
         data: @json($current_user_new_messages_perday),
         borderWidth: 1
       }]
@@ -220,7 +220,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your conversation\'s per day',
+        label: '{{ __('lang.all-your-conversations-per-day') }}',
         data: @json($current_user_new_conversations_perday),
         borderWidth: 1
       }]
