@@ -1,6 +1,6 @@
 @extends('user.master')
 
-@section('title', 'Profile')
+@section('title', __("lang.profile"))
 
 @section('header')
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
                </div>
             </div>
             <ul class="nav nav-tabs">
-               <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+               <li class="nav-item"><a href="" class="active nav-link">{{ __("lang.settings") }}</a></li>
             </ul>
             <div class="tab-content pt-3">
                <div class="tab-pane active">
@@ -43,25 +43,26 @@
                         <div class="col">
                            <div class="row">
                               <div class="col">
-                                 <div class="form-group"> <label>First Name</label> <input class="form-control profile" type="text" name="first_name" placeholder="First Name" id="first_name" value="{{ $profile->first_name }}"></div>
+                                 <div class="form-group"> <label>First {{ __("lang.name") }}</label> <input class="form-control profile" type="text" name="first_name" placeholder="First {{ __("lang.name") }}" id="first_name" value="{{ $profile->first_name }}"></div>
                               </div>
                               <div class="col">
-                                 <div class="form-group"> <label>Last Name</label> <input class="form-control profile" type="text" name="last_name" placeholder="Last Name" id="last_name" value="{{ $profile->last_name }}"></div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col">
-                                 <div class="form-group"> <label>Email</label> <input class="form-control profile" type="text" placeholder="admin@admin.com" id="email" value="{{ $profile->email }}"></div>
+                                 <div class="form-group"> <label>Last {{ __("lang.name") }}</label> <input class="form-control profile" type="text" name="last_name" placeholder="Last {{ __("lang.name") }}" id="last_name" value="{{ $profile->last_name }}"></div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col">
-                                 <div class="form-group"> <label>Department</label>
+                                 <div class="form-group"> <label>{{ __("lang.email") }}</label> <input class="form-control profile" type="text" placeholder="admin@admin.com" id="email" value="{{ $profile->email }}"></div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col">
+                                 <div class="form-group"> <label>{{ __("lang.department") }}</label>
 									<select class="form-control profile" type="text" placeholder="admin@admin.com" id="department" multiple>
 									@foreach($departments as $department)
 										<option value="{{ $department->department }}">{{ $department->department }}</option>
 									@endforeach
 									</select>
+                                    <script> $("#department").val( @json($profile->department) ); </script>
 								</div>
 							    </div>
                            </div>
@@ -74,7 +75,7 @@
                      </div>
                      <div class="row">
                         <div class="col-12 col-sm-6 mb-3">
-                           <div class="mb-2"><b>Change Password</b></div>
+                           <div class="mb-2"><b>{{ __("lang.change-password") }}</b></div>
                            <div class="row">
                               <div class="col">
                                  <div class="form-group"> <label>New Password</label> <input class="form-control profile" type="password" placeholder="••••••" id="password" ></div>
@@ -88,7 +89,7 @@
                         </div>
                      </div>
                      <div class="row">
-                        <div class="col d-flex justify-content-end"> <button class="btn btn-primary" type="submit" ajax_post data-msg="Are you sure you want to update profile?" action="/profile" form="profile" >Save Changes</button></div>
+                        <div class="col d-flex justify-content-end"> <button class="btn btn-primary" type="submit" ajax_post data-msg="Are you sure you want to update your profile?" action="/profile" form="profile" >Save Changes</button></div>
                      </div>
                </div>
             </div>
@@ -102,7 +103,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Photo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ __("lang.close") }}">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -112,7 +113,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __("lang.close") }}</button>
       </div>
     </div>
   </div>

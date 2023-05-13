@@ -2,8 +2,7 @@
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
-
-    <title>Login :: KChat</title>
+    <title>{{ __("login.lang00006") }} :: KChat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf_token" content="{{ csrf_token() }}" />
     <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -24,11 +23,11 @@
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 <div class="card">
    <div class="card-body">
-      <h2 class="h4 mb-1">Sign in</h2>
+      <h2 class="h4 mb-1">{{ __("login.lang00000") }}</h2>
 	  <div class="alert alert-danger" id="login-error" role="alert" style="display:none">
 		</div>
       <hr>
-      <h3 class="h6 font-weight-semibold opacity-70 pt-4 pb-2">Sign in using form below</h3>
+      <h3 class="h6 font-weight-semibold opacity-70 pt-4 pb-2">{{ __("login.lang00001") }}</h3>
          <div class="input-group form-group">
             <div class="input-group-prepend">
                <span class="input-group-text">
@@ -38,8 +37,8 @@
                   </svg>
                </span>
             </div>
-            <input class="login form-control" id="email" type="email" placeholder="Email">
-            <div class="invalid-feedback">Please enter valid email address!</div>
+            <input class="login form-control" id="email" type="email" placeholder="{{ __("login.lang00002") }}">
+            <div class="invalid-feedback">{{ __("login.lang00002") }}</div>
          </div>
          <div class="input-group form-group">
             <div class="input-group-prepend">
@@ -50,17 +49,17 @@
                   </svg>
                </span>
             </div>
-            <input class="login form-control" id="password" type="password" placeholder="Password">
-            <div class="invalid-feedback">Please enter valid password!</div>
+            <input class="login form-control" id="password" type="password" placeholder="{{ __("login.lang00003") }}">
+            <div class="invalid-feedback">{{ __("login.lang00003") }}</div>
          </div>
          <div class="d-flex flex-wrap justify-content-between">
-            <div class="custom-control custom-checkbox"> <input class="custom-control-input" type="checkbox" checked="" id="remember_me"> <label class="custom-control-label" for="remember_me">Remember me</label></div>
+            <div class="custom-control custom-checkbox"> <input class="custom-control-input" type="checkbox" checked="" id="remember_me"> <label class="custom-control-label" for="remember_me">{{ __("login.lang00004") }}</label></div>
             <!--a class="nav-link-inline font-size-sm" href="account-password-recovery.html">Forgot password?</a-->
          </div>
-         <div class="text-right pt-4"> <button class="btn btn-primary" type="submit" action="\login" form="login" ajax_post>Sign In</button></div>
+         <div class="text-right pt-4"> <button class="btn btn-primary" type="submit" action="\login" form="login" ajax_post>{{ __("login.lang00000") }}</button></div>
          <hr class="mt-4">
          <div class="d-flex flex-wrap justify-content-between">
-			<a href="/sign-on" class="nav-link-inline font-size-sm" href="account-password-recovery.html">Sign On</a>
+			<a href="/sign-on" class="nav-link-inline font-size-sm" href="account-password-recovery.html">{{ __("login.lang00005") }}</a>
          </div>
    </div>
 </div>

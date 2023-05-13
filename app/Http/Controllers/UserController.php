@@ -318,6 +318,9 @@ class UserController extends Controller
 		$file = $request->file('photo');
 		
 		if(!empty($file)){
+            if(!is_writable(public_path('/images'))){
+                return json_encode(["error" => public_path('/images')." don't exist or don't have permission."]);
+            }
 			$image_path = $file->getClientOriginalName();
 			$path = '/images/' . $image_path;
 			$file->move(public_path('/images'), $image_path);

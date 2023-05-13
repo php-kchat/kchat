@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Dashboard')
+@section('title', __("lang.dashboard"))
 
 @section('header')
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -21,52 +21,52 @@
         <div class="col-md-6 col-xl-6">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">All your total Message</h6>
+                    <h6 class="m-b-20">{{ __("lang.all-your-total-message") }}</h6>
                     <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $current_user_messages_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $current_user_messages_count_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $current_user_messages_count_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-xl-6">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">All your total Conversations</h6>
+                    <h6 class="m-b-20">{{ __("lang.all-your-total-conversations") }}</h6>
                     <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $current_user_conversations_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $current_user_new_conversations_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $current_user_new_conversations_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Total User's</h6>
+                    <h6 class="m-b-20">{{ __("lang.total-users") }}</h6>
                     <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $users_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $new_users_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $new_users_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-green order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Total Message's</h6>
+                    <h6 class="m-b-20">{{ __("lang.total-messages") }}</h6>
                     <h2 class="text-right"><i class="fa fa-envelope f-left"></i><span>{{ $messages_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $new_messages_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $new_messages_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-yellow order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Total conversation's</h6>
+                    <h6 class="m-b-20">{{ __("lang.total-conversations") }}</h6>
                     <h2 class="text-right"><i class="fa fa-comments-o f-left"></i><span>{{ $conversations_count }}</span></h2>
-                    <p class="m-b-0">This Month<span class="f-right">{{ $new_conversations_this_month }}</span></p>
+                    <p class="m-b-0">{{ __("lang.this-month") }}<span class="f-right">{{ $new_conversations_this_month }}</span></p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-pink order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Average message's per user</h6>
+                    <h6 class="m-b-20">{{ __("lang.average-messages-per-user") }}</h6>
                     <h2 class="text-right"><i class="fa fa-user-circle f-left"></i><span>{{ $average_messages_peruser }}</span></h2>
                     <p class="m-b-0"> <span class="f-right"> </span></p>
                 </div>
@@ -120,7 +120,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All message\'s per day',
+        label: '{{ __('lang.all-messages-per-day') }}',
         data: @json($new_messages_perday),
         borderWidth: 1
       }]
@@ -145,7 +145,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All user\'s per day',
+        label: '{{ __('lang.all-users-per-day') }}',
         data: @json($new_users_perday),
         borderWidth: 1
       }]
@@ -170,7 +170,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All conversation\'s per day',
+        label: '{{ __('lang.all-conversations-per-day') }}',
         data: @json($new_conversations_perday),
         borderWidth: 1
       }]
@@ -195,7 +195,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your message\'s per day',
+        label: '{{ __('lang.all-your-messages-per-day') }}',
         data: @json($current_user_new_messages_perday),
         borderWidth: 1
       }]
@@ -220,7 +220,7 @@
       labels: @json($dates),
       datasets: [{
         responsive: true,
-        label: 'All your conversation\'s per day',
+        label: '{{ __('lang.all-your-conversations-per-day') }}',
         data: @json($current_user_new_conversations_perday),
         borderWidth: 1
       }]
