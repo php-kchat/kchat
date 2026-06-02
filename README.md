@@ -7,8 +7,8 @@
 ## Requirements
 
 * Web Server Apache or Nginx
-* MySQL 5.7
-* PHP version >= 8.0
+* MySQL 8.3
+* PHP version >= 8.2
     * Required extensions :
         * ctype
         * curl

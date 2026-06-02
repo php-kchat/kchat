@@ -88,11 +88,10 @@ class UserController extends Controller
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
+		$emails = User::whereIn('id', $request->ids)->whereIn('role', [1,2])->pluck('email');
+		
 		if(DB::table('users')->whereIn('id', $request->ids)->whereIn('role', [1,2])->delete()){
-			
-			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
-			
-			ActivityLog::log()->save('Deleted','You have Deleted '.$emails.'.');
+			ActivityLog::log()->save('Deleted','You have Deleted '.$emails->implode(', ').'.');
 		}
         
         return json_encode([]);
@@ -112,7 +111,7 @@ class UserController extends Controller
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Inactive'])){
 			
-			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+			$emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
 			
 			ActivityLog::log()->save('Set InActive','You have Set InActive '.$emails.'.');
 			
@@ -136,7 +135,7 @@ class UserController extends Controller
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
 			
-			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+			$emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
 			
 			ActivityLog::log()->save('Set Active','You have Set Active '.$emails.'.');
 			
@@ -156,7 +155,7 @@ class UserController extends Controller
         
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Blocked'])){
 			
-			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+			$emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
 			
 			ActivityLog::log()->save('Blocked','You have Blocked '.$emails.'.');
 			
@@ -174,7 +173,7 @@ class UserController extends Controller
 		
 		if(DB::table('users')->whereIn('id', $request->ids)->update(['status' => 'Active'])){
 			
-			$emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+			$emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
 			
 			ActivityLog::log()->save('UnBlocked','You have unblocked '.$emails.'.');
 			
@@ -196,9 +195,9 @@ class UserController extends Controller
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
-		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 1])->update(['role' => 2])){
+		if(DB::table('users')->whereIn('id', $request->ids)->where('role', 1)->update(['role' => 2])){
 			
-            $emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+            $emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
             
 			ActivityLog::log()->save('Admin access granted','you have granted admin access to '.$emails.'.');
 			
@@ -220,9 +219,9 @@ class UserController extends Controller
 			return json_encode(['error' => 'Please select user first']);
 		}
 		
-		if(DB::table('users')->whereIn('id', $request->ids)->where(['role' => 2])->update(['role' => 1])){
+		if(DB::table('users')->whereIn('id', $request->ids)->where('role', 2)->update(['role' => 1])){
 			
-            $emails = implode(", ",array_column(User::select(['email'])->whereIn('id', $request->ids)->get()->toArray(), 'email'));
+            $emails = User::whereIn('id', $request->ids)->pluck('email')->implode(', ');
             
 			ActivityLog::log()->save('Admin access revoked','you revoked admin access '.$emails.'.');
 			
@@ -234,11 +233,9 @@ class UserController extends Controller
 	
     function Profile(Request $request){
 		
-        $profile = DB::table('users')->where('id',Auth()->user()->id)->get();
+        $profile = DB::table('users')->where('id', Auth()->user()->id)->first();
 		
         $departments = DB::table('departments')->get();
-		
-		$profile = $profile[0];
         
         $profile->department = json_decode($profile->department);
         

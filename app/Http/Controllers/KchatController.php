@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class KchatController extends Controller
 {
@@ -36,17 +37,18 @@ class KchatController extends Controller
 				
 			}
 			
-			// checking if user is participant of conversation also fetching conversation_id
-			$tmp = DB::table('participants')->where(['conversation_id' => $request->chat,'user_id' => Auth()->user()->id])->get()->toArray();
+			// checking if user is participant of conversation
+			$isParticipant = DB::table('participants')
+				->where(['conversation_id' => $request->chat, 'user_id' => Auth()->user()->id])
+				->exists();
 			
-			if(count($tmp)){
+			if($isParticipant){
 							
                 $_tmp = DB::table('messages')
-                    ->rightJoin('users', 'messages.user_id', '=', 'users.id')
-                    ->rightJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')
-                    ->where('conversation_id',$request->chat)
-                    ->select('messages.message','messages.type','messages.created_at','users.first_name','users.last_name','users.photo','messages.id','users.id as user_id')
-                    ->orderBy('messages.id','DESC');
+                    ->join('users', 'messages.user_id', '=', 'users.id')
+                    ->where('messages.conversation_id', $request->chat)
+                    ->select('messages.message', 'messages.type', 'messages.created_at', 'users.first_name', 'users.last_name', 'users.photo', 'messages.id', 'users.id as user_id')
+                    ->orderBy('messages.id', 'DESC');
 				
 				if (session()->has('message_id')){
                     
@@ -67,7 +69,7 @@ class KchatController extends Controller
                         
                     }else{
                         // This is to load New Messages
-                        $_tmp->where('messages.id','>',session()->get('message_id'));
+                        $_tmp->where('messages.id', '>', session()->get('message_id'));
                     }
                     
 				}else{
@@ -94,7 +96,9 @@ class KchatController extends Controller
                         
                         session()->put('message_id', end($data['messages'])->id);
                         
-                        DB::table('participants')->where(['conversation_id' => $request->chat,'user_id' => Auth()->user()->id])->update(['seen' => end($data['messages'])->id]);
+                        DB::table('participants')
+							->where(['conversation_id' => $request->chat, 'user_id' => Auth()->user()->id])
+							->update(['seen' => end($data['messages'])->id]);
                         
                     }
 					
@@ -104,29 +108,29 @@ class KchatController extends Controller
 		}
 		
 		/*
-			This is to show latest messages of all messages
+			This is to show latest messages of all conversations
 		*/ 
 		
-		$tmp = DB::table('messages')
-			->select('messages.id as mid','messages.created_at as date','messages.id as mid','messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'lm.*')
-			->rightJoin('users', 'messages.user_id', '=', 'users.id')
-			->rightJoin('conversations', 'messages.conversation_id', '=', 'conversations.id')
-			->rightJoin(DB::raw('(SELECT DISTINCT participants.conversation_id, conversations.* FROM `participants` JOIN conversations ON participants.conversation_id = conversations.id WHERE participants.user_id = '.Auth()->user()->id.') lm'), 'messages.id', '=', 'lm.message_id')
-			->orderBy('messages.id','DESC')
-            ->orderBy('conversations.id')
-            ->limit(50);
+		$tmp = DB::table('participants')
+			->select('messages.id as mid', 'messages.created_at as date', 'messages.message', 'messages.type', 'messages.user_id', 'users.first_name', 'users.last_name', 'users.photo', 'participants.conversation_id', 'conversations.id', 'conversations.message_id', 'conversations.conversation_name', 'conversations.photo', 'conversations.created_at', 'conversations.updated_at')
+			->join('conversations', 'participants.conversation_id', '=', 'conversations.id')
+			->leftJoin('messages', 'messages.id', '=', 'conversations.message_id')
+			->leftJoin('users', 'messages.user_id', '=', 'users.id')
+			->where('participants.user_id', Auth()->user()->id)
+			->orderBy('messages.id', 'DESC')
+			->orderBy('conversations.id')
+			->limit(50);
         
-        //SELECT max(messages.id), COUNT(messages.id), messages.conversation_id FROM messages join participants on messages.conversation_id = participants.conversation_id where participants.user_id = 1 and messages.id > participants.seen GROUP by messages.conversation_id;
         $tmp1 = DB::table('messages')
-            ->select(DB::raw('COUNT(messages.id) as unread'),'messages.conversation_id')
-			->Join('participants', 'messages.conversation_id', '=', 'participants.conversation_id')
-            ->where('participants.user_id',Auth()->user()->id)
-            ->where('messages.id', '>', DB::raw('participants.seen'))
+            ->selectRaw('COUNT(messages.id) as unread, messages.conversation_id')
+			->join('participants', 'messages.conversation_id', '=', 'participants.conversation_id')
+            ->where('participants.user_id', Auth()->user()->id)
+            ->whereColumn('messages.id', '>', 'participants.seen')
             ->groupBy('messages.conversation_id')
             ->limit(50);
         
 		if (session()->has('chat_id')){
-			$tmp->where('messages.id','>', session()->get('chat_id'));
+			$tmp->where('messages.id', '>', session()->get('chat_id'));
 		}
 		
 		$data['chats'] = $tmp->get()->toArray();
@@ -156,21 +160,19 @@ class KchatController extends Controller
             }
 		}
         
-		//print_r($data);
-        
 		return json_encode($data);
 	}
     
     function getConvo(Request $request){
         
-        $tmp = DB::table('conversations')
-        ->select('conversations.id','conversations.conversation_name', 'conversations.photo', 'conversations.created_at')
-        ->rightJoin('participants', 'participants.conversation_id', '=', 'conversations.id')
-        ->where('participants.user_id', Auth()->user()->id)
-        ->where('conversations.conversation_name', 'like', '%'.$request->convo_like.'%')
-		->limit(25)
-        ->get()
-        ->toArray();
+        $tmp = DB::table('participants')
+			->select('conversations.id', 'conversations.conversation_name', 'conversations.photo', 'conversations.created_at')
+			->join('conversations', 'participants.conversation_id', '=', 'conversations.id')
+			->where('participants.user_id', Auth()->user()->id)
+			->where('conversations.conversation_name', 'like', '%'.$request->convo_like.'%')
+			->limit(25)
+			->get()
+			->toArray();
         
         foreach($tmp as $i => $v){
             $tmp[$i]->conversation_name = htmlentities($tmp[$i]->conversation_name);
@@ -183,40 +185,40 @@ class KchatController extends Controller
     function attachments(Request $request){
         
         // Checking if user is part of conversation
-        $tmp = DB::table('participants')->where(['conversation_id' => $request->chat, 'user_id' => Auth()->user()->id])->get()->toArray();
+        $isParticipant = DB::table('participants')
+			->where(['conversation_id' => $request->chat, 'user_id' => Auth()->user()->id])
+			->exists();
 
-        if(!count($tmp)){
+        if(!$isParticipant){
             return false;
         }
         
-        $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
+        $uploadpath = DB::table('settings')->where('key', 'uploadpath')->value('value');
         
-        if(!count($tmp)){
+        if(!$uploadpath){
             if($request->role == 'admin'){
                 return json_encode(['error' => 'File upload path is not set']);
             }
             return json_encode(['error' => 'File upload Failed']);
         }
         
-        $uploadpath = $tmp[0]->value;
-        
         $tmp = $request->all();
         
         $json = [];
         
         foreach($tmp['files'] as $file){
-            $tmp = [];
+            $item = [];
             
-            $tmp['Name'] = $file->getClientOriginalName();
-            $tmp['uuid'] = Str::uuid()->toString();
-            $file->move($uploadpath, $tmp['uuid']);
-            $tmp['MimeType'] = explode('/',$file->getClientMimeType());
-            $json[] = $tmp;
+            $item['Name'] = $file->getClientOriginalName();
+            $item['uuid'] = Str::uuid()->toString();
+            $file->move($uploadpath, $item['uuid']);
+            $item['MimeType'] = explode('/', $file->getClientMimeType());
+            $json[] = $item;
             
-            $tmp['MimeType'] = $file->getClientMimeType();
-            $tmp['conversation_id'] = $request->chat;
+            $item['MimeType'] = $file->getClientMimeType();
+            $item['conversation_id'] = $request->chat;
             
-            DB::table('files')->insert($tmp);
+            DB::table('files')->insert($item);
         }
 
         $id = DB::table('messages')->insertGetId([
@@ -234,24 +236,26 @@ class KchatController extends Controller
     
     function downattch(Request $request){
         
-        $file = DB::table('files')->where('uuid', $request->uuid)->get();
-                
-        $file = $file[0];
+        $file = DB::table('files')->where('uuid', $request->uuid)->first();
+        
+        if(!$file){
+            abort(404);
+        }
         
         // Checking if user is part of conversation
-        $tmp = DB::table('participants')->where(['conversation_id' => $file->conversation_id, 'user_id' => Auth()->user()->id])->get()->toArray();
+        $isParticipant = DB::table('participants')
+			->where(['conversation_id' => $file->conversation_id, 'user_id' => Auth()->user()->id])
+			->exists();
 
-        if(!count($tmp)){
+        if(!$isParticipant){
             return false;
         }
         
-        $tmp = DB::table('settings')->where(['key' => 'uploadpath'])->get();
+        $uploadpath = DB::table('settings')->where('key', 'uploadpath')->value('value');
         
-        if(!count($tmp)){
+        if(!$uploadpath){
             return false;
         }
-        
-        $uploadpath = $tmp[0]->value;
         
         $pathToFile = $uploadpath.'/'.$file->uuid;
         

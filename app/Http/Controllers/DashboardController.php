@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -11,28 +12,36 @@ class DashboardController extends Controller
         
         $dates = $this->date_range();
         $values = array_fill(0, count($dates), 0);
+        $oneMonthAgo = Carbon::now()->subMonth();
+        $userId = Auth()->user()->id;
         
-        $current_user_messages_count = DB::table('messages')->where('user_id', Auth()->user()->id)->count();
+        $current_user_messages_count = DB::table('messages')->where('user_id', $userId)->count();
         
-        $current_user_messages_count_this_month = DB::table('messages')->where('user_id', Auth()->user()->id)->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))->count();
+        $current_user_messages_count_this_month = DB::table('messages')
+            ->where('user_id', $userId)
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->count();
         
-        $current_user_conversations_count = DB::table('participants')->where('user_id', Auth()->user()->id)->count();
+        $current_user_conversations_count = DB::table('participants')->where('user_id', $userId)->count();
         
-        $current_user_new_conversations_this_month = DB::table('participants')->where('user_id', Auth()->user()->id)->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))->count();
+        $current_user_new_conversations_this_month = DB::table('participants')
+            ->where('user_id', $userId)
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->count();
         
         $current_user_new_messages_perday = DB::table('messages')
-            ->select(DB::raw('COUNT(*) as count'), DB::raw('DATE(`created_at`) as date'))
-            ->groupBy(DB::raw('DATE(`created_at`)'))
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
-            ->where('user_id', Auth()->user()->id)
+            ->selectRaw('COUNT(*) as count, DATE(`created_at`) as date')
+            ->groupByRaw('DATE(`created_at`)')
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->where('user_id', $userId)
             ->orderBy('date')
             ->get()->toArray();
             
         $current_user_new_conversations_perday = DB::table('messages')
-            ->select(DB::raw('count(DISTINCT `conversation_id`) as count'), DB::raw('DATE(`created_at`) as date'))
-            ->groupBy(DB::raw('DATE(`created_at`)'))
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
-            ->where('user_id', Auth()->user()->id)
+            ->selectRaw('COUNT(DISTINCT `conversation_id`) as count, DATE(`created_at`) as date')
+            ->groupByRaw('DATE(`created_at`)')
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->where('user_id', $userId)
             ->orderBy('date')
             ->get()->toArray();
         
@@ -56,38 +65,44 @@ class DashboardController extends Controller
         
         $users_count = DB::table('users')->count();
         
-        $new_users_this_month = DB::table('users')->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))->count();
+        $new_users_this_month = DB::table('users')->where('created_at', '>=', $oneMonthAgo)->count();
         
         $messages_count = DB::table('messages')->count();
         
-        $new_messages_this_month = DB::table('messages')->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))->count();
+        $new_messages_this_month = DB::table('messages')->where('created_at', '>=', $oneMonthAgo)->count();
         
         $conversations_count = DB::table('conversations')->count();
         
-        $new_conversations_this_month = DB::table('conversations')->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))->count();
+        $new_conversations_this_month = DB::table('conversations')->where('created_at', '>=', $oneMonthAgo)->count();
 
-        $average_messages_peruser = DB::select('SELECT SUM(`count`)/count(*) as avg FROM (SELECT count(`id`) as count, user_id FROM messages where created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) GROUP BY `user_id`) as tb;');
+        $average_messages_peruser = DB::table('messages')
+            ->selectRaw('COUNT(id) as count')
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->groupBy('user_id');
         
-        $average_messages_peruser = $average_messages_peruser[0]->avg;
+        $average_messages_peruser = DB::table(DB::raw("({$average_messages_peruser->toSql()}) as tb"))
+            ->mergeBindings($average_messages_peruser)
+            ->selectRaw('SUM(count)/COUNT(*) as avg')
+            ->value('avg');
         
         $new_users_perday = DB::table('users')
-            ->select(DB::raw('COUNT(*) as count'), DB::raw('DATE(`created_at`) as date'))
-            ->groupBy(DB::raw('DATE(`created_at`)'))
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+            ->selectRaw('COUNT(*) as count, DATE(`created_at`) as date')
+            ->groupByRaw('DATE(`created_at`)')
+            ->where('created_at', '>=', $oneMonthAgo)
             ->orderBy('date')
             ->get()->toArray();
         
         $new_messages_perday = DB::table('messages')
-            ->select(DB::raw('COUNT(*) as count'), DB::raw('DATE(`created_at`) as date'))
-            ->groupBy(DB::raw('DATE(`created_at`)'))
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+            ->selectRaw('COUNT(*) as count, DATE(`created_at`) as date')
+            ->groupByRaw('DATE(`created_at`)')
+            ->where('created_at', '>=', $oneMonthAgo)
             ->orderBy('date')
             ->get()->toArray();
         
         $new_conversations_perday = DB::table('conversations')
-            ->select(DB::raw('COUNT(*) as count'), DB::raw('DATE(`created_at`) as date'))
-            ->groupBy(DB::raw('DATE(`created_at`)'))
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 1 MONTH)'))
+            ->selectRaw('COUNT(*) as count, DATE(`created_at`) as date')
+            ->groupByRaw('DATE(`created_at`)')
+            ->where('created_at', '>=', $oneMonthAgo)
             ->orderBy('date')
             ->get()->toArray();
         
@@ -112,9 +127,6 @@ class DashboardController extends Controller
         }
         
         $new_conversations_perday = $tmp;
-
-        //total messages per user per date
-        //SELECT COUNT(*),`user_id`,DATE(`created_at`) FROM `messages` GROUP BY DATE(`created_at`), `user_id`;
         
         return view('admin.dashboard',compact('current_user_new_messages_perday','current_user_new_conversations_perday','current_user_new_conversations_this_month','current_user_messages_count_this_month','current_user_messages_count','current_user_conversations_count','new_conversations_this_month','new_messages_this_month','new_users_this_month','users_count','conversations_count','messages_count','new_users_perday','new_messages_perday','new_conversations_perday','average_messages_peruser','dates'));
     }

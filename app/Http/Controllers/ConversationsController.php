@@ -12,12 +12,13 @@ class ConversationsController extends Controller
     function Conversations(Request $request){
         
         $conversations = DB::table('participants')
-            ->select('conversations.id as id','conversations.conversation_name as name','conversations.photo as photo','conversations.created_at as created_at',DB::raw('COUNT(p.user_id) as members'))
-            ->rightJoin('conversations', 'participants.conversation_id', '=', 'conversations.id')
-            ->rightJoin('participants as p', 'p.conversation_id', '=', 'conversations.id')
-            ->where('participants.user_id',Auth()->user()->id)
-            ->orderBy('conversations.created_at','DESC')
-            ->groupBy('p.conversation_id')
+            ->select('conversations.id as id', 'conversations.conversation_name as name', 'conversations.photo as photo', 'conversations.created_at as created_at')
+            ->selectRaw('COUNT(p.user_id) as members')
+            ->join('conversations', 'participants.conversation_id', '=', 'conversations.id')
+            ->join('participants as p', 'p.conversation_id', '=', 'conversations.id')
+            ->where('participants.user_id', Auth()->user()->id)
+            ->orderBy('conversations.created_at', 'DESC')
+            ->groupBy('conversations.id', 'conversations.conversation_name', 'conversations.photo', 'conversations.created_at')
             ->paginate(10);
 
 		$pages = range(1, $conversations->lastPage());
