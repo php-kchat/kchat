@@ -72,11 +72,10 @@ class ConversationsController extends Controller
         ->get()
         ->toArray();
         
-        ActivityLog::log()->save('Conversation','You have deleted conversation '.implode(',',$conversation_name).'.');
-        
-        DB::table('conversations')
-        ->whereIn('id',$ids)
-        ->delete();
+        DB::transaction(function() use ($ids, $conversation_name) {
+            ActivityLog::log()->save('Conversation','You have deleted conversation '.implode(',',$conversation_name).'.');
+            DB::table('conversations')->whereIn('id',$ids)->delete();
+        });
         
         $tmp = [];
         

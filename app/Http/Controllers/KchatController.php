@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -25,15 +26,16 @@ class KchatController extends Controller
                     $type = 1;
                 }
                 
-				$id = DB::table('messages')->insertGetId([
-					'user_id' => Auth()->user()->id,
-					'message' => $request->message,
-					'conversation_id' => $request->chat,
-					'created_at' => now(),
-                    'type' => $type,
-				]);
-				
-				DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
+				DB::transaction(function() use ($request, $type) {
+					$id = DB::table('messages')->insertGetId([
+						'user_id' => Auth()->user()->id,
+						'message' => $request->message,
+						'conversation_id' => $request->chat,
+						'created_at' => now(),
+						'type' => $type,
+					]);
+					DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
+				});
 				
 			}
 			
@@ -193,7 +195,9 @@ class KchatController extends Controller
             return false;
         }
         
-        $uploadpath = DB::table('settings')->where('key', 'uploadpath')->value('value');
+        $uploadpath = Cache::remember('settings.uploadpath', 3600, function() {
+            return DB::table('settings')->where('key', 'uploadpath')->value('value');
+        });
         
         if(!$uploadpath){
             if($request->role == 'admin'){
@@ -206,30 +210,32 @@ class KchatController extends Controller
         
         $json = [];
         
-        foreach($tmp['files'] as $file){
-            $item = [];
-            
-            $item['Name'] = $file->getClientOriginalName();
-            $item['uuid'] = Str::uuid()->toString();
-            $file->move($uploadpath, $item['uuid']);
-            $item['MimeType'] = explode('/', $file->getClientMimeType());
-            $json[] = $item;
-            
-            $item['MimeType'] = $file->getClientMimeType();
-            $item['conversation_id'] = $request->chat;
-            
-            DB::table('files')->insert($item);
-        }
+        DB::transaction(function() use ($tmp, &$json, $request, $uploadpath) {
+            foreach($tmp['files'] as $file){
+                $item = [];
+                
+                $item['Name'] = $file->getClientOriginalName();
+                $item['uuid'] = Str::uuid()->toString();
+                $file->move($uploadpath, $item['uuid']);
+                $item['MimeType'] = explode('/', $file->getClientMimeType());
+                $json[] = $item;
+                
+                $item['MimeType'] = $file->getClientMimeType();
+                $item['conversation_id'] = $request->chat;
+                
+                DB::table('files')->insert($item);
+            }
 
-        $id = DB::table('messages')->insertGetId([
-            'user_id' => Auth()->user()->id,
-            'message' => json_encode($json),
-            'conversation_id' => $request->chat,
-            'created_at' => now(),
-            'type' => 2,
-        ]);
-        
-        DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
+            $id = DB::table('messages')->insertGetId([
+                'user_id' => Auth()->user()->id,
+                'message' => json_encode($json),
+                'conversation_id' => $request->chat,
+                'created_at' => now(),
+                'type' => 2,
+            ]);
+            
+            DB::table('conversations')->where('id', $request->chat)->update(['message_id' => $id]);
+        });
         
         return json_encode([]);
     }
@@ -251,7 +257,9 @@ class KchatController extends Controller
             return false;
         }
         
-        $uploadpath = DB::table('settings')->where('key', 'uploadpath')->value('value');
+        $uploadpath = Cache::remember('settings.uploadpath', 3600, function() {
+            return DB::table('settings')->where('key', 'uploadpath')->value('value');
+        });
         
         if(!$uploadpath){
             return false;

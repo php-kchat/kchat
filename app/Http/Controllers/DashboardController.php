@@ -75,15 +75,16 @@ class DashboardController extends Controller
         
         $new_conversations_this_month = DB::table('conversations')->where('created_at', '>=', $oneMonthAgo)->count();
 
-        $average_messages_peruser = DB::table('messages')
-            ->selectRaw('COUNT(id) as count')
+        $totalMessages = DB::table('messages')
             ->where('created_at', '>=', $oneMonthAgo)
-            ->groupBy('user_id');
+            ->count();
         
-        $average_messages_peruser = DB::table(DB::raw("({$average_messages_peruser->toSql()}) as tb"))
-            ->mergeBindings($average_messages_peruser)
-            ->selectRaw('SUM(count)/COUNT(*) as avg')
-            ->value('avg');
+        $activeUsers = DB::table('messages')
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->distinct('user_id')
+            ->count('user_id');
+        
+        $average_messages_peruser = $activeUsers > 0 ? round($totalMessages / $activeUsers, 2) : 0;
         
         $new_users_perday = DB::table('users')
             ->selectRaw('COUNT(*) as count, DATE(`created_at`) as date')
