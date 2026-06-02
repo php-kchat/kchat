@@ -1,19 +1,19 @@
 @foreach($users as $user)
    <tr class="select member" id="{{ $user->id }}" >
-      <td><img src="{{ $user->photo }}" width="32" height="32" class="rounded-circle my-n1" alt="[Photo]" onerror="this.onerror=null; this.src='/logo/KChat.svg';"></td>
-      <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-      <td>{{ $user->department }}</td>
-      <td>{{ $user->email }}</td>
+      <td><img src="{{ $user->photo }}" width="32" height="32" class="rounded-circle" alt="[Photo]" onerror="this.onerror=null; this.src='/logo/KChat.svg';"></td>
+      <td><strong>{{ $user->first_name }} {{ $user->last_name }}</strong></td>
+      <td class="text-muted">{{ $user->department }}</td>
+      <td class="text-muted">{{ $user->email }}</td>
       <td><span class="badge bg-{{ $user->status }}">{{ $user->status }}</span></td>
       <td style="position:relative;">
          <div class="dropdown">
             <a href="javascript:void(0)" class="row-action-menu">
-               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-               <a class="dropdown-item" onclick="startChatWith('{{ $user->id }}');">{{ __("lang.create-new-conversation") }}</a>
-               <a class="dropdown-item" onclick="block_single_user('{{ $user->id }}');">{{ __("lang.block") }}</a>
-               <a class="dropdown-item" onclick="unblock_single_user('{{ $user->id }}');">{{ __("lang.unblock") }}</a>
+               <a class="dropdown-item" onclick="startChatWith('{{ $user->id }}');"><i class="fa fa-comment mr-2"></i>{{ __("lang.create-new-conversation") }}</a>
+               <a class="dropdown-item" onclick="block_single_user('{{ $user->id }}');"><i class="fa fa-ban mr-2"></i>{{ __("lang.block") }}</a>
+               <a class="dropdown-item" onclick="unblock_single_user('{{ $user->id }}');"><i class="fa fa-check-circle mr-2"></i>{{ __("lang.unblock") }}</a>
             </div>
          </div>
       </td>
