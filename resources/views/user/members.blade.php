@@ -63,6 +63,7 @@
                   <th>{{ __("lang.departement") }}</th>
                   <th>{{ __("lang.email") }}</th>
                   <th>{{ __("lang.status") }}</th>
+                  <th></th>
                </tr>
             </thead>
             <tbody id="member_table" >
@@ -73,6 +74,18 @@
                   <td>{{ $user->department }}</td>
                   <td>{{ $user->email }}</td>
                   <td><span class="badge bg-{{ $user->status }}">{{ $user->status }}</span></td>
+                  <td style="position:relative;">
+                     <div class="dropdown">
+                        <a href="javascript:void(0)" class="row-action-menu">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                           <a class="dropdown-item" onclick="startChatWith('{{ $user->id }}');">{{ __("lang.create-new-conversation") }}</a>
+                           <a class="dropdown-item" onclick="block_single_user('{{ $user->id }}');">{{ __("lang.block") }}</a>
+                           <a class="dropdown-item" onclick="unblock_single_user('{{ $user->id }}');">{{ __("lang.unblock") }}</a>
+                        </div>
+                     </div>
+                  </td>
                </tr>
 			@endforeach
             </tbody>

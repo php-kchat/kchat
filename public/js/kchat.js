@@ -195,8 +195,8 @@ $(document).on('keyup keydown', function(e) {
   control = e.ctrlKey;
 });
 
-$('.select').on('click', function() {
-//$(document).on('click', '.select', function() {
+$('.select').on('click', function(e) {
+  if ($(e.target).closest('.dropdown').length) return;
 
   id = localStorage.getItem('selected').split(",");
 
