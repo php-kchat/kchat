@@ -319,6 +319,11 @@ class UserController extends Controller
                 return json_encode(["error" => public_path('/images')." don't exist or don't have permission."]);
             }
 			$image_path = $file->getClientOriginalName();
+			$ext = substr(strrchr($image_path, '.'), 1);
+			$allowed_ext = ["jpg","jpeg","png","gif","svg","webp","bmp","ico","avif","apng"];
+			if(!in_array($ext,$allowed_ext)){
+                return json_encode(["error" => "Only image allowed to upload."]);
+			}
 			$path = '/images/' . $image_path;
 			$file->move(public_path('/images'), $image_path);
 			$data['photo'] = $path;
@@ -341,7 +346,14 @@ class UserController extends Controller
         if(isset($data['role'])){
             unset($data['role']);
         }
-        
+
+        $userdata = DB::table('users')
+        ->where('id',Auth()->user()->id)->first();
+		
+		if(file_exists(public_path($userdata->photo))){
+			@unlink(public_path($userdata->photo));
+		}
+		
 		DB::table('users')
         ->where('id',Auth()->user()->id)
         ->limit(1)
