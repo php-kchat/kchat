@@ -1,0 +1,11 @@
+modules = ["php-8.3"]
+
+run = """
+cp .env.example .env
+composer install --no-interaction
+php artisan key:generate --force
+mkdir -p database
+touch database/database.sqlite
+php artisan migrate --force
+php artisan serve --host=0.0.0.0 --port=$PORT
+"""
