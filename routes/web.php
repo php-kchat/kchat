@@ -10,6 +10,8 @@ use App\Http\Controllers\KchatController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ConversationsController;
+use App\Http\Controllers\ChatWidgetController;
+use App\Http\Controllers\WidgetApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,11 @@ Route::group(['middleware' => ['GoIn']],function(){
 
 });
 
+Route::post('/widget/init', [WidgetApiController::class, 'init'])->withoutMiddleware(['web', \App\Http\Middleware\VerifyCsrfToken::class])->name('Widget Init');
+Route::post('/widget/start-chat', [WidgetApiController::class, 'startChat'])->withoutMiddleware(['web', \App\Http\Middleware\VerifyCsrfToken::class])->name('Widget Start Chat');
+Route::post('/widget/send-message', [WidgetApiController::class, 'sendMessage'])->withoutMiddleware(['web', \App\Http\Middleware\VerifyCsrfToken::class])->name('Widget Send Message');
+Route::post('/widget/poll', [WidgetApiController::class, 'poll'])->withoutMiddleware(['web', \App\Http\Middleware\VerifyCsrfToken::class])->name('Widget Poll');
+
 Route::group(['middleware' => ['CheckLogin']],function(){
 
     Route::group(['middleware' => ['GetCounts']],function(){
@@ -53,12 +60,21 @@ Route::group(['middleware' => ['CheckLogin']],function(){
         Route::get('/messages', [MessageController::class, 'messages'])->name('Messages Controller');
         
         Route::get('/conversations', [ConversationsController::class, 'Conversations'])->name('Conversations Controller');
+
+        Route::get('/chat-widget', [ChatWidgetController::class, 'index'])->name('Chat Widget Setting');
+
+        Route::get('/widget-chats', [ChatWidgetController::class, 'widgetChats'])->name('Widget Chats');
     
         Route::get('/messages/downattch/{uuid}', [KchatController::class, 'downattch'])->name('Attachments Download')->where('uuid', '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')->withoutMiddleware('GetCounts');
         
     });
     
     Route::post('/logout', [AuthController::class, 'logout'])->name('Logout');
+
+    Route::post('/chat-widget/store', [ChatWidgetController::class, 'store'])->name('Save Chat Widget');
+    Route::post('/chat-widget/delete', [ChatWidgetController::class, 'delete'])->name('Delete Chat Widget');
+    Route::post('/widget-chats/messages', [ChatWidgetController::class, 'widgetChatMessages'])->name('Widget Chat Messages');
+    Route::post('/widget-chats/close', [ChatWidgetController::class, 'closeSession'])->name('Close Widget Session');
     
     Route::post('/members/delete_users', [UserController::class, 'delete_users'])->name('Delete Members');
     

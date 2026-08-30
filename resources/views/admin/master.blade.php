@@ -41,6 +41,10 @@
                               <a href="/settings">
                               <i class="fa fa-cog"></i> {{ __("lang.settings") }} </a>
                            </li>
+                           <li class="{{ request()->is('chat-widget*') || request()->is('widget-chats*') ? 'active' : '' }}">
+                              <a href="/chat-widget">
+                              <i class="fa fa-commenting"></i> Chat Widget Setting </a>
+                           </li>
                            <li class="{{ request()->is('notification') ? 'active' : '' }}">
                               <a href="/notification">
                               <i class="fa fa-exclamation-circle"></i> {{ __("lang.notification") }} </a>

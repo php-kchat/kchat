@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget Test</title>
+    <meta name="csrf-token" content="demo" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #1f2937;
+        }
+        .page {
+            max-width: 980px;
+            margin: 80px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .note {
+            margin-top: 24px;
+            padding: 16px 18px;
+            background: #f8fafc;
+            border: 1px solid #dfe7f1;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        code {
+            background: #eef2ff;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>Chat Widget Test Page</h1>
+        <p>This page includes the KChat widget script for testing the embedded chat flow.</p>
+
+        <div class="note">
+            <strong>Important:</strong><br>
+            Make sure your Laravel app allows cross-origin POST requests from this page. In <code>config/cors.php</code>, keep the widget endpoints public, and ensure your frontend domain is allowed if needed.<br><br>
+            For a local test page on another domain or localhost port, update the CORS config to allow that origin, or temporarily use the same host/domain for testing.<br><br>
+            Required app URLs for the widget to work:<br>
+            <code>POST /widget/init</code><br>
+            <code>POST /widget/start-chat</code><br>
+            <code>POST /widget/send-message</code><br>
+            <code>POST /widget/poll</code>
+        </div>
+    </div><script src="http://kchat.loc/widget/embed.js?token=IeJjmKbXToHSDFQB6X6V2HEKZVOJbgkagtRxC0JdgbjEPcRU"></script>
+    
+</body>
+</html>
