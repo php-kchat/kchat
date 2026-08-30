@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/widget/init', [WidgetApiController::class, 'init']);
 Route::post('/widget/start-chat', [WidgetApiController::class, 'startChat']);
 Route::post('/widget/send-message', [WidgetApiController::class, 'sendMessage']);
+Route::post('/widget/send-file', [WidgetApiController::class, 'sendFile']);
 Route::post('/widget/poll', [WidgetApiController::class, 'poll']);

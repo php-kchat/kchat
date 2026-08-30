@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class WidgetApiController extends Controller
 {
@@ -148,18 +150,74 @@ class WidgetApiController extends Controller
         if(!$session){
             return response()->json(['error' => 'Session not found or closed'], 404);
         }
-        
+
+        $type = !empty($request->whiteboard) ? 1 : 0;
         $msgId = DB::table('messages')->insertGetId([
             'user_id' => $visitorUserId,
             'conversation_id' => $request->session_id,
             'message' => $request->message,
-            'type' => 0,
+            'type' => $type,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('conversations')->where('id', $request->session_id)->update(['message_id' => $msgId]);
         
+        return response()->json(['id' => $msgId]);
+    }
+
+    function sendFile(Request $request){
+        if(empty($request->session_id) || empty($request->visitor_uid) || !$request->hasFile('file')){
+            return response()->json(['error' => 'session_id, visitor_uid, and file are required'], 400);
+        }
+
+        $visitorUserId = $this->ensureVisitorUser($request->visitor_uid, $request->visitor_name ?? 'Visitor');
+        $session = DB::table('participants')
+            ->where('conversation_id', $request->session_id)
+            ->where('user_id', $visitorUserId)
+            ->first();
+
+        if(!$session){
+            return response()->json(['error' => 'Session not found or closed'], 404);
+        }
+
+        $uploadpath = Cache::remember('settings.uploadpath', 3600, function() {
+            return DB::table('settings')->where('key', 'uploadpath')->value('value');
+        });
+
+        if(!$uploadpath){
+            return response()->json(['error' => 'File upload path is not set'], 500);
+        }
+
+        $file = $request->file('file');
+        $item = [
+            'Name' => $file->getClientOriginalName(),
+            'uuid' => (string) Str::uuid(),
+            'MimeType' => $file->getClientMimeType(),
+        ];
+
+        $file->move($uploadpath, $item['uuid']);
+        DB::table('files')->insert([
+            'Name' => $item['Name'],
+            'uuid' => $item['uuid'],
+            'MimeType' => $item['MimeType'],
+            'conversation_id' => $request->session_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $json = json_encode([$item]);
+        $msgId = DB::table('messages')->insertGetId([
+            'user_id' => $visitorUserId,
+            'conversation_id' => $request->session_id,
+            'message' => $json,
+            'type' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('conversations')->where('id', $request->session_id)->update(['message_id' => $msgId]);
+
         return response()->json(['id' => $msgId]);
     }
     

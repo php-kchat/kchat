@@ -75,6 +75,7 @@ Route::group(['middleware' => ['CheckLogin']],function(){
     Route::post('/chat-widget/delete', [ChatWidgetController::class, 'delete'])->name('Delete Chat Widget');
     Route::post('/widget-chats/messages', [ChatWidgetController::class, 'widgetChatMessages'])->name('Widget Chat Messages');
     Route::post('/widget-chats/close', [ChatWidgetController::class, 'closeSession'])->name('Close Widget Session');
+    Route::post('/widget/send-file', [WidgetApiController::class, 'sendFile'])->withoutMiddleware(['web', \App\Http\Middleware\VerifyCsrfToken::class])->name('Widget Send File');
     
     Route::post('/members/delete_users', [UserController::class, 'delete_users'])->name('Delete Members');
     

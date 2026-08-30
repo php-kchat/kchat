@@ -18,11 +18,28 @@
 
     var apiBase = scriptSrc ? scriptSrc.replace(/\/widget\/embed\.js.*$/, '') : window.location.origin;
     var apiBasePath = apiBase + '/api';
+    var storageKey = 'kchat_widget_' + (token || 'default');
     var sessionId = null;
     var lastMessageId = 0;
     var visitorUid = 'visitor_' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
     var visitorName = 'Visitor';
     var widgetConfig = null;
+
+    try {
+        var savedVisitorUid = localStorage.getItem(storageKey + ':visitor_uid');
+        if (savedVisitorUid) {
+            visitorUid = savedVisitorUid;
+        } else {
+            localStorage.setItem(storageKey + ':visitor_uid', visitorUid);
+        }
+
+        var savedSessionId = localStorage.getItem(storageKey + ':session_id');
+        if (savedSessionId) {
+            sessionId = savedSessionId;
+        }
+    } catch (e) {
+        // Ignore storage issues in restricted browser contexts.
+    }
 
     function csrfToken() {
         var el = document.querySelector('meta[name="csrf-token"]');
@@ -163,6 +180,58 @@
                 sendVisitorMessage();
             }
         });
+
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.style.display = 'none';
+        fileInput.addEventListener('change', function () {
+            var file = fileInput.files && fileInput.files[0];
+            if (!file || !sessionId) return;
+
+            var formData = new FormData();
+            formData.append('token', token);
+            formData.append('visitor_uid', visitorUid);
+            formData.append('session_id', sessionId);
+            formData.append('file', file);
+
+            fetch(apiBasePath + '/widget/send-file', {
+                method: 'POST',
+                body: formData
+            }).then(function () {
+                return requestJSON(apiBasePath + '/widget/poll', {
+                    token: token,
+                    visitor_uid: visitorUid,
+                    session_id: sessionId,
+                    after_id: lastMessageId
+                });
+            }).then(function (result) {
+                if (result && result.messages) {
+                    renderMessages(result.messages, false);
+                    lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
+                }
+            });
+        });
+        panel.appendChild(fileInput);
+
+        var fileButton = document.createElement('button');
+        fileButton.type = 'button';
+        fileButton.innerHTML = '<i class="fa fa-paperclip"></i>';
+        fileButton.title = 'Attach file';
+        fileButton.style.border = '1px solid #d9dee5';
+        fileButton.style.borderRadius = '999px';
+        fileButton.style.background = '#fff';
+        fileButton.style.padding = '8px 10px';
+        fileButton.style.cursor = 'pointer';
+        fileButton.addEventListener('click', function () {
+            fileInput.click();
+        });
+        var actionRow = panel.querySelector('#kchat-widget-body > div:last-child');
+        if (actionRow) {
+            var wrapper = actionRow.querySelector('div:first-child');
+            if (wrapper) {
+                wrapper.appendChild(fileButton);
+            }
+        }
 
         document.getElementById('kchat-widget-emoji-btn').addEventListener('click', function () {
             var picker = document.getElementById('kchat-widget-emoji-picker');
@@ -322,9 +391,24 @@
         });
     }
 
-    function renderMessages(messages) {
+    function persistSession() {
+        try {
+            if (sessionId) {
+                localStorage.setItem(storageKey + ':session_id', String(sessionId));
+            }
+        } catch (e) {
+            // Ignore storage issues in restricted browser contexts.
+        }
+    }
+
+    function renderMessages(messages, replace) {
         var container = document.getElementById('kchat-widget-messages');
         if (!container) return;
+
+        if (replace) {
+            container.innerHTML = '';
+            container.dataset.hasMessages = '';
+        }
 
         if (!messages || messages.length === 0) {
             if (!container.dataset.hasMessages) {
@@ -343,6 +427,34 @@
             var bubble = document.createElement('div');
             bubble.style.marginBottom = '12px';
             bubble.style.textAlign = align;
+
+            if (msg.type == 1) {
+                bubble.innerHTML = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04);"><i class="fa fa-pencil-square-o"></i> Whiteboard drawing</div>';
+                container.appendChild(bubble);
+                return;
+            }
+
+            if (msg.type == 2) {
+                var files = [];
+                try {
+                    files = JSON.parse(msg.message || '[]');
+                } catch (e) {
+                    files = [];
+                }
+                var linkHtml = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04);">';
+                if (files.length) {
+                    files.forEach(function (file) {
+                        linkHtml += '<div><a href="' + (window.location.origin || '') + '/messages/downattch/' + (file.uuid || '') + '" target="_blank" style="color:' + color + '; text-decoration: underline;">' + escapeHtml(file.Name || 'Attachment') + '</a></div>';
+                    });
+                } else {
+                    linkHtml += 'Attachment';
+                }
+                linkHtml += '</div>';
+                bubble.innerHTML = linkHtml;
+                container.appendChild(bubble);
+                return;
+            }
+
             bubble.innerHTML = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04); white-space: pre-wrap; word-break: break-word;">' + escapeHtml(msg.message) + '</div>';
             container.appendChild(bubble);
         });
@@ -361,7 +473,7 @@
         }).then(function (result) {
             if (result && result.messages) {
                 if (result.messages.length) {
-                    renderMessages(result.messages);
+                    renderMessages(result.messages, false);
                     lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
                 }
             }
@@ -377,11 +489,13 @@
             return;
         }
 
+        var isWhiteboard = message.charAt(0) === '[' && message.indexOf('"') !== -1;
         requestJSON(apiBasePath + '/widget/send-message', {
             token: token,
             visitor_uid: visitorUid,
             session_id: sessionId,
-            message: message
+            message: message,
+            whiteboard: isWhiteboard ? 1 : 0
         }).then(function () {
             if (input) input.value = '';
             return requestJSON(apiBasePath + '/widget/poll', {
@@ -392,7 +506,7 @@
             });
         }).then(function (result) {
             if (result && result.messages) {
-                renderMessages(result.messages);
+                renderMessages(result.messages, false);
                 lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
             }
         }).catch(function () {
@@ -415,16 +529,33 @@
             }
 
             sessionId = result && result.session_id ? result.session_id : null;
+            persistSession();
             if (!sessionId) {
                 return;
             }
 
-            var messages = [
-                { sender: 'agent', message: 'Hello! How can I help you today?' }
-            ];
-            renderMessages(messages);
             lastMessageId = 0;
-            setInterval(pollMessages, 3000);
+            return requestJSON(apiBasePath + '/widget/poll', {
+                token: token,
+                visitor_uid: visitorUid,
+                session_id: sessionId,
+                after_id: 0
+            });
+        }).then(function (result) {
+            if (result && result.messages) {
+                renderMessages(result.messages, true);
+                if (result.messages.length) {
+                    lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
+                }
+            } else {
+                var messages = [
+                    { sender: 'agent', message: 'Hello! How can I help you today?' }
+                ];
+                renderMessages(messages, true);
+            }
+            if (!window.__kchatWidgetInterval) {
+                window.__kchatWidgetInterval = setInterval(pollMessages, 3000);
+            }
         }).catch(function () {
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
@@ -446,14 +577,20 @@
         if (response.agents_online === true) {
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
-                body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">Hello! We are ready to help. Click the chat button to start.</div>';
+                if (sessionId) {
+                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">Loading your previous conversation...</div>';
+                    startChat();
+                } else {
+                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">Hello! We are ready to help. Click the chat button to start.</div>';
+                }
             }
         } else {
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
                 body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">No agents are online right now. Please try again later.</div>';
             }
-            document.getElementById('kchat-widget-send').disabled = true;
+            var sendBtn = document.getElementById('kchat-widget-send');
+            if (sendBtn) sendBtn.disabled = true;
         }
     }).catch(function () {
         // Ignore invalid widget config silently.
