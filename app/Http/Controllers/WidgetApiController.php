@@ -59,13 +59,23 @@ class WidgetApiController extends Controller
             return response()->json(['error' => 'Invalid or inactive widget'], 404);
         }
 
-        $visitorUserId = $this->ensureVisitorUser($request->visitor_uid, $request->visitor_name ?? 'Visitor');
+        $visitorName = $this->cleanVisitorName($request->visitor_name ?? 'Visitor');
+        $visitorUserId = $this->ensureVisitorUser($request->visitor_uid, $visitorName);
         $conversationKey = 'widget:' . $widget->id . ':' . $request->visitor_uid;
         $existingConversation = DB::table('conversations')
-            ->where('conversation_name', $conversationKey)
+            ->where(function ($query) use ($conversationKey) {
+                $query->where('visitor_key', $conversationKey)
+                    ->orWhere('conversation_name', $conversationKey);
+            })
             ->first();
 
         if($existingConversation){
+            DB::table('conversations')->where('id', $existingConversation->id)->update([
+                'conversation_name' => $visitorName,
+                'visitor_key' => $conversationKey,
+                'updated_at' => now(),
+            ]);
+
             $agentId = DB::table('participants')
                 ->where('conversation_id', $existingConversation->id)
                 ->where('user_id', '!=', $visitorUserId)
@@ -89,7 +99,8 @@ class WidgetApiController extends Controller
         }
 
         $sessionId = DB::table('conversations')->insertGetId([
-            'conversation_name' => $conversationKey,
+            'conversation_name' => $visitorName,
+            'visitor_key' => $conversationKey,
             'photo' => '/logo/KChat_Logo.svg',
             'message_id' => 0,
             'created_at' => now(),
@@ -364,11 +375,18 @@ class WidgetApiController extends Controller
         $user = DB::table('users')->where('email', $email)->first();
 
         if ($user) {
+            $visitorName = $this->cleanVisitorName($visitorName);
+            if ($visitorName !== 'Visitor' && $user->first_name !== $visitorName) {
+                DB::table('users')->where('id', $user->id)->update([
+                    'first_name' => $visitorName,
+                    'updated_at' => now(),
+                ]);
+            }
             return (int) $user->id;
         }
 
         return DB::table('users')->insertGetId([
-            'first_name' => $visitorName,
+            'first_name' => $this->cleanVisitorName($visitorName),
             'last_name' => 'Guest',
             'email' => $email,
             'password' => bcrypt($visitorUid),
@@ -379,6 +397,12 @@ class WidgetApiController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+    }
+
+    private function cleanVisitorName($visitorName)
+    {
+        $visitorName = trim(strip_tags((string) $visitorName));
+        return mb_substr($visitorName ?: 'Visitor', 0, 120);
     }
     
 }

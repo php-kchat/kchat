@@ -22,12 +22,12 @@
     var sessionId = null;
     var lastMessageId = 0;
     var visitorUid = 'visitor_' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
-    var visitorName = 'Visitor';
+    var visitorName = '';
     var widgetConfig = null;
 
     var widgetTranslations = {
-        en: { chatWithUs: 'Chat with us', connecting: 'Connecting to an available team member...', inputPlaceholder: 'Type your message...', send: 'Send', insertEmoji: 'Insert emoji', openWhiteboard: 'Open whiteboard', attachFiles: 'Attach files', sayHello: 'Say hello to start the conversation.', unableConnect: 'Unable to connect right now. Please try again later.', loading: 'Loading your previous conversation...', ready: 'Hello! We are ready to help. Click the chat button to start.', noAgents: 'No agents are online right now. Please try again later.', whiteboard: 'Whiteboard', whiteboardView: 'Whiteboard (View)', pencil: 'Pencil', line: 'Line', rectangle: 'Rectangle', circle: 'Circle', ellipse: 'Ellipse', eraser: 'Eraser', color: 'Color', fill: 'Fill', size: 'Size', clear: 'Clear', download: 'Download', close: 'Close', whiteboardDrawing: 'Whiteboard drawing', clickToView: '(click to view)', attachment: 'Attachment', hello: 'Hello! How can I help you today?' },
-        hi: { chatWithUs: 'हमसे चैट करें', connecting: 'उपलब्ध टीम सदस्य से कनेक्ट हो रहा है...', inputPlaceholder: 'अपना संदेश लिखें...', send: 'भेजें', insertEmoji: 'इमोजी डालें', openWhiteboard: 'व्हाइटबोर्ड खोलें', attachFiles: 'फ़ाइलें संलग्न करें', sayHello: 'बातचीत शुरू करने के लिए नमस्ते कहें।', unableConnect: 'अभी कनेक्ट नहीं हो सका। कृपया बाद में पुनः प्रयास करें।', loading: 'आपकी पिछली बातचीत लोड हो रही है...', ready: 'नमस्ते! हम सहायता के लिए तैयार हैं। चैट शुरू करने के लिए बटन दबाएँ।', noAgents: 'अभी कोई एजेंट ऑनलाइन नहीं है। कृपया बाद में पुनः प्रयास करें।', whiteboard: 'व्हाइटबोर्ड', whiteboardView: 'व्हाइटबोर्ड (दृश्य)', pencil: 'पेंसिल', line: 'रेखा', rectangle: 'आयत', circle: 'वृत्त', ellipse: 'अंडाकार', eraser: 'रबर', color: 'रंग', fill: 'भरें', size: 'आकार', clear: 'साफ़ करें', download: 'डाउनलोड', close: 'बंद करें', whiteboardDrawing: 'व्हाइटबोर्ड चित्र', clickToView: '(देखने के लिए क्लिक करें)', attachment: 'अटैचमेंट', hello: 'नमस्ते! मैं आपकी कैसे सहायता कर सकता हूँ?' },
+        en: { chatWithUs: 'Chat with us', namePrompt: 'Please enter your name:', namePlaceholder: 'Your name', startChat: 'Start Chat', connecting: 'Connecting to an available team member...', inputPlaceholder: 'Type your message...', send: 'Send', insertEmoji: 'Insert emoji', openWhiteboard: 'Open whiteboard', attachFiles: 'Attach files', sayHello: 'Say hello to start the conversation.', unableConnect: 'Unable to connect right now. Please try again later.', loading: 'Loading your previous conversation...', ready: 'Hello! We are ready to help. Enter your name to start.', noAgents: 'No agents are online right now. Please try again later.', whiteboard: 'Whiteboard', whiteboardView: 'Whiteboard (View)', pencil: 'Pencil', line: 'Line', rectangle: 'Rectangle', circle: 'Circle', ellipse: 'Ellipse', eraser: 'Eraser', color: 'Color', fill: 'Fill', size: 'Size', clear: 'Clear', download: 'Download', close: 'Close', whiteboardDrawing: 'Whiteboard drawing', clickToView: '(click to view)', attachment: 'Attachment', hello: 'Hello! How can I help you today?' },
+        hi: { chatWithUs: 'हमसे चैट करें', namePrompt: 'कृपया अपना नाम दर्ज करें:', namePlaceholder: 'आपका नाम', startChat: 'चैट शुरू करें', connecting: 'उपलब्ध टीम सदस्य से कनेक्ट हो रहा है...', inputPlaceholder: 'अपना संदेश लिखें...', send: 'भेजें', insertEmoji: 'इमोजी डालें', openWhiteboard: 'व्हाइटबोर्ड खोलें', attachFiles: 'फ़ाइलें संलग्न करें', sayHello: 'बातचीत शुरू करने के लिए नमस्ते कहें।', unableConnect: 'अभी कनेक्ट नहीं हो सका। कृपया बाद में पुनः प्रयास करें।', loading: 'आपकी पिछली बातचीत लोड हो रही है...', ready: 'नमस्ते! चैट शुरू करने के लिए अपना नाम दर्ज करें।', noAgents: 'अभी कोई एजेंट ऑनलाइन नहीं है। कृपया बाद में पुनः प्रयास करें।', whiteboard: 'व्हाइटबोर्ड', whiteboardView: 'व्हाइटबोर्ड (दृश्य)', pencil: 'पेंसिल', line: 'रेखा', rectangle: 'आयत', circle: 'वृत्त', ellipse: 'अंडाकार', eraser: 'रबर', color: 'रंग', fill: 'भरें', size: 'आकार', clear: 'साफ़ करें', download: 'डाउनलोड', close: 'बंद करें', whiteboardDrawing: 'व्हाइटबोर्ड चित्र', clickToView: '(देखने के लिए क्लिक करें)', attachment: 'अटैचमेंट', hello: 'नमस्ते! मैं आपकी कैसे सहायता कर सकता हूँ?' },
         es: { chatWithUs: 'Chatea con nosotros', connecting: 'Conectando con un miembro del equipo...', inputPlaceholder: 'Escribe tu mensaje...', send: 'Enviar', insertEmoji: 'Insertar emoji', openWhiteboard: 'Abrir pizarra', attachFiles: 'Adjuntar archivos', sayHello: 'Saluda para iniciar la conversación.', unableConnect: 'No se puede conectar ahora. Inténtalo de nuevo más tarde.', loading: 'Cargando tu conversación anterior...', ready: '¡Hola! Estamos listos para ayudarte. Haz clic en el botón de chat para comenzar.', noAgents: 'No hay agentes en línea. Inténtalo de nuevo más tarde.', whiteboard: 'Pizarra', whiteboardView: 'Pizarra (vista)', pencil: 'Lápiz', line: 'Línea', rectangle: 'Rectángulo', circle: 'Círculo', ellipse: 'Elipse', eraser: 'Borrador', color: 'Color', fill: 'Relleno', size: 'Tamaño', clear: 'Limpiar', download: 'Descargar', close: 'Cerrar', whiteboardDrawing: 'Dibujo en pizarra', clickToView: '(haz clic para ver)', attachment: 'Archivo adjunto', hello: '¡Hola! ¿Cómo puedo ayudarte?' },
         fr: { chatWithUs: 'Discutez avec nous', connecting: 'Connexion à un membre de l’équipe...', inputPlaceholder: 'Écrivez votre message...', send: 'Envoyer', insertEmoji: 'Insérer un emoji', openWhiteboard: 'Ouvrir le tableau blanc', attachFiles: 'Joindre des fichiers', sayHello: 'Dites bonjour pour commencer la conversation.', unableConnect: 'Connexion impossible pour le moment. Réessayez plus tard.', loading: 'Chargement de votre conversation précédente...', ready: 'Bonjour ! Nous sommes prêts à vous aider. Cliquez sur le bouton de chat pour commencer.', noAgents: 'Aucun agent n’est en ligne. Réessayez plus tard.', whiteboard: 'Tableau blanc', whiteboardView: 'Tableau blanc (aperçu)', pencil: 'Crayon', line: 'Ligne', rectangle: 'Rectangle', circle: 'Cercle', ellipse: 'Ellipse', eraser: 'Gomme', color: 'Couleur', fill: 'Remplir', size: 'Taille', clear: 'Effacer', download: 'Télécharger', close: 'Fermer', whiteboardDrawing: 'Dessin sur tableau blanc', clickToView: '(cliquer pour voir)', attachment: 'Pièce jointe', hello: 'Bonjour ! Comment puis-je vous aider ?' },
         de: { chatWithUs: 'Chatten Sie mit uns', connecting: 'Verbindung zu einem Teammitglied wird hergestellt...', inputPlaceholder: 'Nachricht eingeben...', send: 'Senden', insertEmoji: 'Emoji einfügen', openWhiteboard: 'Whiteboard öffnen', attachFiles: 'Dateien anhängen', sayHello: 'Sagen Sie Hallo, um das Gespräch zu beginnen.', unableConnect: 'Verbindung momentan nicht möglich. Bitte versuchen Sie es später erneut.', loading: 'Vorherige Unterhaltung wird geladen...', ready: 'Hallo! Wir sind bereit zu helfen. Klicken Sie zum Starten auf die Chat-Schaltfläche.', noAgents: 'Derzeit sind keine Agenten online. Bitte versuchen Sie es später erneut.', whiteboard: 'Whiteboard', whiteboardView: 'Whiteboard (Ansicht)', pencil: 'Bleistift', line: 'Linie', rectangle: 'Rechteck', circle: 'Kreis', ellipse: 'Ellipse', eraser: 'Radiergummi', color: 'Farbe', fill: 'Füllen', size: 'Größe', clear: 'Löschen', download: 'Herunterladen', close: 'Schließen', whiteboardDrawing: 'Whiteboard-Zeichnung', clickToView: '(zum Anzeigen klicken)', attachment: 'Anhang', hello: 'Hallo! Wie kann ich Ihnen helfen?' },
@@ -54,6 +54,11 @@
         var savedSessionId = localStorage.getItem(storageKey + ':session_id');
         if (savedSessionId) {
             sessionId = savedSessionId;
+        }
+
+        var savedVisitorName = localStorage.getItem(storageKey + ':visitor_name');
+        if (savedVisitorName) {
+            visitorName = savedVisitorName;
         }
     } catch (e) {
         // Ignore storage issues in restricted browser contexts.
@@ -207,6 +212,10 @@
             '  <div id="kchat-widget-messages" style="flex:1; overflow:auto; padding:12px; font-size:14px; line-height:1.5; color:#212529;">',
             '    <div style="padding:16px; color:#6c757d; text-align:center;">' + widgetText('connecting') + '</div>',
             '  </div>',
+            '  <div id="kchat-widget-name-bar" style="display:flex; gap:8px; padding:10px 12px; border-top:1px solid #e9ecef; background:#fff;">',
+            '    <input id="kchat-widget-name" type="text" maxlength="120" placeholder="' + widgetText('namePlaceholder') + '" style="flex:1; border:1px solid #d9dee5; border-radius:999px; padding:8px 12px; outline:none; font-size:14px;" />',
+            '    <button id="kchat-widget-start" type="button" style="border:none; border-radius:999px; background:' + themeColor + '; color:#fff; padding:8px 12px; cursor:pointer; font-weight:600;">' + widgetText('startChat') + '</button>',
+            '  </div>',
             '  <div id="kchat-widget-emoji-picker" style="display:none; background:#fff; border-top:1px solid #e9ecef; max-height:220px; overflow:hidden; flex-direction:column;">',
             '    <div id="kchat-widget-emoji-tabs" style="display:flex; border-bottom:1px solid #eee; padding:4px 8px; gap:2px; flex-shrink:0; overflow-x:auto;"></div>',
             '    <div id="kchat-widget-emoji-grid" style="flex:1; overflow-y:auto; padding:8px; font-size:22px; line-height:1.6;"></div>',
@@ -259,6 +268,20 @@
 
         document.getElementById('kchat-widget-send').addEventListener('click', function () {
             sendVisitorMessage();
+        });
+
+        var nameInput = document.getElementById('kchat-widget-name');
+        if (nameInput) {
+            nameInput.value = visitorName;
+            nameInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    startChat();
+                }
+            });
+        }
+
+        document.getElementById('kchat-widget-start').addEventListener('click', function () {
+            startChat();
         });
 
         document.getElementById('kchat-widget-input').addEventListener('keydown', function (event) {
@@ -813,6 +836,22 @@
     }
 
     function startChat() {
+        if (!visitorName) {
+            var nameInput = document.getElementById('kchat-widget-name');
+            visitorName = nameInput ? nameInput.value.trim().slice(0, 120) : '';
+            if (!visitorName) {
+                if (nameInput) {
+                    nameInput.focus();
+                }
+                return;
+            }
+            try {
+                localStorage.setItem(storageKey + ':visitor_name', visitorName);
+            } catch (e) {
+                // Ignore storage issues in restricted browser contexts.
+            }
+        }
+
         requestJSON(apiBasePath + '/widget/start-chat', {
             token: token,
             visitor_uid: visitorUid,
@@ -827,6 +866,10 @@
             }
 
             sessionId = result && result.session_id ? result.session_id : null;
+            var nameBar = document.getElementById('kchat-widget-name-bar');
+            if (nameBar) {
+                nameBar.style.display = 'none';
+            }
             persistSession();
             if (!sessionId) {
                 return;
@@ -836,6 +879,7 @@
             return requestJSON(apiBasePath + '/widget/poll', {
                 token: token,
                 visitor_uid: visitorUid,
+                visitor_name: visitorName,
                 session_id: sessionId,
                 after_id: 0
             });
