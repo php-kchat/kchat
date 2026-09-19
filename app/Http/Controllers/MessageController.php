@@ -33,10 +33,6 @@ class MessageController extends Controller
 		
 		$conversation = $conversation[0];
         
-		if($request->role == 'admin'){
-            return view('common.msg',compact('chat','conversation'));
-        }
-        
 		return view('common.msg',compact('chat','conversation'));
 	}
     

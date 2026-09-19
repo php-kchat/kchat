@@ -663,7 +663,7 @@
 
         messages.forEach(function (msg) {
             var isVisitor = msg.sender === 'visitor';
-            var align = isVisitor ? 'left' : 'right';
+            var align = isVisitor ? 'right' : 'left';
             var bg = isVisitor ? '#ffffff' : themeColor;
             var color = isVisitor ? '#212529' : '#fff';
             var border = isVisitor ? '1px solid #e9ecef' : 'transparent';

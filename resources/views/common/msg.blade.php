@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends($role === 'user' ? 'user.master' : 'admin.master')
 
 @section('title', __("lang.messages"))
 
