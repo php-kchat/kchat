@@ -75,4 +75,9 @@ return [
     'create-widget' => 'Create Widget',
     'widget-title' => 'Widget Title',
     'widget-department' => 'Widget Department',
+    "widget-icon" => "Widget Icon",
+    "widget-color" => "Widget Color",
+    "widget-position" => "Widget Position",
+    "embed-code" => "Widget JS",
+    "chat-widget-setting" => "Widget Setting",
 ];
