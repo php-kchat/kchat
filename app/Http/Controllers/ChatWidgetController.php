@@ -45,6 +45,9 @@ class ChatWidgetController extends Controller
             'department' => $request->widget_department,
             'color' => $request->widget_color ?? '#007bff',
             'position' => $request->widget_position ?? 'right',
+            'language' => in_array($request->widget_language, ['en', 'hi', 'te', 'ta', 'mr', 'ar', 'es', 'fr', 'pt', 'ru', 'zh', 'ja', 'ko', 'de', 'it', 'tr', 'fa', 'id', 'ms', 'sw', 'nl', 'vi', 'th', 'el', 'he', 'pl', 'uk', 'ro', 'cs', 'hu', 'sv', 'no', 'da', 'fi', 'tl', 'ne', 'si', 'my', 'km', 'lo', 'ps', 'so', 'am'], true)
+                ? $request->widget_language
+                : 'en',
             'is_active' => 1,
             'updated_at' => now(),
         ];

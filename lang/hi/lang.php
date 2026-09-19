@@ -72,4 +72,8 @@ return [
     'superadmin' => 'सुपर व्यवस्थापक',
     'change-password' => 'पासवर्ड बदलें',
     'are-you-sure-you-want-to-delete-activities' => 'Are you sure you want to delete <strong>Activities</strong>',
+    'widget-language' => 'विजेट भाषा',
+    'create-widget' => 'विजेट बनाएँ',
+    'widget-title' => 'विजेट शीर्षक',
+    'widget-department' => 'विजेट विभाग',
 ];

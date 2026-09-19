@@ -36,6 +36,7 @@ class WidgetApiController extends Controller
             'icon' => $widget->icon,
             'color' => $widget->color,
             'position' => $widget->position,
+            'language' => $widget->language ?? 'en',
             'agents_online' => $agentCount > 0,
         ]);
     }

@@ -71,4 +71,8 @@ return [
     'activities' => 'Activitie\'s',
     'superadmin' => 'SuperAdmin',
     'change-password' => 'Change Password',
+    'widget-language' => 'Widget Language',
+    'create-widget' => 'Create Widget',
+    'widget-title' => 'Widget Title',
+    'widget-department' => 'Widget Department',
 ];

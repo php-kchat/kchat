@@ -88,6 +88,56 @@
 					</select>
 				</div>
 			</div>
+			<div class="col-md-4">
+				<div class="form-group mb-3">
+					<label class="small mb-1"><strong>{{ __("lang.widget-language") }}</strong></label>
+					<select class="form-control widgetform" id="widget_language">
+						<option value="en" selected>English</option>
+						<option value="hi">हिन्दी</option>
+						<option value="te">తెలుగు</option>
+						<option value="ta">தமிழ்</option>
+						<option value="mr">मराठी</option>
+						<option value="es">Español</option>
+						<option value="fr">Français</option>
+						<option value="pt">Português</option>
+						<option value="ru">Русский</option>
+						<option value="zh">中文</option>
+						<option value="ja">日本語</option>
+						<option value="ko">한국어</option>
+						<option value="de">Deutsch</option>
+						<option value="ar">العربية</option>
+						<option value="it">Italiano</option>
+						<option value="tr">Türkçe</option>
+						<option value="fa">فارسی</option>
+						<option value="id">Bahasa Indonesia</option>
+						<option value="ms">Bahasa Melayu</option>
+						<option value="sw">Kiswahili</option>
+						<option value="nl">Nederlands</option>
+						<option value="vi">Tiếng Việt</option>
+						<option value="th">ไทย</option>
+						<option value="el">Ελληνικά</option>
+						<option value="he">עברית</option>
+						<option value="pl">Polski</option>
+						<option value="uk">Українська</option>
+						<option value="ro">Română</option>
+						<option value="cs">Čeština</option>
+						<option value="hu">Magyar</option>
+						<option value="sv">Svenska</option>
+						<option value="no">Norsk</option>
+						<option value="da">Dansk</option>
+						<option value="fi">Suomi</option>
+						<option value="tl">Tagalog</option>
+						<option value="ne">नेपाली</option>
+						<option value="si">සිංහල</option>
+						<option value="my">မြန်မာ</option>
+						<option value="km">ខ្មែរ</option>
+						<option value="lo">ລາວ</option>
+						<option value="ps">پښتو</option>
+						<option value="so">Soomaali</option>
+						<option value="am">አማርኛ</option>
+					</select>
+				</div>
+			</div>
 		</div>
 		
 		<button class="btn btn-primary mt-2" type="button" ajax_post data-msg="Are you sure you want to save this widget?" action="/chat-widget/store" form="widgetform">

@@ -25,6 +25,24 @@
     var visitorName = 'Visitor';
     var widgetConfig = null;
 
+    var widgetTranslations = {
+        en: { chatWithUs: 'Chat with us', connecting: 'Connecting to an available team member...', inputPlaceholder: 'Type your message...', send: 'Send', insertEmoji: 'Insert emoji', openWhiteboard: 'Open whiteboard', attachFiles: 'Attach files', sayHello: 'Say hello to start the conversation.', unableConnect: 'Unable to connect right now. Please try again later.', loading: 'Loading your previous conversation...', ready: 'Hello! We are ready to help. Click the chat button to start.', noAgents: 'No agents are online right now. Please try again later.', whiteboard: 'Whiteboard', whiteboardView: 'Whiteboard (View)', pencil: 'Pencil', line: 'Line', rectangle: 'Rectangle', circle: 'Circle', ellipse: 'Ellipse', eraser: 'Eraser', color: 'Color', fill: 'Fill', size: 'Size', clear: 'Clear', download: 'Download', close: 'Close', whiteboardDrawing: 'Whiteboard drawing', clickToView: '(click to view)', attachment: 'Attachment', hello: 'Hello! How can I help you today?' },
+        hi: { chatWithUs: 'हमसे चैट करें', connecting: 'उपलब्ध टीम सदस्य से कनेक्ट हो रहा है...', inputPlaceholder: 'अपना संदेश लिखें...', send: 'भेजें', insertEmoji: 'इमोजी डालें', openWhiteboard: 'व्हाइटबोर्ड खोलें', attachFiles: 'फ़ाइलें संलग्न करें', sayHello: 'बातचीत शुरू करने के लिए नमस्ते कहें।', unableConnect: 'अभी कनेक्ट नहीं हो सका। कृपया बाद में पुनः प्रयास करें।', loading: 'आपकी पिछली बातचीत लोड हो रही है...', ready: 'नमस्ते! हम सहायता के लिए तैयार हैं। चैट शुरू करने के लिए बटन दबाएँ।', noAgents: 'अभी कोई एजेंट ऑनलाइन नहीं है। कृपया बाद में पुनः प्रयास करें।', whiteboard: 'व्हाइटबोर्ड', whiteboardView: 'व्हाइटबोर्ड (दृश्य)', pencil: 'पेंसिल', line: 'रेखा', rectangle: 'आयत', circle: 'वृत्त', ellipse: 'अंडाकार', eraser: 'रबर', color: 'रंग', fill: 'भरें', size: 'आकार', clear: 'साफ़ करें', download: 'डाउनलोड', close: 'बंद करें', whiteboardDrawing: 'व्हाइटबोर्ड चित्र', clickToView: '(देखने के लिए क्लिक करें)', attachment: 'अटैचमेंट', hello: 'नमस्ते! मैं आपकी कैसे सहायता कर सकता हूँ?' },
+        es: { chatWithUs: 'Chatea con nosotros', connecting: 'Conectando con un miembro del equipo...', inputPlaceholder: 'Escribe tu mensaje...', send: 'Enviar', insertEmoji: 'Insertar emoji', openWhiteboard: 'Abrir pizarra', attachFiles: 'Adjuntar archivos', sayHello: 'Saluda para iniciar la conversación.', unableConnect: 'No se puede conectar ahora. Inténtalo de nuevo más tarde.', loading: 'Cargando tu conversación anterior...', ready: '¡Hola! Estamos listos para ayudarte. Haz clic en el botón de chat para comenzar.', noAgents: 'No hay agentes en línea. Inténtalo de nuevo más tarde.', whiteboard: 'Pizarra', whiteboardView: 'Pizarra (vista)', pencil: 'Lápiz', line: 'Línea', rectangle: 'Rectángulo', circle: 'Círculo', ellipse: 'Elipse', eraser: 'Borrador', color: 'Color', fill: 'Relleno', size: 'Tamaño', clear: 'Limpiar', download: 'Descargar', close: 'Cerrar', whiteboardDrawing: 'Dibujo en pizarra', clickToView: '(haz clic para ver)', attachment: 'Archivo adjunto', hello: '¡Hola! ¿Cómo puedo ayudarte?' },
+        fr: { chatWithUs: 'Discutez avec nous', connecting: 'Connexion à un membre de l’équipe...', inputPlaceholder: 'Écrivez votre message...', send: 'Envoyer', insertEmoji: 'Insérer un emoji', openWhiteboard: 'Ouvrir le tableau blanc', attachFiles: 'Joindre des fichiers', sayHello: 'Dites bonjour pour commencer la conversation.', unableConnect: 'Connexion impossible pour le moment. Réessayez plus tard.', loading: 'Chargement de votre conversation précédente...', ready: 'Bonjour ! Nous sommes prêts à vous aider. Cliquez sur le bouton de chat pour commencer.', noAgents: 'Aucun agent n’est en ligne. Réessayez plus tard.', whiteboard: 'Tableau blanc', whiteboardView: 'Tableau blanc (aperçu)', pencil: 'Crayon', line: 'Ligne', rectangle: 'Rectangle', circle: 'Cercle', ellipse: 'Ellipse', eraser: 'Gomme', color: 'Couleur', fill: 'Remplir', size: 'Taille', clear: 'Effacer', download: 'Télécharger', close: 'Fermer', whiteboardDrawing: 'Dessin sur tableau blanc', clickToView: '(cliquer pour voir)', attachment: 'Pièce jointe', hello: 'Bonjour ! Comment puis-je vous aider ?' },
+        de: { chatWithUs: 'Chatten Sie mit uns', connecting: 'Verbindung zu einem Teammitglied wird hergestellt...', inputPlaceholder: 'Nachricht eingeben...', send: 'Senden', insertEmoji: 'Emoji einfügen', openWhiteboard: 'Whiteboard öffnen', attachFiles: 'Dateien anhängen', sayHello: 'Sagen Sie Hallo, um das Gespräch zu beginnen.', unableConnect: 'Verbindung momentan nicht möglich. Bitte versuchen Sie es später erneut.', loading: 'Vorherige Unterhaltung wird geladen...', ready: 'Hallo! Wir sind bereit zu helfen. Klicken Sie zum Starten auf die Chat-Schaltfläche.', noAgents: 'Derzeit sind keine Agenten online. Bitte versuchen Sie es später erneut.', whiteboard: 'Whiteboard', whiteboardView: 'Whiteboard (Ansicht)', pencil: 'Bleistift', line: 'Linie', rectangle: 'Rechteck', circle: 'Kreis', ellipse: 'Ellipse', eraser: 'Radiergummi', color: 'Farbe', fill: 'Füllen', size: 'Größe', clear: 'Löschen', download: 'Herunterladen', close: 'Schließen', whiteboardDrawing: 'Whiteboard-Zeichnung', clickToView: '(zum Anzeigen klicken)', attachment: 'Anhang', hello: 'Hallo! Wie kann ich Ihnen helfen?' },
+        pt: { chatWithUs: 'Fale conosco', connecting: 'Conectando a um membro da equipe...', inputPlaceholder: 'Digite sua mensagem...', send: 'Enviar', insertEmoji: 'Inserir emoji', openWhiteboard: 'Abrir quadro branco', attachFiles: 'Anexar arquivos', sayHello: 'Diga olá para iniciar a conversa.', unableConnect: 'Não foi possível conectar agora. Tente novamente mais tarde.', loading: 'Carregando sua conversa anterior...', ready: 'Olá! Estamos prontos para ajudar. Clique no botão de chat para começar.', noAgents: 'Nenhum agente está online. Tente novamente mais tarde.', whiteboard: 'Quadro branco', whiteboardView: 'Quadro branco (visualização)', pencil: 'Lápis', line: 'Linha', rectangle: 'Retângulo', circle: 'Círculo', ellipse: 'Elipse', eraser: 'Borracha', color: 'Cor', fill: 'Preencher', size: 'Tamanho', clear: 'Limpar', download: 'Baixar', close: 'Fechar', whiteboardDrawing: 'Desenho no quadro branco', clickToView: '(clique para ver)', attachment: 'Anexo', hello: 'Olá! Como posso ajudar?' },
+        ar: { chatWithUs: 'تحدث معنا', connecting: 'جارٍ الاتصال بأحد أعضاء الفريق...', inputPlaceholder: 'اكتب رسالتك...', send: 'إرسال', insertEmoji: 'إدراج رمز تعبيري', openWhiteboard: 'فتح السبورة', attachFiles: 'إرفاق ملفات', sayHello: 'ألقِ التحية لبدء المحادثة.', unableConnect: 'يتعذر الاتصال الآن. يرجى المحاولة لاحقًا.', loading: 'جارٍ تحميل محادثتك السابقة...', ready: 'مرحبًا! نحن مستعدون للمساعدة. انقر على زر الدردشة للبدء.', noAgents: 'لا يوجد وكلاء متصلون الآن. يرجى المحاولة لاحقًا.', whiteboard: 'السبورة', whiteboardView: 'السبورة (عرض)', pencil: 'قلم', line: 'خط', rectangle: 'مستطيل', circle: 'دائرة', ellipse: 'بيضاوي', eraser: 'ممحاة', color: 'اللون', fill: 'تعبئة', size: 'الحجم', clear: 'مسح', download: 'تنزيل', close: 'إغلاق', whiteboardDrawing: 'رسم على السبورة', clickToView: '(انقر للعرض)', attachment: 'مرفق', hello: 'مرحبًا! كيف يمكنني مساعدتك؟' },
+        zh: { chatWithUs: '联系我们', connecting: '正在连接可用的团队成员...', inputPlaceholder: '输入您的消息...', send: '发送', insertEmoji: '插入表情', openWhiteboard: '打开白板', attachFiles: '添加文件', sayHello: '打个招呼开始对话。', unableConnect: '暂时无法连接，请稍后重试。', loading: '正在加载您之前的对话...', ready: '您好！我们已准备好为您提供帮助。点击聊天按钮开始。', noAgents: '目前没有客服在线，请稍后重试。', whiteboard: '白板', whiteboardView: '白板（查看）', pencil: '铅笔', line: '直线', rectangle: '矩形', circle: '圆形', ellipse: '椭圆', eraser: '橡皮擦', color: '颜色', fill: '填充', size: '大小', clear: '清除', download: '下载', close: '关闭', whiteboardDrawing: '白板绘图', clickToView: '（点击查看）', attachment: '附件', hello: '您好！有什么可以帮您？' },
+        ja: { chatWithUs: 'チャットでお問い合わせ', connecting: '対応可能な担当者に接続しています...', inputPlaceholder: 'メッセージを入力...', send: '送信', insertEmoji: '絵文字を挿入', openWhiteboard: 'ホワイトボードを開く', attachFiles: 'ファイルを添付', sayHello: '挨拶して会話を始めましょう。', unableConnect: '現在接続できません。後でもう一度お試しください。', loading: '以前の会話を読み込んでいます...', ready: 'こんにちは！サポートの準備ができています。チャットボタンをクリックして開始してください。', noAgents: '現在オンラインの担当者はいません。後でもう一度お試しください。', whiteboard: 'ホワイトボード', whiteboardView: 'ホワイトボード（表示）', pencil: '鉛筆', line: '線', rectangle: '長方形', circle: '円', ellipse: '楕円', eraser: '消しゴム', color: '色', fill: '塗りつぶし', size: 'サイズ', clear: 'クリア', download: 'ダウンロード', close: '閉じる', whiteboardDrawing: 'ホワイトボードの描画', clickToView: '（クリックして表示）', attachment: '添付ファイル', hello: 'こんにちは！どのようにお手伝いできますか？' }
+    };
+
+    function widgetText(key) {
+        var language = widgetConfig && widgetConfig.language ? widgetConfig.language : 'en';
+        var translations = widgetTranslations[language] || widgetTranslations.en;
+        return translations[key] || widgetTranslations.en[key] || key;
+    }
+
     try {
         var savedVisitorUid = localStorage.getItem(storageKey + ':visitor_uid');
         if (savedVisitorUid) {
@@ -159,7 +177,7 @@
         launcher.style.boxShadow = '0 12px 30px rgba(0,0,0,0.18)';
         launcher.style.cursor = 'pointer';
         launcher.style.fontSize = '28px';
-        launcher.title = widgetConfig.title || 'Chat with us';
+        launcher.title = widgetConfig.title || widgetText('chatWithUs');
         launcher.innerHTML = '<i class="fa ' + (widgetConfig.icon || 'fa-comments') + '"></i>';
 
         var panel = document.createElement('div');
@@ -181,13 +199,13 @@
             '<div style="padding: 14px 16px; background: ' + themeColor + '; color: #fff; display: flex; align-items: center; justify-content: space-between;">',
             '  <div style="display:flex; align-items:center; gap:10px; font-weight:700;">',
             '    <span style="display:inline-flex; width:30px; height:30px; border-radius:50%; background: rgba(255,255,255,0.18); align-items:center; justify-content:center;"><i class="fa ' + (widgetConfig.icon || 'fa-comments') + '"></i></span>',
-            '    <span>' + escapeHtml(widgetConfig.title || 'Chat with us') + '</span>',
+            '    <span>' + escapeHtml(widgetConfig.title || widgetText('chatWithUs')) + '</span>',
             '  </div>',
             '  <button type="button" id="kchat-widget-close" style="background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer;">×</button>',
             '</div>',
             '<div id="kchat-widget-body" style="height: 370px; display:flex; flex-direction:column; background:#f8f9fb;">',
             '  <div id="kchat-widget-messages" style="flex:1; overflow:auto; padding:12px; font-size:14px; line-height:1.5; color:#212529;">',
-            '    <div style="padding:16px; color:#6c757d; text-align:center;">Connecting to an available team member...</div>',
+            '    <div style="padding:16px; color:#6c757d; text-align:center;">' + widgetText('connecting') + '</div>',
             '  </div>',
             '  <div id="kchat-widget-emoji-picker" style="display:none; background:#fff; border-top:1px solid #e9ecef; max-height:220px; overflow:hidden; flex-direction:column;">',
             '    <div id="kchat-widget-emoji-tabs" style="display:flex; border-bottom:1px solid #eee; padding:4px 8px; gap:2px; flex-shrink:0; overflow-x:auto;"></div>',
@@ -195,14 +213,14 @@
             '  </div>',
             '  <div style="padding: 10px 12px; border-top:1px solid #e9ecef; background:#fff;">',
             '    <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">',
-            '      <button id="kchat-widget-emoji-btn" type="button" title="Insert emoji" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:16px;">🙂</button>',
-            '      <button id="kchat-widget-whiteboard-btn" type="button" title="Open whiteboard" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-pencil"></i></button>',
-            '      <button id="kchat-widget-file-btn" type="button" title="Attach files" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-paperclip"></i></button>',
+            '      <button id="kchat-widget-emoji-btn" type="button" title="' + widgetText('insertEmoji') + '" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:16px;">🙂</button>',
+            '      <button id="kchat-widget-whiteboard-btn" type="button" title="' + widgetText('openWhiteboard') + '" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-pencil"></i></button>',
+            '      <button id="kchat-widget-file-btn" type="button" title="' + widgetText('attachFiles') + '" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-paperclip"></i></button>',
             '      <input id="kchat-widget-file-input" type="file" multiple="multiple" style="display:none;" />',
             '    </div>',
             '    <div style="display:flex; gap:8px;">',
-            '      <input id="kchat-widget-input" type="text" placeholder="Type your message..." style="flex:1; border:1px solid #d9dee5; border-radius: 999px; padding: 10px 14px; outline:none; font-size:14px;" />',
-            '      <button id="kchat-widget-send" type="button" style="border:none; border-radius:999px; background:' + themeColor + '; color:#fff; padding: 10px 16px; cursor:pointer; font-weight:600;">Send</button>',
+            '      <input id="kchat-widget-input" type="text" placeholder="' + widgetText('inputPlaceholder') + '" style="flex:1; border:1px solid #d9dee5; border-radius: 999px; padding: 10px 14px; outline:none; font-size:14px;" />',
+            '      <button id="kchat-widget-send" type="button" style="border:none; border-radius:999px; background:' + themeColor + '; color:#fff; padding: 10px 16px; cursor:pointer; font-weight:600;">' + widgetText('send') + '</button>',
             '    </div>',
             '  </div>',
             '</div>'
@@ -402,31 +420,31 @@
         if (!readOnly) {
             toolsHtml = [
                 '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; align-items:center;">',
-                '  <button type="button" data-shape="Pencil" class="wb-tool wb-active" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#e8f0fe; cursor:pointer; font-size:13px;">✏️ Pencil</button>',
-                '  <button type="button" data-shape="Line" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">📏 Line</button>',
-                '  <button type="button" data-shape="Rectangle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">▭ Rectangle</button>',
-                '  <button type="button" data-shape="Circle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⭕ Circle</button>',
-                '  <button type="button" data-shape="ellipse" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⬮ Ellipse</button>',
-                '  <button type="button" data-shape="clearRect" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🧹 Eraser</button>',
-                '  <input type="color" id="kchat-wb-color" value="#000000" title="Color" style="width:36px; height:32px; border:1px solid #dfe4ea; border-radius:8px; background:none; padding:2px; cursor:pointer;" />',
-                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px; cursor:pointer;"><input type="checkbox" id="kchat-wb-fill" /> Fill</label>',
-                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px;">Size: <input type="number" id="kchat-wb-border" value="2" min="1" max="20" style="width:48px; padding:4px; border:1px solid #dfe4ea; border-radius:6px; font-size:13px;" /></label>',
-                '  <button type="button" data-clear="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🗑️ Clear</button>',
-                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 Download</button>',
+                '  <button type="button" data-shape="Pencil" class="wb-tool wb-active" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#e8f0fe; cursor:pointer; font-size:13px;">✏️ ' + widgetText('pencil') + '</button>',
+                '  <button type="button" data-shape="Line" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">📏 ' + widgetText('line') + '</button>',
+                '  <button type="button" data-shape="Rectangle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">▭ ' + widgetText('rectangle') + '</button>',
+                '  <button type="button" data-shape="Circle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⭕ ' + widgetText('circle') + '</button>',
+                '  <button type="button" data-shape="ellipse" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⬮ ' + widgetText('ellipse') + '</button>',
+                '  <button type="button" data-shape="clearRect" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🧹 ' + widgetText('eraser') + '</button>',
+                '  <input type="color" id="kchat-wb-color" value="#000000" title="' + widgetText('color') + '" style="width:36px; height:32px; border:1px solid #dfe4ea; border-radius:8px; background:none; padding:2px; cursor:pointer;" />',
+                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px; cursor:pointer;"><input type="checkbox" id="kchat-wb-fill" /> ' + widgetText('fill') + '</label>',
+                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px;">' + widgetText('size') + ': <input type="number" id="kchat-wb-border" value="2" min="1" max="20" style="width:48px; padding:4px; border:1px solid #dfe4ea; border-radius:6px; font-size:13px;" /></label>',
+                '  <button type="button" data-clear="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🗑️ ' + widgetText('clear') + '</button>',
+                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 ' + widgetText('download') + '</button>',
                 '</div>'
             ].join('');
 
             footerHtml = [
                 '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">',
-                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">Close</button>',
-                '  <button type="button" data-send-whiteboard="1" style="border:none; background:' + themeColor + '; color:#fff; border-radius:8px; padding:9px 14px; cursor:pointer;">Send</button>',
+                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">' + widgetText('close') + '</button>',
+                '  <button type="button" data-send-whiteboard="1" style="border:none; background:' + themeColor + '; color:#fff; border-radius:8px; padding:9px 14px; cursor:pointer;">' + widgetText('send') + '</button>',
                 '</div>'
             ].join('');
         } else {
             footerHtml = [
                 '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">',
-                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 Download</button>',
-                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">Close</button>',
+                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 ' + widgetText('download') + '</button>',
+                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">' + widgetText('close') + '</button>',
                 '</div>'
             ].join('');
         }
@@ -434,7 +452,7 @@
         modal.innerHTML = [
             '<div style="background:#fff; width: min(92vw, 700px); border-radius:16px; padding:16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">',
             '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">',
-            '    <strong>' + (readOnly ? 'Whiteboard (View)' : 'Whiteboard') + '</strong>',
+            '    <strong>' + (readOnly ? widgetText('whiteboardView') : widgetText('whiteboard')) + '</strong>',
             '    <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; border-radius:999px; width:32px; height:32px; cursor:pointer;">×</button>',
             '  </div>',
             '  <canvas id="kchat-wb-canvas" width="620" height="400" style="width:100%; max-width:100%; border:1px solid #dfe4ea; border-radius:12px; background:#fff;"></canvas>',
@@ -683,7 +701,7 @@
                 wbBtn.style.padding = '10px 12px';
                 wbBtn.style.boxShadow = '0 1px 1px rgba(0,0,0,0.04)';
                 wbBtn.style.cursor = 'pointer';
-                wbBtn.innerHTML = '<i class="fa fa-pencil-square-o"></i> Whiteboard drawing <small style="opacity:0.7;">(click to view)</small>';
+                wbBtn.innerHTML = '<i class="fa fa-pencil-square-o"></i> ' + widgetText('whiteboardDrawing') + ' <small style="opacity:0.7;">' + widgetText('clickToView') + '</small>';
                 wbBtn.addEventListener('click', function () {
                     var rawMsg = msg.raw_message || msg.message;
                     try {
@@ -720,7 +738,7 @@
                         linkHtml += '<div style="margin:3px 0;"><i class="fa fa-file" style="margin-right:6px;"></i><a href="' + apiBase + '/messages/downattch/' + (file.uuid || '') + '" target="_blank" style="color:' + color + '; text-decoration: underline;">' + escapeHtml(file.Name || 'Attachment') + '</a></div>';
                     });
                 } else {
-                    linkHtml += '<i class="fa fa-paperclip"></i> Attachment';
+                    linkHtml += '<i class="fa fa-paperclip"></i> ' + widgetText('attachment');
                 }
                 linkHtml += '</div>';
                 bubble.innerHTML = linkHtml;
@@ -829,7 +847,7 @@
                 }
             } else {
                 var messages = [
-                    { sender: 'agent', message: 'Hello! How can I help you today?' }
+                    { sender: 'agent', message: widgetText('hello') }
                 ];
                 renderMessages(messages, true);
             }
@@ -839,7 +857,7 @@
         }).catch(function () {
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
-                body.innerHTML = '<div style="padding:16px; color:#dc3545; text-align:center;">Unable to connect right now. Please try again later.</div>';
+                body.innerHTML = '<div style="padding:16px; color:#dc3545; text-align:center;">' + widgetText('unableConnect') + '</div>';
             }
         });
     }
@@ -861,16 +879,16 @@
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
                 if (sessionId) {
-                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">Loading your previous conversation...</div>';
+                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">' + widgetText('loading') + '</div>';
                     startChat();
                 } else {
-                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">Hello! We are ready to help. Click the chat button to start.</div>';
+                    body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">' + widgetText('ready') + '</div>';
                 }
             }
         } else {
             var body = document.getElementById('kchat-widget-messages');
             if (body) {
-                body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">No agents are online right now. Please try again later.</div>';
+                body.innerHTML = '<div style="padding:16px; color:#6c757d; text-align:center;">' + widgetText('noAgents') + '</div>';
             }
             var sendBtn = document.getElementById('kchat-widget-send');
             if (sendBtn) sendBtn.disabled = true;
