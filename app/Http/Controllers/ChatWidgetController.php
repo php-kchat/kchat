@@ -192,10 +192,75 @@ class ChatWidgetController extends Controller
         $messages = $query->get()->toArray();
         
         foreach($messages as $i => $v){
+            // For whiteboard (type=1) and file (type=2) messages, preserve raw JSON
+            if ($v->type == 1 || $v->type == 2) {
+                $messages[$i]->raw_message = $v->message;
+            }
             $messages[$i]->message = htmlentities($messages[$i]->message);
         }
         
         return json_encode(['messages' => $messages, 'session_status' => 'open']);
+    }
+    
+    function uploadFile(Request $request){
+        
+        $userId = Auth()->user()->id;
+        
+        if(empty($request->session_id)){
+            return json_encode(['error' => 'Session ID is required']);
+        }
+        
+        if(!$request->hasFile('files')){
+            return json_encode(['error' => 'No files provided']);
+        }
+        
+        // Verify agent owns this session
+        $session = DB::table('participants as p')
+            ->where('p.user_id', $userId)
+            ->where('p.conversation_id', $request->session_id)
+            ->first();
+        
+        if(!$session){
+            return json_encode(['error' => 'Session not found']);
+        }
+        
+        $uploadpath = \Illuminate\Support\Facades\Cache::remember('settings.uploadpath', 3600, function() {
+            return DB::table('settings')->where('key', 'uploadpath')->value('value');
+        });
+        
+        if(!$uploadpath){
+            return json_encode(['error' => 'File upload path is not set']);
+        }
+        
+        $json = [];
+        
+        DB::transaction(function() use ($request, &$json, $userId, $uploadpath) {
+            foreach($request->file('files') as $file){
+                $item = [];
+                $item['Name'] = $file->getClientOriginalName();
+                $item['uuid'] = \Illuminate\Support\Str::uuid()->toString();
+                $file->move($uploadpath, $item['uuid']);
+                $item['MimeType'] = explode('/', $file->getClientMimeType());
+                $json[] = $item;
+                
+                $item['MimeType'] = $file->getClientMimeType();
+                $item['conversation_id'] = $request->session_id;
+                
+                DB::table('files')->insert($item);
+            }
+            
+            $id = DB::table('messages')->insertGetId([
+                'user_id' => $userId,
+                'message' => json_encode($json),
+                'conversation_id' => $request->session_id,
+                'created_at' => now(),
+                'type' => 2,
+            ]);
+            
+            DB::table('conversations')->where('id', $request->session_id)->update(['message_id' => $id]);
+        });
+        
+        return json_encode([]);
     }
     
     function closeSession(Request $request){

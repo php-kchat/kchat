@@ -251,8 +251,11 @@ class WidgetApiController extends Controller
         $messages = $query->get()->toArray();
         
         foreach($messages as $i => $v){
+            // For whiteboard (type=1) and file (type=2) messages, preserve raw JSON
+            if ($v->type == 1 || $v->type == 2) {
+                $messages[$i]->raw_message = $v->message;
+            }
             $messages[$i]->message = htmlentities($messages[$i]->message);
-            $messages[$i]->sender = DB::table('users')->where('id', $v->user_id)->value('first_name') ? 'agent' : 'visitor';
             if ($v->user_id == $visitorUserId) {
                 $messages[$i]->sender = 'visitor';
             } else {

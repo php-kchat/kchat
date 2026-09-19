@@ -75,7 +75,70 @@
             .replace(/'/g, '&#039;');
     }
 
+    function decodeHtmlEntities(str) {
+        var doc = document.createElement('div');
+        doc.innerHTML = str;
+        return doc.textContent || doc.innerText || '';
+    }
+
+    // ============================================================
+    // Emoji Data — organized by category to match emojionearea richness
+    // ============================================================
+    var emojiCategories = [
+        {
+            name: 'Smileys',
+            icon: '😀',
+            emojis: ['😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','🥰','😘','😗','😙','😚','🙂','🤗','🤩','🤔','🤨','😐','😑','😶','🙄','😏','😣','😥','😮','🤐','😯','😪','😫','😴','😌','😛','😜','😝','🤤','😒','😓','😔','😕','🙃','🤑','😲','🤯','😳','🥺','😱','😨','😰','😢','😭','😤','😠','😡','🤬','😈','👿','💀','☠️','💩','🤡','👹','👺','👻','👽','👾','🤖']
+        },
+        {
+            name: 'Gestures',
+            icon: '👍',
+            emojis: ['👋','🤚','🖐️','✋','🖖','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💪','🦾','🦿','🦵','🦶']
+        },
+        {
+            name: 'Hearts',
+            icon: '❤️',
+            emojis: ['❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❣️','💕','💞','💓','💗','💖','💘','💝','💟','♥️','🫶']
+        },
+        {
+            name: 'Objects',
+            icon: '🎉',
+            emojis: ['🎉','🎊','🎈','🎁','🎀','🏆','🏅','🥇','🥈','🥉','⚽','🏀','🏈','⚾','🎾','🏐','🎯','🔔','🎵','🎶','🎤','🎧','🎸','🎹','🎺','🎻','📱','💻','⌨️','🖥️','📷','📹','📞','📚','📖','✏️','📝','📎','📌','📍','✂️','🔑','🔒','🔓']
+        },
+        {
+            name: 'Food',
+            icon: '🍕',
+            emojis: ['🍕','🍔','🍟','🌭','🍿','🧂','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌮','🌯','🥙','🍝','🍜','🍲','🍛','🍣','🍱','🍙','🍚','🍘','🍥','🥟','🍢','🍡','🍧','🍨','🍦','🥧','🧁','🍰','🎂','🍮','🍭','🍬','🍫','🍩','🍪','☕','🍵','🧃','🥤','🍺','🍻']
+        },
+        {
+            name: 'Nature',
+            icon: '🌸',
+            emojis: ['🌸','🌺','🌻','🌹','🌷','🌼','💐','🌿','☘️','🍀','🍃','🍂','🍁','🌾','🌵','🎄','🌲','🌳','🌴','🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🐔','🐧','🐦','🦅','🦆','🦉','🐺','🐗','🐴','🦄','🐝','🐛','🦋','🐌','🐞']
+        },
+        {
+            name: 'Travel',
+            icon: '✈️',
+            emojis: ['🚗','🚕','🚙','🚌','🚎','🏎️','🚓','🚑','🚒','🚐','🚚','🚛','🚜','🛵','🏍️','🚲','🛴','🚃','🚄','🚅','🚆','🚇','🚈','✈️','🛩️','🚀','🛸','🚁','⛵','🚤','🛥️','🗼','🗽','⛩️','🕌','🕍','⛪','🏛️','🏰','🏯','🌈','🌊','🌙','⭐','🌟','💫','☀️','🌤️','⛅','🌥️']
+        },
+        {
+            name: 'Symbols',
+            icon: '✅',
+            emojis: ['✅','❌','⭕','❗','❓','‼️','⁉️','💯','🔥','💥','💫','💦','💨','🕳️','💣','💬','👁️‍🗨️','🗯️','💭','🔊','🔇','🔈','🔉','📢','📣','🏁','🚩','🏴','🏳️','🔴','🟠','🟡','🟢','🔵','🟣','🟤','⚫','⚪','✔️','☑️','🔘']
+        }
+    ];
+
+    // ============================================================
+    // Build the widget UI
+    // ============================================================
     function createWidget() {
+        // Inject Font Awesome if not present
+        if (!document.querySelector('link[href*="font-awesome"]')) {
+            var fa = document.createElement('link');
+            fa.rel = 'stylesheet';
+            fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+            document.head.appendChild(fa);
+        }
+
         var container = document.createElement('div');
         container.id = 'kchat-widget-root';
         container.style.position = 'fixed';
@@ -102,7 +165,7 @@
         var panel = document.createElement('div');
         panel.id = 'kchat-widget-panel';
         panel.style.display = 'none';
-        panel.style.width = '360px';
+        panel.style.width = '380px';
         panel.style.maxWidth = '92vw';
         panel.style.background = '#fff';
         panel.style.border = '1px solid rgba(0,0,0,0.08)';
@@ -112,34 +175,34 @@
         panel.style.marginBottom = '18px';
         panel.style.position = 'relative';
 
+        var themeColor = widgetConfig.color || '#007bff';
+
         panel.innerHTML = [
-            '<div style="padding: 14px 16px; background: ' + (widgetConfig.color || '#007bff') + '; color: #fff; display: flex; align-items: center; justify-content: space-between;">',
+            '<div style="padding: 14px 16px; background: ' + themeColor + '; color: #fff; display: flex; align-items: center; justify-content: space-between;">',
             '  <div style="display:flex; align-items:center; gap:10px; font-weight:700;">',
             '    <span style="display:inline-flex; width:30px; height:30px; border-radius:50%; background: rgba(255,255,255,0.18); align-items:center; justify-content:center;"><i class="fa ' + (widgetConfig.icon || 'fa-comments') + '"></i></span>',
             '    <span>' + escapeHtml(widgetConfig.title || 'Chat with us') + '</span>',
             '  </div>',
             '  <button type="button" id="kchat-widget-close" style="background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer;">×</button>',
             '</div>',
-            '<div id="kchat-widget-body" style="height: 330px; display:flex; flex-direction:column; background:#f8f9fb;">',
+            '<div id="kchat-widget-body" style="height: 370px; display:flex; flex-direction:column; background:#f8f9fb;">',
             '  <div id="kchat-widget-messages" style="flex:1; overflow:auto; padding:12px; font-size:14px; line-height:1.5; color:#212529;">',
             '    <div style="padding:16px; color:#6c757d; text-align:center;">Connecting to an available team member...</div>',
             '  </div>',
-            '  <div id="kchat-widget-emoji-picker" style="display:none; background:#fff; border-top:1px solid #e9ecef; padding:8px; font-size:20px;">',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="😊">😊</span>',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="👍">👍</span>',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="🎉">🎉</span>',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="❤️">❤️</span>',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="🙂">🙂</span>',
-            '    <span style="display:inline-block; padding:4px 6px; cursor:pointer;" data-emoji="😎">😎</span>',
+            '  <div id="kchat-widget-emoji-picker" style="display:none; background:#fff; border-top:1px solid #e9ecef; max-height:220px; overflow:hidden; flex-direction:column;">',
+            '    <div id="kchat-widget-emoji-tabs" style="display:flex; border-bottom:1px solid #eee; padding:4px 8px; gap:2px; flex-shrink:0; overflow-x:auto;"></div>',
+            '    <div id="kchat-widget-emoji-grid" style="flex:1; overflow-y:auto; padding:8px; font-size:22px; line-height:1.6;"></div>',
             '  </div>',
-            '  <div style="padding: 12px; border-top:1px solid #e9ecef; background:#fff;">',
-            '    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">',
-            '      <button id="kchat-widget-emoji-btn" type="button" title="Insert emoji" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:8px 10px; cursor:pointer;">🙂</button>',
-            '      <button id="kchat-widget-whiteboard-btn" type="button" title="Open whiteboard" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:8px 10px; cursor:pointer;"><i class="fa fa-pencil"></i></button>',
+            '  <div style="padding: 10px 12px; border-top:1px solid #e9ecef; background:#fff;">',
+            '    <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">',
+            '      <button id="kchat-widget-emoji-btn" type="button" title="Insert emoji" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:16px;">🙂</button>',
+            '      <button id="kchat-widget-whiteboard-btn" type="button" title="Open whiteboard" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-pencil"></i></button>',
+            '      <button id="kchat-widget-file-btn" type="button" title="Attach files" style="border:1px solid #d9dee5; border-radius:999px; background:#fff; padding:6px 9px; cursor:pointer; font-size:14px;"><i class="fa fa-paperclip"></i></button>',
+            '      <input id="kchat-widget-file-input" type="file" multiple="multiple" style="display:none;" />',
             '    </div>',
-            '    <div style="display:flex; gap:10px;">',
+            '    <div style="display:flex; gap:8px;">',
             '      <input id="kchat-widget-input" type="text" placeholder="Type your message..." style="flex:1; border:1px solid #d9dee5; border-radius: 999px; padding: 10px 14px; outline:none; font-size:14px;" />',
-            '      <button id="kchat-widget-send" type="button" style="border:none; border-radius:999px; background:' + (widgetConfig.color || '#007bff') + '; color:#fff; padding: 10px 16px; cursor:pointer; font-weight:600;">Send</button>',
+            '      <button id="kchat-widget-send" type="button" style="border:none; border-radius:999px; background:' + themeColor + '; color:#fff; padding: 10px 16px; cursor:pointer; font-weight:600;">Send</button>',
             '    </div>',
             '  </div>',
             '</div>'
@@ -156,6 +219,11 @@
         container.appendChild(panel);
         container.appendChild(launcher);
         document.body.appendChild(container);
+
+        // ---- Build emoji picker content ----
+        buildEmojiPicker();
+
+        // ---- Event Listeners ----
 
         launcher.addEventListener('click', function () {
             var isHidden = panel.style.display === 'none';
@@ -181,81 +249,126 @@
             }
         });
 
-        var fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.style.display = 'none';
-        fileInput.addEventListener('change', function () {
-            var file = fileInput.files && fileInput.files[0];
-            if (!file || !sessionId) return;
-
-            var formData = new FormData();
-            formData.append('token', token);
-            formData.append('visitor_uid', visitorUid);
-            formData.append('session_id', sessionId);
-            formData.append('file', file);
-
-            fetch(apiBasePath + '/widget/send-file', {
-                method: 'POST',
-                body: formData
-            }).then(function () {
-                return requestJSON(apiBasePath + '/widget/poll', {
-                    token: token,
-                    visitor_uid: visitorUid,
-                    session_id: sessionId,
-                    after_id: lastMessageId
-                });
-            }).then(function (result) {
-                if (result && result.messages) {
-                    renderMessages(result.messages, false);
-                    lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
-                }
-            });
-        });
-        panel.appendChild(fileInput);
-
-        var fileButton = document.createElement('button');
-        fileButton.type = 'button';
-        fileButton.innerHTML = '<i class="fa fa-paperclip"></i>';
-        fileButton.title = 'Attach file';
-        fileButton.style.border = '1px solid #d9dee5';
-        fileButton.style.borderRadius = '999px';
-        fileButton.style.background = '#fff';
-        fileButton.style.padding = '8px 10px';
-        fileButton.style.cursor = 'pointer';
-        fileButton.addEventListener('click', function () {
-            fileInput.click();
-        });
-        var actionRow = panel.querySelector('#kchat-widget-body > div:last-child');
-        if (actionRow) {
-            var wrapper = actionRow.querySelector('div:first-child');
-            if (wrapper) {
-                wrapper.appendChild(fileButton);
-            }
-        }
-
+        // Emoji button toggle
         document.getElementById('kchat-widget-emoji-btn').addEventListener('click', function () {
             var picker = document.getElementById('kchat-widget-emoji-picker');
             if (picker) {
-                picker.style.display = picker.style.display === 'none' ? 'block' : 'none';
+                var isVisible = picker.style.display === 'flex';
+                picker.style.display = isVisible ? 'none' : 'flex';
             }
         });
 
-        document.querySelectorAll('[data-emoji]').forEach(function (item) {
-            item.addEventListener('click', function () {
-                var input = document.getElementById('kchat-widget-input');
-                if (!input) return;
-                input.value = (input.value || '') + this.getAttribute('data-emoji');
-                input.focus();
-                var picker = document.getElementById('kchat-widget-emoji-picker');
-                if (picker) picker.style.display = 'none';
-            });
+        // Whiteboard button
+        document.getElementById('kchat-widget-whiteboard-btn').addEventListener('click', function () {
+            openWhiteboard(false);
         });
 
-        document.getElementById('kchat-widget-whiteboard-btn').addEventListener('click', function () {
-            openWhiteboard();
+        // File attachment
+        document.getElementById('kchat-widget-file-btn').addEventListener('click', function () {
+            document.getElementById('kchat-widget-file-input').click();
+        });
+
+        document.getElementById('kchat-widget-file-input').addEventListener('change', function () {
+            var files = this.files;
+            if (!files || files.length === 0 || !sessionId) return;
+
+            for (var i = 0; i < files.length; i++) {
+                (function(file) {
+                    var formData = new FormData();
+                    formData.append('token', token);
+                    formData.append('visitor_uid', visitorUid);
+                    formData.append('session_id', sessionId);
+                    formData.append('file', file);
+
+                    fetch(apiBasePath + '/widget/send-file', {
+                        method: 'POST',
+                        body: formData
+                    }).then(function () {
+                        return requestJSON(apiBasePath + '/widget/poll', {
+                            token: token,
+                            visitor_uid: visitorUid,
+                            session_id: sessionId,
+                            after_id: lastMessageId
+                        });
+                    }).then(function (result) {
+                        if (result && result.messages) {
+                            renderMessages(result.messages, false);
+                            lastMessageId = parseInt((result.messages[result.messages.length - 1].id || 0), 10) || lastMessageId;
+                        }
+                    });
+                })(files[i]);
+            }
+            // Clear the input so same file can be re-selected
+            this.value = '';
         });
     }
 
+    // ============================================================
+    // Emoji Picker Builder
+    // ============================================================
+    function buildEmojiPicker() {
+        var tabsContainer = document.getElementById('kchat-widget-emoji-tabs');
+        var gridContainer = document.getElementById('kchat-widget-emoji-grid');
+        if (!tabsContainer || !gridContainer) return;
+
+        var activeCategory = 0;
+
+        function renderCategory(index) {
+            activeCategory = index;
+            var cat = emojiCategories[index];
+            gridContainer.innerHTML = '';
+
+            cat.emojis.forEach(function (emoji) {
+                var span = document.createElement('span');
+                span.style.display = 'inline-block';
+                span.style.padding = '3px 5px';
+                span.style.cursor = 'pointer';
+                span.style.borderRadius = '6px';
+                span.style.transition = 'background 0.15s';
+                span.textContent = emoji;
+                span.addEventListener('mouseenter', function () { this.style.background = '#f0f0f0'; });
+                span.addEventListener('mouseleave', function () { this.style.background = 'transparent'; });
+                span.addEventListener('click', function () {
+                    var input = document.getElementById('kchat-widget-input');
+                    if (!input) return;
+                    input.value = (input.value || '') + emoji;
+                    input.focus();
+                });
+                gridContainer.appendChild(span);
+            });
+
+            // Update tab active state
+            var tabs = tabsContainer.querySelectorAll('[data-cat-idx]');
+            tabs.forEach(function (tab) {
+                tab.style.background = parseInt(tab.getAttribute('data-cat-idx')) === index ? '#e8f0fe' : 'transparent';
+                tab.style.borderRadius = '8px';
+            });
+        }
+
+        emojiCategories.forEach(function (cat, idx) {
+            var tab = document.createElement('button');
+            tab.type = 'button';
+            tab.setAttribute('data-cat-idx', idx);
+            tab.style.border = 'none';
+            tab.style.background = idx === 0 ? '#e8f0fe' : 'transparent';
+            tab.style.borderRadius = '8px';
+            tab.style.padding = '4px 8px';
+            tab.style.cursor = 'pointer';
+            tab.style.fontSize = '18px';
+            tab.title = cat.name;
+            tab.textContent = cat.icon;
+            tab.addEventListener('click', function () {
+                renderCategory(idx);
+            });
+            tabsContainer.appendChild(tab);
+        });
+
+        renderCategory(0);
+    }
+
+    // ============================================================
+    // Whiteboard — full parity with main chat
+    // ============================================================
     var whiteboardState = {
         shape: 'Pencil',
         points: [],
@@ -267,84 +380,175 @@
         y: 0
     };
 
-    function openWhiteboard() {
+    function openWhiteboard(readOnly, existingPoints) {
         var existing = document.getElementById('kchat-widget-whiteboard');
-        if (!existing) {
-            var modal = document.createElement('div');
-            modal.id = 'kchat-widget-whiteboard';
-            modal.style.position = 'fixed';
-            modal.style.inset = '0';
-            modal.style.background = 'rgba(0,0,0,0.45)';
-            modal.style.display = 'flex';
-            modal.style.alignItems = 'center';
-            modal.style.justifyContent = 'center';
-            modal.style.zIndex = '2147483648';
-            modal.innerHTML = [
-                '<div style="background:#fff; width: min(92vw, 700px); border-radius:16px; padding:16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">',
-                '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">',
-                '    <strong>Whiteboard</strong>',
-                '    <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; border-radius:999px; width:32px; height:32px; cursor:pointer;">×</button>',
-                '  </div>',
-                '  <canvas id="kchat-widget-canvas" width="620" height="320" style="width:100%; max-width:100%; border:1px solid #dfe4ea; border-radius:12px; background:#fff;"></canvas>',
-                '  <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">',
-                '    <button type="button" data-shape="Pencil" style="padding:7px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer;">Pencil</button>',
-                '    <button type="button" data-shape="Line" style="padding:7px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer;">Line</button>',
-                '    <button type="button" data-shape="Rectangle" style="padding:7px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer;">Rectangle</button>',
-                '    <button type="button" data-shape="Circle" style="padding:7px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer;">Circle</button>',
-                '    <input type="color" id="kchat-widget-color" value="#000000" style="width:42px; height:38px; border:none; background:none; padding:0;" />',
-                '    <button type="button" data-clear="1" style="padding:7px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer;">Clear</button>',
-                '  </div>',
-                '  <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">',
-                '    <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">Close</button>',
-                '    <button type="button" data-send-whiteboard="1" style="border:none; background:' + (widgetConfig.color || '#007bff') + '; color:#fff; border-radius:8px; padding:9px 14px; cursor:pointer;">Send</button>',
-                '  </div>',
+        if (existing) existing.remove();
+
+        var themeColor = widgetConfig.color || '#007bff';
+
+        var modal = document.createElement('div');
+        modal.id = 'kchat-widget-whiteboard';
+        modal.style.position = 'fixed';
+        modal.style.inset = '0';
+        modal.style.background = 'rgba(0,0,0,0.45)';
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.zIndex = '2147483648';
+
+        var toolsHtml = '';
+        var footerHtml = '';
+
+        if (!readOnly) {
+            toolsHtml = [
+                '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; align-items:center;">',
+                '  <button type="button" data-shape="Pencil" class="wb-tool wb-active" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#e8f0fe; cursor:pointer; font-size:13px;">✏️ Pencil</button>',
+                '  <button type="button" data-shape="Line" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">📏 Line</button>',
+                '  <button type="button" data-shape="Rectangle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">▭ Rectangle</button>',
+                '  <button type="button" data-shape="Circle" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⭕ Circle</button>',
+                '  <button type="button" data-shape="ellipse" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">⬮ Ellipse</button>',
+                '  <button type="button" data-shape="clearRect" class="wb-tool" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🧹 Eraser</button>',
+                '  <input type="color" id="kchat-wb-color" value="#000000" title="Color" style="width:36px; height:32px; border:1px solid #dfe4ea; border-radius:8px; background:none; padding:2px; cursor:pointer;" />',
+                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px; cursor:pointer;"><input type="checkbox" id="kchat-wb-fill" /> Fill</label>',
+                '  <label style="display:flex; align-items:center; gap:4px; font-size:13px;">Size: <input type="number" id="kchat-wb-border" value="2" min="1" max="20" style="width:48px; padding:4px; border:1px solid #dfe4ea; border-radius:6px; font-size:13px;" /></label>',
+                '  <button type="button" data-clear="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">🗑️ Clear</button>',
+                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 Download</button>',
                 '</div>'
             ].join('');
-            document.body.appendChild(modal);
 
-            var canvas = document.getElementById('kchat-widget-canvas');
-            var ctx = canvas.getContext('2d');
-            var draw = function (evt) {
+            footerHtml = [
+                '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">',
+                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">Close</button>',
+                '  <button type="button" data-send-whiteboard="1" style="border:none; background:' + themeColor + '; color:#fff; border-radius:8px; padding:9px 14px; cursor:pointer;">Send</button>',
+                '</div>'
+            ].join('');
+        } else {
+            footerHtml = [
+                '<div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">',
+                '  <button type="button" data-download="1" style="padding:6px 10px; border-radius:8px; border:1px solid #dfe4ea; background:#fff; cursor:pointer; font-size:13px;">💾 Download</button>',
+                '  <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; color:#333; border-radius:8px; padding:9px 14px; cursor:pointer;">Close</button>',
+                '</div>'
+            ].join('');
+        }
+
+        modal.innerHTML = [
+            '<div style="background:#fff; width: min(92vw, 700px); border-radius:16px; padding:16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);">',
+            '  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">',
+            '    <strong>' + (readOnly ? 'Whiteboard (View)' : 'Whiteboard') + '</strong>',
+            '    <button type="button" data-close-whiteboard="1" style="border:none; background:#f1f3f5; border-radius:999px; width:32px; height:32px; cursor:pointer;">×</button>',
+            '  </div>',
+            '  <canvas id="kchat-wb-canvas" width="620" height="400" style="width:100%; max-width:100%; border:1px solid #dfe4ea; border-radius:12px; background:#fff;"></canvas>',
+            toolsHtml,
+            footerHtml,
+            '</div>'
+        ].join('');
+        document.body.appendChild(modal);
+
+        var canvas = document.getElementById('kchat-wb-canvas');
+        var ctx = canvas.getContext('2d');
+
+        if (readOnly && existingPoints) {
+            // Render existing drawing read-only
+            existingPoints.forEach(function(p) { drawPoint(ctx, p); });
+        }
+
+        if (!readOnly) {
+            // Reset whiteboard state for new drawing
+            whiteboardState.points = [];
+            whiteboardState.shape = 'Pencil';
+            whiteboardState.color = '#000000';
+            whiteboardState.border = 2;
+            whiteboardState.fill = false;
+            whiteboardState.drawing = false;
+
+            var go = false;
+
+            function getPos(evt) {
                 var rect = canvas.getBoundingClientRect();
-                var x = evt.clientX - rect.left;
-                var y = evt.clientY - rect.top;
-                if (!whiteboardState.drawing) return;
-                whiteboardState.points.push([whiteboardState.shape, whiteboardState.color, whiteboardState.border, [whiteboardState.x, whiteboardState.y, x, y]]);
-                whiteboardState.x = x;
-                whiteboardState.y = y;
-                renderWhiteboardCanvas(ctx);
-            };
+                var scaleX = canvas.width / rect.width;
+                var scaleY = canvas.height / rect.height;
+                return {
+                    x: (evt.clientX - rect.left) * scaleX,
+                    y: (evt.clientY - rect.top) * scaleY
+                };
+            }
 
             canvas.addEventListener('pointerdown', function (evt) {
-                var rect = canvas.getBoundingClientRect();
-                whiteboardState.x = evt.clientX - rect.left;
-                whiteboardState.y = evt.clientY - rect.top;
-                whiteboardState.drawing = true;
-                whiteboardState.points.push([whiteboardState.shape, whiteboardState.color, whiteboardState.border, [whiteboardState.x, whiteboardState.y, whiteboardState.x, whiteboardState.y]]);
-            });
-            canvas.addEventListener('pointermove', draw);
-            canvas.addEventListener('pointerup', function () {
-                whiteboardState.drawing = false;
-            });
-            canvas.addEventListener('pointerleave', function () {
-                whiteboardState.drawing = false;
+                var pos = getPos(evt);
+                whiteboardState.x = pos.x;
+                whiteboardState.y = pos.y;
+                go = true;
+
+                if (whiteboardState.shape === 'Pencil') {
+                    whiteboardState.points.push([whiteboardState.shape, whiteboardState.color, whiteboardState.border, [[pos.x, pos.y]]]);
+                } else {
+                    whiteboardState.points.push([whiteboardState.shape, whiteboardState.color, whiteboardState.border, [[pos.x, pos.y, pos.x, pos.y]], whiteboardState.fill]);
+                }
             });
 
+            canvas.addEventListener('pointermove', function (evt) {
+                if (!go) return;
+                var pos = getPos(evt);
+                whiteboardState.x = pos.x;
+                whiteboardState.y = pos.y;
+
+                var last = whiteboardState.points[whiteboardState.points.length - 1];
+                if (whiteboardState.shape === 'Pencil') {
+                    last[3].push([pos.x, pos.y]);
+                } else {
+                    last[1] = whiteboardState.color;
+                    last[2] = whiteboardState.border;
+                    last[3][0][2] = pos.x;
+                    last[3][0][3] = pos.y;
+                    last[4] = whiteboardState.fill;
+                }
+
+                // Redraw
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                whiteboardState.points.forEach(function(p) { drawPoint(ctx, p); });
+            });
+
+            canvas.addEventListener('pointerup', function () {
+                go = false;
+            });
+            canvas.addEventListener('pointerleave', function () {
+                go = false;
+            });
+
+            // Tool buttons
             modal.querySelectorAll('[data-shape]').forEach(function (button) {
                 button.addEventListener('click', function () {
                     whiteboardState.shape = this.getAttribute('data-shape');
+                    // Highlight active tool
+                    modal.querySelectorAll('.wb-tool').forEach(function (b) {
+                        b.style.background = '#fff';
+                    });
+                    this.style.background = '#e8f0fe';
                 });
             });
+
+            // Clear
             modal.querySelector('[data-clear="1"]').addEventListener('click', function () {
                 whiteboardState.points = [];
-                renderWhiteboardCanvas(ctx);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
             });
-            document.getElementById('kchat-widget-color').addEventListener('input', function () {
+
+            // Color
+            document.getElementById('kchat-wb-color').addEventListener('input', function () {
                 whiteboardState.color = this.value;
             });
-            modal.querySelector('[data-close-whiteboard="1"]').addEventListener('click', function () {
-                modal.remove();
+
+            // Fill
+            document.getElementById('kchat-wb-fill').addEventListener('change', function () {
+                whiteboardState.fill = this.checked;
             });
+
+            // Border size
+            document.getElementById('kchat-wb-border').addEventListener('change', function () {
+                whiteboardState.border = parseInt(this.value) || 2;
+            });
+
+            // Send
             modal.querySelector('[data-send-whiteboard="1"]').addEventListener('click', function () {
                 var payload = JSON.stringify(whiteboardState.points);
                 var input = document.getElementById('kchat-widget-input');
@@ -352,45 +556,81 @@
                     input.value = payload;
                 }
                 modal.remove();
-                sendVisitorMessage();
+                sendVisitorMessage(true);
             });
-            renderWhiteboardCanvas(ctx); 
-        } else {
-            existing.style.display = 'flex';
         }
-    }
 
-    function renderWhiteboardCanvas(ctx) {
-        ctx.clearRect(0, 0, 620, 320);
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        whiteboardState.points.forEach(function (point) {
-            if (!point || point.length < 4) return;
-            var shape = point[0];
-            var color = point[1] || '#000000';
-            var border = point[2] || 2;
-            var coords = point[3] || [];
-            ctx.beginPath();
-            ctx.strokeStyle = color;
-            ctx.lineWidth = border;
-            if (shape === 'Line') {
-                ctx.moveTo(coords[0], coords[1]);
-                ctx.lineTo(coords[2], coords[3]);
-                ctx.stroke();
-            } else if (shape === 'Rectangle') {
-                ctx.strokeRect(coords[0], coords[1], coords[2] - coords[0], coords[3] - coords[1]);
-            } else if (shape === 'Circle') {
-                var radius = Math.sqrt(Math.pow(coords[2] - coords[0], 2) + Math.pow(coords[3] - coords[1], 2));
-                ctx.arc(coords[0], coords[1], radius, 0, Math.PI * 2);
-                ctx.stroke();
-            } else {
-                ctx.moveTo(coords[0], coords[1]);
-                ctx.lineTo(coords[2], coords[3]);
-                ctx.stroke();
-            }
+        // Download
+        var downloadBtns = modal.querySelectorAll('[data-download="1"]');
+        downloadBtns.forEach(function(btn) {
+            btn.addEventListener('click', function () {
+                var link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = 'KChat-whiteboard.png';
+                link.click();
+            });
+        });
+
+        // Close
+        modal.querySelectorAll('[data-close-whiteboard="1"]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                modal.remove();
+            });
         });
     }
 
+    // Draw a single whiteboard point (matching main chat's draw() function exactly)
+    function drawPoint(ctx, point) {
+        if (!point || point.length < 4) return;
+        var shape = point[0];
+        var color = point[1] || '#000000';
+        var border = point[2] || 2;
+        var coords = point[3] || [];
+        var fill = point[4] || false;
+
+        ctx.beginPath();
+        ctx.lineWidth = border;
+        ctx.fillStyle = color;
+        ctx.strokeStyle = color;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        if (shape === 'Line') {
+            ctx.moveTo(coords[0][0], coords[0][1]);
+            ctx.lineTo(coords[0][2], coords[0][3]);
+        } else if (shape === 'Circle') {
+            var radius = Math.sqrt(Math.pow(coords[0][2] - coords[0][0], 2) + Math.pow(coords[0][3] - coords[0][1], 2));
+            ctx.arc(coords[0][0], coords[0][1], radius, 0, Math.PI * 2);
+        } else if (shape === 'Rectangle') {
+            if (fill) {
+                ctx.fillRect(coords[0][0], coords[0][1], coords[0][2] - coords[0][0], coords[0][3] - coords[0][1]);
+            } else {
+                ctx.strokeRect(coords[0][0], coords[0][1], coords[0][2] - coords[0][0], coords[0][3] - coords[0][1]);
+            }
+            return; // strokeRect/fillRect don't need stroke() call
+        } else if (shape === 'clearRect') {
+            ctx.clearRect(coords[0][0], coords[0][1], coords[0][2] - coords[0][0], coords[0][3] - coords[0][1]);
+            return;
+        } else if (shape === 'ellipse') {
+            if (ctx.ellipse) {
+                ctx.ellipse(coords[0][0], coords[0][1], Math.abs(coords[0][2] - coords[0][0]), Math.abs(coords[0][3] - coords[0][1]), 0, 0, Math.PI * 2, false);
+            }
+        } else if (shape === 'Pencil') {
+            if (coords.length > 0) {
+                ctx.moveTo(coords[0][0], coords[0][1]);
+                coords.forEach(function (c) {
+                    ctx.lineTo(c[0], c[1]);
+                });
+            }
+        }
+
+        if (fill) ctx.fill();
+        ctx.stroke();
+    }
+
+    // ============================================================
+    // Message rendering
+    // ============================================================
     function persistSession() {
         try {
             if (sessionId) {
@@ -419,35 +659,68 @@
 
         container.dataset.hasMessages = '1';
 
+        var themeColor = widgetConfig.color || '#007bff';
+
         messages.forEach(function (msg) {
-            var align = msg.sender === 'visitor' ? 'left' : 'right';
-            var bg = msg.sender === 'visitor' ? '#ffffff' : (widgetConfig.color || '#007bff');
-            var color = msg.sender === 'visitor' ? '#212529' : '#fff';
-            var border = msg.sender === 'visitor' ? '1px solid #e9ecef' : 'transparent';
+            var isVisitor = msg.sender === 'visitor';
+            var align = isVisitor ? 'left' : 'right';
+            var bg = isVisitor ? '#ffffff' : themeColor;
+            var color = isVisitor ? '#212529' : '#fff';
+            var border = isVisitor ? '1px solid #e9ecef' : 'transparent';
             var bubble = document.createElement('div');
             bubble.style.marginBottom = '12px';
             bubble.style.textAlign = align;
 
+            // TYPE 1 — Whiteboard drawing
             if (msg.type == 1) {
-                bubble.innerHTML = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04);"><i class="fa fa-pencil-square-o"></i> Whiteboard drawing</div>';
+                var wbBtn = document.createElement('div');
+                wbBtn.style.display = 'inline-block';
+                wbBtn.style.maxWidth = '80%';
+                wbBtn.style.background = bg;
+                wbBtn.style.color = color;
+                wbBtn.style.border = border;
+                wbBtn.style.borderRadius = '12px';
+                wbBtn.style.padding = '10px 12px';
+                wbBtn.style.boxShadow = '0 1px 1px rgba(0,0,0,0.04)';
+                wbBtn.style.cursor = 'pointer';
+                wbBtn.innerHTML = '<i class="fa fa-pencil-square-o"></i> Whiteboard drawing <small style="opacity:0.7;">(click to view)</small>';
+                wbBtn.addEventListener('click', function () {
+                    var rawMsg = msg.raw_message || msg.message;
+                    try {
+                        var decoded = decodeHtmlEntities(rawMsg);
+                        var pts = JSON.parse(decoded);
+                        openWhiteboard(true, pts);
+                    } catch (e) {
+                        // Try without decoding
+                        try {
+                            var pts2 = JSON.parse(rawMsg);
+                            openWhiteboard(true, pts2);
+                        } catch (e2) {
+                            // ignore
+                        }
+                    }
+                });
+                bubble.appendChild(wbBtn);
                 container.appendChild(bubble);
                 return;
             }
 
+            // TYPE 2 — File attachment
             if (msg.type == 2) {
                 var files = [];
                 try {
-                    files = JSON.parse(msg.message || '[]');
+                    var rawMsg2 = msg.raw_message || msg.message;
+                    files = JSON.parse(decodeHtmlEntities(rawMsg2));
                 } catch (e) {
-                    files = [];
+                    try { files = JSON.parse(msg.raw_message || msg.message); } catch (e2) { files = []; }
                 }
                 var linkHtml = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04);">';
                 if (files.length) {
                     files.forEach(function (file) {
-                        linkHtml += '<div><a href="' + (window.location.origin || '') + '/messages/downattch/' + (file.uuid || '') + '" target="_blank" style="color:' + color + '; text-decoration: underline;">' + escapeHtml(file.Name || 'Attachment') + '</a></div>';
+                        linkHtml += '<div style="margin:3px 0;"><i class="fa fa-file" style="margin-right:6px;"></i><a href="' + apiBase + '/messages/downattch/' + (file.uuid || '') + '" target="_blank" style="color:' + color + '; text-decoration: underline;">' + escapeHtml(file.Name || 'Attachment') + '</a></div>';
                     });
                 } else {
-                    linkHtml += 'Attachment';
+                    linkHtml += '<i class="fa fa-paperclip"></i> Attachment';
                 }
                 linkHtml += '</div>';
                 bubble.innerHTML = linkHtml;
@@ -455,13 +728,20 @@
                 return;
             }
 
-            bubble.innerHTML = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04); white-space: pre-wrap; word-break: break-word;">' + escapeHtml(msg.message) + '</div>';
+            // TYPE 0 — Regular text message
+            var displayMsg = msg.message;
+            // Decode HTML entities from server, then escape for display
+            displayMsg = escapeHtml(decodeHtmlEntities(displayMsg));
+            bubble.innerHTML = '<div style="display:inline-block; max-width:80%; background:' + bg + '; color:' + color + '; border:' + border + '; border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 1px rgba(0,0,0,0.04); white-space: pre-wrap; word-break: break-word;">' + displayMsg + '</div>';
             container.appendChild(bubble);
         });
 
         container.scrollTop = container.scrollHeight;
     }
 
+    // ============================================================
+    // Messaging
+    // ============================================================
     function pollMessages() {
         if (!sessionId) return;
 
@@ -482,20 +762,20 @@
         });
     }
 
-    function sendVisitorMessage() {
+    function sendVisitorMessage(isWhiteboard) {
         var input = document.getElementById('kchat-widget-input');
         var message = input ? input.value.trim() : '';
         if (!message || !sessionId) {
             return;
         }
 
-        var isWhiteboard = message.charAt(0) === '[' && message.indexOf('"') !== -1;
+        var whiteboard = isWhiteboard ? 1 : 0;
         requestJSON(apiBasePath + '/widget/send-message', {
             token: token,
             visitor_uid: visitorUid,
             session_id: sessionId,
             message: message,
-            whiteboard: isWhiteboard ? 1 : 0
+            whiteboard: whiteboard
         }).then(function () {
             if (input) input.value = '';
             return requestJSON(apiBasePath + '/widget/poll', {
@@ -564,6 +844,9 @@
         });
     }
 
+    // ============================================================
+    // Initialize
+    // ============================================================
     requestJSON(apiBasePath + '/widget/init', {
         token: token
     }).then(function (response) {
