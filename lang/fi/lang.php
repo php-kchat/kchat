@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'Luo widget',
     'widget-title' => 'Widgetin otsikko',
     'widget-department' => 'Widgetin osasto',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'Widgetin JS',
     'chat-widget-setting' => 'Widgetin asetukset',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

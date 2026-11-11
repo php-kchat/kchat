@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'ဝစ်ဂျက်ဖန်တီးရန်',
     'widget-title' => 'ဝစ်ဂျက်ခေါင်းစဉ်',
     'widget-department' => 'ဝစ်ဂျက်ဌာန',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'ဝစ်ဂျက် JS',
     'chat-widget-setting' => 'ဝစ်ဂျက်ဆက်တင်များ',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

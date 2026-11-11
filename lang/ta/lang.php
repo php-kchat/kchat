@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'விட்ஜெட்டை உருவாக்கு',
     'widget-title' => 'விட்ஜெட் தலைப்பு',
     'widget-department' => 'விட்ஜெட் துறை',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'விட்ஜெட் JS',
     'chat-widget-setting' => 'விட்ஜெட் அமைப்பு',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

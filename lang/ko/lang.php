@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => '위젯 만들기',
     'widget-title' => '위젯 제목',
     'widget-department' => '위젯 부서',
@@ -10,3 +10,5 @@ return [
     'embed-code' => '위젯 JS',
     'chat-widget-setting' => '위젯 설정',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

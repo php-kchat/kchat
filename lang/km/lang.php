@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'បង្កើតធាតុក្រាហ្វិក',
     'widget-title' => 'ចំណងជើងធាតុក្រាហ្វិក',
     'widget-department' => 'នាយកដ្ឋានធាតុក្រាហ្វិក',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'JS ធាតុក្រាហ្វិក',
     'chat-widget-setting' => 'ការកំណត់ធាតុក្រាហ្វិក',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

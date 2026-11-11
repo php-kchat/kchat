@@ -80,4 +80,5 @@ return [
     "widget-position" => "Widget Position",
     "embed-code" => "Widget JS",
     "chat-widget-setting" => "Widget Setting",
+    'are-you-sure-you-want-to-delete-activities' => 'Are you sure you want to delete <strong>Activities</strong>',
 ];

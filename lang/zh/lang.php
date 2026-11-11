@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => '创建小部件',
     'widget-title' => '小部件标题',
     'widget-department' => '小部件部门',
@@ -10,3 +10,5 @@ return [
     'embed-code' => '小部件 JS',
     'chat-widget-setting' => '小部件设置',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

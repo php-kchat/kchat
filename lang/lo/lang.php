@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'ສ້າງວິດເຈັດ',
     'widget-title' => 'ຫົວຂໍ້ວິດເຈັດ',
     'widget-department' => 'ພະແນກວິດເຈັດ',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'JS ວິດເຈັດ',
     'chat-widget-setting' => 'ການຕັ້ງຄ່າວິດເຈັດ',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);

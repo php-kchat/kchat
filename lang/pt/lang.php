@@ -1,5 +1,5 @@
 <?php
-return [
+$translations = [
     'create-widget' => 'Criar widget',
     'widget-title' => 'Título do widget',
     'widget-department' => 'Departamento do widget',
@@ -10,3 +10,5 @@ return [
     'embed-code' => 'JS do widget',
     'chat-widget-setting' => 'Configuração do widget',
 ];
+
+return array_merge(require dirname(__DIR__) . '/en/lang.php', $translations);
