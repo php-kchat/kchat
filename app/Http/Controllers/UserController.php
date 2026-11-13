@@ -146,6 +146,10 @@ class UserController extends Controller
 	}
 	
     function block_users(Request $request){
+
+		if($request->role != 'admin'){
+			return false;
+		}
         
 		$request->ids = array_filter($request->ids);
         
@@ -166,6 +170,10 @@ class UserController extends Controller
 	}
 	
     function unblock_users(Request $request){
+
+		if($request->role != 'admin'){
+			return false;
+		}
 		
 		if(count($request->ids) == 0){
 			return json_encode(['error' => 'Please select user first']);
