@@ -203,7 +203,7 @@ class WidgetApiController extends Controller
 
         $file = $request->file('file');
         $item = [
-            'Name' => $file->getClientOriginalName(),
+            'Name' => preg_replace('/[<>"\x27&]/', '_', $file->getClientOriginalName()),
             'uuid' => (string) Str::uuid(),
             'MimeType' => $file->getClientMimeType(),
         ];

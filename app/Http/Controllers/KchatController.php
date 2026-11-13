@@ -273,6 +273,8 @@ class KchatController extends Controller
         
         $headers = [
             'Content-Type' => $file->MimeType,
+            'X-Content-Type-Options' => 'nosniff',
+            'Content-Disposition' => 'attachment; filename="' . preg_replace('/[^A-Za-z0-9._ -]/', '_', (string) $file->Name) . '"',
         ];
 
         return response()->file($pathToFile, $headers);
